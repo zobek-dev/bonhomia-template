@@ -1,23 +1,14 @@
-<style type="text/css">
-  .template-404 .title + * {
-    margin-top: 1rem;
-  }
-
-  @media screen and (min-width: 750px) {
-    .template-404 .title + * {
-      margin-top: 2rem;
-    }
-  }
-</style>
-
-<div class="template-404 page-width page-margin center">
-  <p>
-    {{ 'templates.404.subtext' | t }}
-  </p>
-  <h1 class="title">
-    {{ 'templates.404.title' | t }}
-  </h1>
-  <a href="{{ routes.all_products_collection_url }}" class="button">
-    {{ 'general.continue_shopping' | t }}
-  </a>
+<div class="template-404 tw-bg-cream tw-py-24 md:tw-py-32">
+  <div class="tw-max-w-xl tw-mx-auto tw-px-6 tw-text-center">
+    <span class="eyebrow tw-mb-4">Error 404</span>
+    <h1 class="tw-font-serif tw-text-4xl md:tw-text-5xl tw-text-charcoal tw-mt-3 tw-mb-6">
+      Esta página no existe
+    </h1>
+    <p class="tw-font-sans tw-text-charcoal tw-mb-10">
+      Lo que estabas buscando se mudó, ya no existe o nunca estuvo acá. Te invitamos a volver al inicio.
+    </p>
+    <a href="{{ routes.root_url }}" class="btn-primary">
+      Volver al inicio
+    </a>
+  </div>
 </div>

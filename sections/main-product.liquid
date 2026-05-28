@@ -73,17 +73,59 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  <div class="page-width">
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} grid grid--1-col {% if product.media.size > 0 %}grid--2-col-tablet{% else %}product--no-media{% endif %}">
-      <div class="grid__item product__media-wrapper">
+  <div class="page-width tw-bg-cream">
+    {%- comment -%} Breadcrumb {%- endcomment -%}
+    <nav
+      class="bh-breadcrumb tw-mb-6 tw-text-xs tw-font-sans tw-tracking-tracked tw-uppercase tw-text-taupe"
+      aria-label="Breadcrumb"
+    >
+      <a href="{{ routes.root_url }}" class="hover:tw-text-charcoal tw-transition-colors">
+        Inicio
+      </a>
+      <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
+      {%- if collection -%}
+        <a href="{{ collection.url }}" class="hover:tw-text-charcoal tw-transition-colors">
+          {{- collection.title | escape -}}
+        </a>
+        <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
+      {%- elsif product.type != blank -%}
+        <span>{{ product.type | escape }}</span>
+        <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
+      {%- endif -%}
+      <span class="tw-text-charcoal">{{ product.title | escape }}</span>
+    </nav>
+    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} tw-grid tw-grid-cols-1 lg:tw-grid-cols-12 tw-gap-8 lg:tw-gap-12 {% unless product.media.size > 0 %} product--no-media{% endunless %}">
+      <div class="grid__item product__media-wrapper lg:tw-col-span-7">
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
-      <div class="product__info-wrapper grid__item{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <div class="product__info-wrapper grid__item lg:tw-col-span-5{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
           id="ProductInfo-{{ section.id }}"
-          class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
+          class="product__info-container tw-flex tw-flex-col tw-gap-5{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+          {%- comment -%} Stock badge — render once above the title row. {%- endcomment -%}
+          {%- liquid
+            assign current_variant = product.selected_or_first_available_variant
+            assign inv_qty = current_variant.inventory_quantity
+            assign inv_managed = current_variant.inventory_management
+          -%}
+          {%- if product.available -%}
+            {%- if inv_managed == 'shopify' and inv_qty > 0 and inv_qty <= 5 -%}
+              <span class="badge-direct tw-bg-accent tw-self-start">
+                {{- 'products.product.inventory_low_stock' | t | default: 'Pocas unidades' -}}
+              </span>
+            {%- else -%}
+              <span class="badge-direct tw-self-start">
+                {{- 'products.product.inventory_in_stock' | t | default: 'En stock' -}}
+              </span>
+            {%- endif -%}
+          {%- else -%}
+            <span class="badge-direct tw-bg-taupe tw-self-start">
+              {{- 'products.product.sold_out' | t | default: 'Agotado' -}}
+            </span>
+          {%- endif -%}
 
           {%- for block in section.blocks -%}
             {%- case block.type -%}
@@ -98,13 +140,46 @@
                 </p>
               {%- when 'title' -%}
                 <div class="product__title" {{ block.shopify_attributes }}>
-                  <h1>{{ product.title | escape }}</h1>
-                  <a href="{{ product.url }}" class="product__title">
+                  <h1 class="tw-font-serif tw-text-3xl md:tw-text-4xl tw-text-charcoal tw-leading-tight tw-m-0">
+                    {{- product.title | escape -}}
+                  </h1>
+                  <a
+                    href="{{ product.url }}"
+                    class="product__title tw-hidden"
+                    aria-hidden="true"
+                    tabindex="-1"
+                  >
                     <h2 class="h1">
                       {{ product.title | escape }}
                     </h2>
                   </a>
                 </div>
+              {%- when 'highlights' -%}
+                {%- if block.settings.content != blank -%}
+                  <ul
+                    class="product__highlights tw-list-none tw-p-0 tw-m-0 tw-space-y-2 tw-text-sm tw-text-charcoal tw-font-sans"
+                    {{ block.shopify_attributes }}
+                  >
+                    {{ block.settings.content }}
+                  </ul>
+                {%- elsif product.metafields.bonhomia.highlights != blank -%}
+                  <ul
+                    class="product__highlights tw-list-none tw-p-0 tw-m-0 tw-space-y-2 tw-text-sm tw-text-charcoal tw-font-sans"
+                    {{ block.shopify_attributes }}
+                  >
+                    {{ product.metafields.bonhomia.highlights }}
+                  </ul>
+                {%- endif -%}
+              {%- when 'wishlist' -%}
+                <button
+                  type="button"
+                  class="btn-ghost tw-self-start tw-px-0 tw-text-taupe hover:tw-text-charcoal hover:tw-bg-transparent"
+                  data-bh-wishlist
+                  {{ block.shopify_attributes }}
+                >
+                  <span aria-hidden="true" class="tw-mr-2">♡</span>
+                  {{- block.settings.label | default: 'Guardar en lista de deseos' -}}
+                </button>
               {%- when 'price' -%}
                 <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
                   {%- render 'price',
@@ -210,18 +285,26 @@
               {%- when 'custom_liquid' -%}
                 {{ block.settings.custom_liquid }}
               {%- when 'collapsible_tab' -%}
-                <div class="product__accordion accordion quick-add-hidden" {{ block.shopify_attributes }}>
-                  <details id="Details-{{ block.id }}-{{ section.id }}">
-                    <summary>
-                      <div class="summary__title">
+                <div
+                  class="product__accordion accordion quick-add-hidden tw-border-t tw-border-border-soft"
+                  {{ block.shopify_attributes }}
+                >
+                  <details id="Details-{{ block.id }}-{{ section.id }}" class="tw-group">
+                    <summary class="tw-flex tw-items-center tw-justify-between tw-py-4 tw-cursor-pointer tw-list-none">
+                      <div class="summary__title tw-flex tw-items-center tw-gap-2">
                         {% render 'icon-accordion', icon: block.settings.icon %}
-                        <h2 class="h4 accordion__title inline-richtext">
+                        <h2 class="h4 accordion__title inline-richtext tw-font-sans tw-text-sm tw-font-medium tw-tracking-tracked tw-uppercase tw-text-charcoal tw-m-0">
                           {{ block.settings.heading | default: block.settings.page.title | escape }}
                         </h2>
                       </div>
-                      {{- 'icon-caret.svg' | inline_asset_content -}}
+                      <span class="tw-text-charcoal tw-transition-transform group-open:tw-rotate-180">
+                        {{- 'icon-caret.svg' | inline_asset_content -}}
+                      </span>
                     </summary>
-                    <div class="accordion__content rte" id="ProductAccordion-{{ block.id }}-{{ section.id }}">
+                    <div
+                      class="accordion__content rte tw-pb-4 tw-text-sm tw-text-taupe tw-font-sans"
+                      id="ProductAccordion-{{ block.id }}-{{ section.id }}"
+                    >
                       {{ block.settings.content }}
                       {{ block.settings.page.content }}
                     </div>
@@ -943,6 +1026,32 @@
           "id": "share_label",
           "label": "t:sections.main-product.blocks.share.settings.text.label",
           "default": "t:sections.main-product.blocks.share.settings.text.default"
+        }
+      ]
+    },
+    {
+      "type": "highlights",
+      "name": "Highlights",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "richtext",
+          "id": "content",
+          "label": "Highlights list",
+          "info": "Render as a <ul>. Use an unordered list with short bullets. Falls back to product.metafields.bonhomia.highlights when empty."
+        }
+      ]
+    },
+    {
+      "type": "wishlist",
+      "name": "Wishlist link",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "label",
+          "label": "Label",
+          "default": "Guardar en lista de deseos"
         }
       ]
     },

@@ -5,45 +5,54 @@
     "footer": {
       "type": "footer",
       "blocks": {
-        "footer-0": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Quick links",
-            "menu": "footer"
-          }
-        },
-        "footer-1": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Info",
-            "menu": "footer"
-          }
-        },
-        "footer-2": {
+        "footer-brand": {
           "type": "text",
           "settings": {
-            "heading": "Our mission",
-            "subtext": "<p>Share contact information, store details, and brand content with your customers.<\/p>"
+            "heading": "Bonhomia",
+            "subtext": "<p>Muebles artesanales hechos a medida en Patagonia. Cada pieza, una historia.<\/p>"
+          }
+        },
+        "footer-shop": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Tienda",
+            "menu": "footer"
+          }
+        },
+        "footer-help": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Ayuda",
+            "menu": "footer"
+          }
+        },
+        "footer-company": {
+          "type": "link_list",
+          "settings": {
+            "heading": "Empresa",
+            "menu": "footer"
           }
         }
       },
       "block_order": [
-        "footer-0",
-        "footer-1",
-        "footer-2"
+        "footer-brand",
+        "footer-shop",
+        "footer-help",
+        "footer-company"
       ],
       "settings": {
         "color_scheme": "scheme-1",
-        "newsletter_enable": true,
-        "newsletter_heading": "Subscribe to our emails",
-        "show_social": true,
+        "newsletter_enable": false,
+        "newsletter_heading": "",
+        "show_social": false,
+        "enable_follow_on_shop": false,
         "enable_country_selector": false,
-        "enable_language_selector": false,
+        "enable_language_selector": true,
         "payment_enable": true,
-        "show_policy": false,
-        "margin_top": 48,
-        "padding_top": 36,
-        "padding_bottom": 36
+        "show_policy": true,
+        "margin_top": 80,
+        "padding_top": 56,
+        "padding_bottom": 32
       }
     }
   },

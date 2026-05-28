@@ -1,16 +1,27 @@
 {% comment %}
-  Renders product buy-buttons.
+  Bonhomia buy-buttons (Phase 4).
+
+  Renders the add-to-cart CTA with Bonhomia styling. Keeps the <product-form>
+  custom element wrapper, the {% form 'product' %} and the cart-notification
+  / pickup-availability hooks consumed by product-form.js.
+
   Accepts:
   - product: {Object} product object.
-  - block: {Object} passing the block information.
+  - block: {Object} block context (settings.show_dynamic_checkout / show_gift_card_recipient).
   - product_form_id: {String} product form id.
   - section_id: {String} id of section to which this snippet belongs.
-  - show_pickup_availability: {Boolean} for the pickup availability. If true the pickup availability is rendered, false - not rendered (optional).
+  - show_pickup_availability: {Boolean} render pickup availability widget.
 
   Usage:
-  {% render 'buy-buttons', block: block, product: product, product_form_id: product_form_id, section_id: section.id, show_pickup_availability: true %}
+  {% render 'buy-buttons',
+    block: block,
+    product: product,
+    product_form_id: product_form_id,
+    section_id: section.id,
+    show_pickup_availability: true
+  %}
 {% endcomment %}
-<div {{ block.shopify_attributes }}>
+<div class="tw-mt-6" {{ block.shopify_attributes }}>
   {%- if product != blank -%}
     {%- liquid
       assign gift_card_recipient_feature_active = false
@@ -25,11 +36,15 @@
     -%}
 
     <product-form
-      class="product-form"
+      class="product-form tw-block"
       data-hide-errors="{{ gift_card_recipient_feature_active }}"
       data-section-id="{{ section.id }}"
     >
-      <div class="product-form__error-message-wrapper" role="alert" hidden>
+      <div
+        class="product-form__error-message-wrapper tw-flex tw-items-center tw-gap-2 tw-text-sm tw-text-accent tw-mb-3"
+        role="alert"
+        hidden
+      >
         <span class="svg-wrapper">
           {{- 'icon-error.svg' | inline_asset_content -}}
         </span>
@@ -60,7 +75,7 @@
           {%- render 'gift-card-recipient-form', product: product, form: form, section: section -%}
         {%- endif -%}
 
-        <div class="product-form__buttons">
+        <div class="product-form__buttons tw-flex tw-flex-col tw-gap-3">
           {%- liquid
             assign check_against_inventory = true
             if product.selected_or_first_available_variant.inventory_management != 'shopify' or product.selected_or_first_available_variant.inventory_policy == 'continue'
@@ -74,7 +89,7 @@
             id="ProductSubmitButton-{{ section_id }}"
             type="submit"
             name="add"
-            class="product-form__submit button button--full-width {% if show_dynamic_checkout %}button--secondary{% else %}button--primary{% endif %}"
+            class="product-form__submit btn-primary tw-w-full disabled:tw-opacity-50 disabled:tw-cursor-not-allowed"
             {% if product.selected_or_first_available_variant.available == false
               or quantity_rule_soldout
               or product.selected_or_first_available_variant == null
@@ -94,7 +109,9 @@
             {%- render 'loading-spinner' -%}
           </button>
           {%- if show_dynamic_checkout -%}
-            {{ form | payment_button }}
+            <div class="tw-mt-1">
+              {{ form | payment_button }}
+            </div>
           {%- endif -%}
         </div>
       {%- endform -%}
@@ -105,7 +122,7 @@
         <button
           type="submit"
           name="add"
-          class="product-form__submit button button--full-width button--primary"
+          class="product-form__submit btn-primary tw-w-full"
           disabled
         >
           {{ 'products.product.sold_out' | t }}
@@ -122,7 +139,7 @@
     -%}
 
     <pickup-availability
-      class="product__pickup-availabilities quick-add-hidden"
+      class="product__pickup-availabilities quick-add-hidden tw-block tw-mt-4 tw-text-sm tw-text-taupe"
       {% if product.selected_or_first_available_variant.available and pick_up_availabilities.size > 0 %}
         available
       {% endif %}

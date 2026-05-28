@@ -1,0 +1,241 @@
+{% comment %}
+  Multi-step quote-request modal for assisted-purchase flow.
+  Controlled via the global `bonhomia:open-quote` CustomEvent (detail: { product, productId, handle }).
+  Submission target is `window.__BONHOMIA_ASSISTED_API__` (injected from theme settings).
+  If the URL is empty the modal shows a local success screen (dev fallback).
+
+  NOTE: never posts to /cart/add — this is a separate flow from native checkout.
+{% endcomment %}
+
+<script src="{{ 'bonhomia-quote-form.js' | asset_url }}" defer="defer"></script>
+
+<div
+  id="bonhomia-quote-modal-root"
+  x-data="bonhomiaQuoteForm()"
+  x-cloak
+  x-show="open"
+  x-on:bonhomia:open-quote.window="handleOpen($event.detail)"
+  x-on:keydown.escape.window="close()"
+  class="tw-fixed tw-inset-0 tw-z-50 tw-flex tw-items-end md:tw-items-center tw-justify-center tw-p-0 md:tw-p-6"
+  style="display:none"
+>
+  {%- comment -%} Backdrop {%- endcomment -%}
+  <div
+    class="tw-absolute tw-inset-0 tw-bg-charcoal/60 tw-backdrop-blur-sm"
+    x-transition.opacity
+    x-on:click="close()"
+    aria-hidden="true"
+  ></div>
+
+  {%- comment -%} Dialog {%- endcomment -%}
+  <div
+    class="tw-relative tw-w-full md:tw-max-w-2xl tw-bg-warm-white tw-rounded-t-lg md:tw-rounded-lg tw-shadow-2xl tw-flex tw-flex-col tw-max-h-[92vh] tw-overflow-hidden"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="bh-quote-modal-title"
+    x-transition:enter="tw-transition tw-ease-out tw-duration-200"
+    x-transition:enter-start="tw-opacity-0 tw-translate-y-4"
+    x-transition:enter-end="tw-opacity-100 tw-translate-y-0"
+  >
+    {%- comment -%} Header {%- endcomment -%}
+    <div class="tw-flex tw-items-start tw-justify-between tw-gap-4 tw-px-6 md:tw-px-8 tw-py-5 tw-border-b tw-border-border-soft">
+      <div>
+        <h2 id="bh-quote-modal-title" class="tw-font-serif tw-text-2xl tw-text-charcoal tw-m-0">
+          <span x-show="!success">Solicitar cotización</span>
+          <span x-show="success" x-cloak>¡Solicitud enviada!</span>
+        </h2>
+        <p class="tw-text-sm tw-text-taupe tw-font-sans tw-m-0 tw-mt-1" x-text="productTitle"></p>
+      </div>
+      <button
+        type="button"
+        class="tw-flex-shrink-0 tw-w-9 tw-h-9 tw-flex tw-items-center tw-justify-center tw-rounded-pill tw-text-taupe hover:tw-text-charcoal hover:tw-bg-cream tw-transition-colors"
+        aria-label="Cerrar"
+        x-on:click="close()"
+      >
+        <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 3 L15 15 M15 3 L3 15"/></svg>
+      </button>
+    </div>
+
+    {%- comment -%} Body {%- endcomment -%}
+    <div class="tw-flex-1 tw-overflow-y-auto tw-px-6 md:tw-px-8 tw-py-6">
+      {%- comment -%} Step 1: Personal info {%- endcomment -%}
+      <div x-show="!success && step === 1" x-cloak>
+        <p class="tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-4 tw-m-0">¿Quién sos?</p>
+        <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-4">
+          <label class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-sm tw-font-sans tw-text-charcoal">Nombre completo *</span>
+            <input type="text" required x-model="formData.name" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent focus:tw-ring-1 focus:tw-ring-accent" placeholder="María González">
+          </label>
+          <label class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-sm tw-font-sans tw-text-charcoal">Email *</span>
+            <input type="email" required x-model="formData.email" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent focus:tw-ring-1 focus:tw-ring-accent" placeholder="tu@email.com">
+          </label>
+          <label class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-sm tw-font-sans tw-text-charcoal">Teléfono / WhatsApp</span>
+            <input type="tel" x-model="formData.phone" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent focus:tw-ring-1 focus:tw-ring-accent" placeholder="+56 9 1234 5678">
+          </label>
+          <label class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-sm tw-font-sans tw-text-charcoal">Ciudad</span>
+            <input type="text" x-model="formData.city" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent focus:tw-ring-1 focus:tw-ring-accent" placeholder="Santiago">
+          </label>
+        </div>
+      </div>
+
+      {%- comment -%} Step 2: Customization {%- endcomment -%}
+      <div x-show="!success && step === 2" x-cloak>
+        <p class="tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-4 tw-m-0">Personalización</p>
+
+        <div class="tw-mb-5">
+          <span class="tw-block tw-text-sm tw-font-sans tw-text-charcoal tw-mb-2">Dimensiones</span>
+          <div class="tw-grid tw-grid-cols-2 md:tw-grid-cols-4 tw-gap-3">
+            <label class="tw-flex tw-flex-col tw-gap-1">
+              <input type="number" x-model="formData.length" class="tw-w-full tw-px-3 tw-py-2 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent" placeholder="120">
+              <span class="tw-text-xs tw-text-taupe">Largo</span>
+            </label>
+            <label class="tw-flex tw-flex-col tw-gap-1">
+              <input type="number" x-model="formData.width" class="tw-w-full tw-px-3 tw-py-2 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent" placeholder="60">
+              <span class="tw-text-xs tw-text-taupe">Ancho</span>
+            </label>
+            <label class="tw-flex tw-flex-col tw-gap-1">
+              <input type="number" x-model="formData.height" class="tw-w-full tw-px-3 tw-py-2 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent" placeholder="45">
+              <span class="tw-text-xs tw-text-taupe">Alto</span>
+            </label>
+            <label class="tw-flex tw-flex-col tw-gap-1">
+              <select x-model="formData.unit" class="tw-w-full tw-px-3 tw-py-2 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent">
+                <option value="cm">cm</option>
+                <option value="mm">mm</option>
+                <option value="in">pulgadas</option>
+              </select>
+              <span class="tw-text-xs tw-text-taupe">Unidad</span>
+            </label>
+          </div>
+          <p class="tw-text-xs tw-text-taupe tw-mt-2 tw-m-0">Si no estás seguro/a, dejá las medidas aproximadas. Lo ajustamos en la cotización.</p>
+        </div>
+
+        <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-4">
+          <label class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-sm tw-font-sans tw-text-charcoal">Material / madera</span>
+            <select x-model="formData.material" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent">
+              <option value="">Sin preferencia — sugerir</option>
+              <option>Nogal americano</option>
+              <option>Roble americano</option>
+              <option>Pino macizo</option>
+              <option>Lenga patagónica</option>
+              <option>Eucaliptus</option>
+            </select>
+          </label>
+          <label class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-sm tw-font-sans tw-text-charcoal">Acabado</span>
+            <select x-model="formData.finish" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent">
+              <option value="">No sé — consultar</option>
+              <option>Aceite natural (Rubio Monocoat)</option>
+              <option>Barniz mate</option>
+              <option>Sin tratamiento</option>
+            </select>
+          </label>
+          <label class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-sm tw-font-sans tw-text-charcoal">Plazo deseado</span>
+            <select x-model="formData.deadline" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent">
+              <option value="">Sin apuro (+ 8 semanas)</option>
+              <option>4-6 semanas</option>
+              <option>Lo antes posible</option>
+            </select>
+          </label>
+          <label class="tw-flex tw-flex-col tw-gap-1.5">
+            <span class="tw-text-sm tw-font-sans tw-text-charcoal">Fecha estimada (opcional)</span>
+            <input type="date" x-model="formData.targetDate" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent">
+          </label>
+        </div>
+      </div>
+
+      {%- comment -%} Step 3: Confirm {%- endcomment -%}
+      <div x-show="!success && step === 3" x-cloak>
+        <p class="tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-4 tw-m-0">Últimos detalles</p>
+        <label class="tw-flex tw-flex-col tw-gap-1.5 tw-mb-4">
+          <span class="tw-text-sm tw-font-sans tw-text-charcoal">Comentarios adicionales</span>
+          <textarea x-model="formData.message" rows="4" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent focus:tw-ring-1 focus:tw-ring-accent" placeholder="Ej: Necesito que combine con sillas que ya tengo..."></textarea>
+        </label>
+        <div class="tw-mb-4">
+          <span class="tw-block tw-text-sm tw-font-sans tw-text-charcoal tw-mb-2">¿Cómo preferís que te contactemos?</span>
+          <div class="tw-flex tw-gap-4 tw-flex-wrap">
+            <label class="tw-inline-flex tw-items-center tw-gap-2 tw-text-sm tw-cursor-pointer">
+              <input type="radio" value="email" x-model="formData.contactPreference"> Email
+            </label>
+            <label class="tw-inline-flex tw-items-center tw-gap-2 tw-text-sm tw-cursor-pointer">
+              <input type="radio" value="whatsapp" x-model="formData.contactPreference"> WhatsApp
+            </label>
+            <label class="tw-inline-flex tw-items-center tw-gap-2 tw-text-sm tw-cursor-pointer">
+              <input type="radio" value="both" x-model="formData.contactPreference"> Ambos
+            </label>
+          </div>
+        </div>
+        <div class="tw-bg-cream tw-border tw-border-border-soft tw-rounded-sm tw-p-4 tw-text-sm tw-text-charcoal tw-font-sans tw-leading-relaxed">
+          <p class="tw-text-xs tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-m-0 tw-mb-2">Resumen de tu solicitud</p>
+          <p class="tw-m-0"><strong>Producto:</strong> <span x-text="productTitle"></span></p>
+          <p class="tw-m-0" x-show="formData.length || formData.width || formData.height" x-cloak>
+            <strong>Dimensiones:</strong>
+            <span x-text="(formData.length || '—') + ' × ' + (formData.width || '—') + ' × ' + (formData.height || '—') + ' ' + formData.unit"></span>
+          </p>
+          <p class="tw-m-0" x-show="formData.material" x-cloak><strong>Material:</strong> <span x-text="formData.material"></span></p>
+          <p class="tw-m-0" x-show="formData.finish" x-cloak><strong>Acabado:</strong> <span x-text="formData.finish"></span></p>
+          <p class="tw-m-0" x-show="formData.deadline" x-cloak><strong>Plazo:</strong> <span x-text="formData.deadline"></span></p>
+        </div>
+        <p class="tw-text-xs tw-text-taupe tw-mt-3 tw-m-0">
+          Al enviar esta solicitud no estás comprometiendo ningún pago. Recibirás la cotización por email y decidís si la aceptás.
+        </p>
+        <div x-show="error" x-cloak class="tw-mt-3 tw-p-3 tw-rounded-sm tw-bg-accent/10 tw-border tw-border-accent tw-text-sm tw-text-walnut" x-text="error"></div>
+      </div>
+
+      {%- comment -%} Success {%- endcomment -%}
+      <div x-show="success" x-cloak class="tw-text-center tw-py-6">
+        <div class="tw-mx-auto tw-w-14 tw-h-14 tw-rounded-pill tw-bg-sage tw-text-warm-white tw-flex tw-items-center tw-justify-center tw-text-2xl tw-mb-4">✓</div>
+        <h3 class="tw-font-serif tw-text-2xl tw-text-charcoal tw-m-0 tw-mb-2">¡Solicitud enviada!</h3>
+        <p class="tw-text-sm tw-text-taupe tw-leading-relaxed tw-m-0 tw-mb-5">
+          Recibimos tu solicitud para <strong x-text="productTitle"></strong>.<br>
+          Te enviaremos la cotización por email en las próximas 24-48 horas hábiles.
+        </p>
+        <p class="tw-inline-block tw-text-xs tw-text-charcoal tw-bg-cream tw-border tw-border-border-soft tw-rounded-sm tw-px-4 tw-py-3 tw-m-0">
+          Número de solicitud: <strong x-text="requestId"></strong>
+        </p>
+        <div class="tw-mt-6">
+          <button type="button" class="tw-px-6 tw-py-3 tw-rounded-md tw-border tw-border-charcoal tw-text-charcoal tw-text-sm tw-font-sans tw-font-medium hover:tw-bg-charcoal hover:tw-text-warm-white tw-transition-colors" x-on:click="close()">Cerrar</button>
+        </div>
+      </div>
+    </div>
+
+    {%- comment -%} Footer {%- endcomment -%}
+    <div x-show="!success" x-cloak class="tw-flex tw-items-center tw-justify-between tw-gap-4 tw-px-6 md:tw-px-8 tw-py-4 tw-border-t tw-border-border-soft tw-bg-warm-white">
+      <div class="tw-flex tw-items-center tw-gap-2">
+        <template x-for="n in 3" :key="n">
+          <span class="tw-w-2 tw-h-2 tw-rounded-pill" :class="step === n ? 'tw-bg-accent' : (step > n ? 'tw-bg-sage' : 'tw-bg-border-soft')"></span>
+        </template>
+        <span class="tw-text-xs tw-text-taupe tw-ml-2" x-text="'Paso ' + step + ' de 3'"></span>
+      </div>
+      <div class="tw-flex tw-items-center tw-gap-2">
+        <button type="button" x-show="step > 1" x-cloak x-on:click="prev()" class="tw-px-4 tw-py-2 tw-text-sm tw-font-sans tw-text-taupe hover:tw-text-charcoal tw-transition-colors">
+          ← Atrás
+        </button>
+        <button
+          type="button"
+          x-show="step < 3"
+          x-cloak
+          x-on:click="next()"
+          class="tw-px-5 tw-py-2.5 tw-rounded-md tw-bg-accent tw-text-warm-white tw-text-sm tw-font-sans tw-font-semibold hover:tw-bg-walnut tw-transition-colors"
+        >
+          Continuar →
+        </button>
+        <button
+          type="button"
+          x-show="step === 3"
+          x-cloak
+          x-on:click="submit()"
+          :disabled="loading"
+          class="tw-px-5 tw-py-2.5 tw-rounded-md tw-bg-accent tw-text-warm-white tw-text-sm tw-font-sans tw-font-semibold hover:tw-bg-walnut tw-transition-colors disabled:tw-opacity-60 disabled:tw-cursor-not-allowed"
+        >
+          <span x-show="!loading">Enviar solicitud</span>
+          <span x-show="loading" x-cloak>Enviando…</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

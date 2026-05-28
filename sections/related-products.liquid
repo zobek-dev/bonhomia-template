@@ -20,24 +20,27 @@
   }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
+<div class="color-{{ section.settings.color_scheme }} gradient tw-bg-cream">
   <product-recommendations
-    class="related-products page-width section-{{ section.id }}-padding isolate{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+    class="related-products page-width section-{{ section.id }}-padding isolate tw-block{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
     data-url="{{ routes.product_recommendations_url }}?limit={{ section.settings.products_to_show }}"
     data-section-id="{{ section.id }}"
     data-product-id="{{ product.id }}"
   >
     {% if recommendations.performed and recommendations.products_count > 0 %}
-      <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }}">
-        {{ section.settings.heading }}
-      </h2>
+      <header class="tw-mb-8">
+        <p class="eyebrow tw-mb-2">También te puede gustar</p>
+        <h2 class="related-products__heading inline-richtext {{ section.settings.heading_size }} tw-font-serif tw-text-2xl md:tw-text-3xl tw-text-charcoal tw-m-0">
+          {{ section.settings.heading }}
+        </h2>
+      </header>
       <ul
-        class="grid product-grid grid--{{ section.settings.columns_desktop }}-col-desktop grid--{{ section.settings.columns_mobile }}-col-tablet-down"
+        class="grid product-grid tw-grid tw-grid-cols-2 lg:tw-grid-cols-{{ section.settings.columns_desktop }} tw-gap-6 tw-list-none tw-p-0 tw-m-0"
         role="list"
       >
         {% assign skip_card_product_styles = false %}
         {% for recommendation in recommendations.products %}
-          <li class="grid__item">
+          <li class="grid__item tw-list-none">
             {% render 'card-product',
               card_product: recommendation,
               media_aspect_ratio: section.settings.image_ratio,

@@ -24,6 +24,57 @@
   endif
 -%}
 
+{%- if section.settings.bonhomia_variant == 'brand-section' -%}
+  {%- liquid
+    assign eyebrow = section.settings.bh_eyebrow
+    assign quote = section.settings.bh_quote
+    assign signature = section.settings.bh_signature
+    assign body_text = section.settings.bh_body
+    assign cta_label = section.settings.bh_cta_label
+    assign cta_url = section.settings.bh_cta_url
+  -%}
+  <section class="bonhomia-brand-section tw-bg-cream section-{{ section.id }}-padding">
+    <div class="tw-max-w-7xl tw-mx-auto tw-px-6 md:tw-px-12">
+      <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-10 lg:tw-gap-16 tw-items-center">
+        <div class="tw-relative tw-aspect-[4/5] tw-overflow-hidden tw-rounded-md tw-bg-walnut {% if section.settings.layout == 'text_first' %}md:tw-order-2{% endif %}">
+          {%- if section.settings.image != blank -%}
+            {{
+              section.settings.image
+              | image_url: width: 1200
+              | image_tag:
+                loading: 'lazy',
+                widths: '400, 600, 800, 1200',
+                sizes: '(min-width: 768px) 50vw, 100vw',
+                class: 'tw-w-full tw-h-full tw-object-cover'
+            }}
+          {%- else -%}
+            {{ 'detailed-apparel-1' | placeholder_svg_tag: 'tw-w-full tw-h-full tw-object-cover placeholder-svg' }}
+          {%- endif -%}
+        </div>
+        <div>
+          {%- if eyebrow != blank -%}
+            <p class="eyebrow tw-mb-4">{{ eyebrow | escape }}</p>
+          {%- endif -%}
+          {%- if quote != blank -%}
+            <blockquote class="tw-font-serif tw-text-2xl md:tw-text-3xl lg:tw-text-4xl tw-font-medium tw-text-charcoal tw-leading-snug tw-m-0 tw-mb-6 tw-border-0 tw-p-0">
+              {{ quote }}
+            </blockquote>
+          {%- endif -%}
+          {%- if signature != blank -%}
+            <p class="tw-font-sans tw-text-sm tw-tracking-tracked tw-uppercase tw-text-walnut tw-mb-6">{{ signature | escape }}</p>
+          {%- endif -%}
+          {%- if body_text != blank -%}
+            <div class="tw-font-sans tw-text-sm tw-text-taupe tw-leading-relaxed tw-mb-8 tw-max-w-xl">{{ body_text }}</div>
+          {%- endif -%}
+          {%- if cta_label != blank -%}
+            <a href="{{ cta_url | default: '#' }}" class="btn-outline">{{ cta_label | escape }}</a>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </section>
+{%- else -%}
+
 <div class="section-{{ section.id }}-padding gradient color-{{ section.settings.section_color_scheme }}">
   <div class="page-width">
     <div class="image-with-text image-with-text--{{ section.settings.content_layout }} isolate{% if settings.text_boxes_border_thickness > 0 and settings.text_boxes_border_opacity > 0 and settings.media_border_thickness > 0 and settings.media_border_opacity > 0 %} collapse-borders{% endif %}{% unless section.settings.color_scheme == section.settings.section_color_scheme and settings.media_border_thickness > 0 and settings.text_boxes_shadow_opacity == 0 and settings.text_boxes_border_thickness == 0 or settings.text_boxes_border_opacity == 0 %} collapse-corners{% endunless %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
@@ -106,6 +157,7 @@
     </div>
   </div>
 </div>
+{%- endif -%}
 
 {% schema %}
 {
@@ -115,6 +167,59 @@
     "groups": ["header", "footer"]
   },
   "settings": [
+    {
+      "type": "header",
+      "content": "Bonhomia variant"
+    },
+    {
+      "type": "select",
+      "id": "bonhomia_variant",
+      "label": "Variante de diseño",
+      "options": [
+        { "value": "default", "label": "Estándar (Dawn)" },
+        { "value": "brand-section", "label": "Brand section (Bonhomia)" }
+      ],
+      "default": "default",
+      "info": "La variante \"Brand section\" usa los campos Bonhomia de abajo en lugar de los blocks de Dawn."
+    },
+    {
+      "type": "text",
+      "id": "bh_eyebrow",
+      "label": "Bonhomia · Eyebrow",
+      "default": "Nuestra historia"
+    },
+    {
+      "type": "richtext",
+      "id": "bh_quote",
+      "label": "Bonhomia · Cita / blockquote",
+      "default": "<p>\"Creemos que los muebles buenos no sólo decoran; transforman la forma en que vivís tu hogar.\"</p>"
+    },
+    {
+      "type": "text",
+      "id": "bh_signature",
+      "label": "Bonhomia · Firma",
+      "default": "Taller Bonhomia · Santiago de Chile · Desde 2014"
+    },
+    {
+      "type": "richtext",
+      "id": "bh_body",
+      "label": "Bonhomia · Texto adicional"
+    },
+    {
+      "type": "text",
+      "id": "bh_cta_label",
+      "label": "Bonhomia · Etiqueta CTA",
+      "default": "Conocer más"
+    },
+    {
+      "type": "url",
+      "id": "bh_cta_url",
+      "label": "Bonhomia · Enlace CTA"
+    },
+    {
+      "type": "header",
+      "content": "Imagen y layout"
+    },
     {
       "type": "image_picker",
       "id": "image",

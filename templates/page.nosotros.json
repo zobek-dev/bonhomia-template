@@ -1,0 +1,121 @@
+{
+  "sections": {
+    "brand": {
+      "type": "image-with-text",
+      "settings": {
+        "bonhomia_variant": "brand-section",
+        "bh_eyebrow": "Nuestra historia",
+        "bh_quote": "<p>\"Creemos que los muebles buenos no sólo decoran; transforman la forma en que vivís tu hogar.\"</p>",
+        "bh_signature": "Taller Bonhomia · Desde 2014",
+        "bh_body": "<p>Somos un taller de muebles de madera maciza. Diseñamos y fabricamos cada pieza con técnicas tradicionales de carpintería, eligiendo maderas de origen responsable y acabados naturales. Cada mueble tiene un nombre, una historia y, sobre todo, un destino: tu casa.</p>",
+        "bh_cta_label": "Ver catálogo",
+        "bh_cta_url": "/collections/all",
+        "layout": "image_first",
+        "padding_top": 64,
+        "padding_bottom": 48
+      }
+    },
+    "values": {
+      "type": "multicolumn",
+      "settings": {
+        "title": "Lo que nos guía",
+        "heading_size": "h1",
+        "image_width": "third",
+        "image_ratio": "square",
+        "columns_desktop": 3,
+        "column_alignment": "center",
+        "background_style": "none",
+        "color_scheme": "scheme-1",
+        "columns_mobile": "1",
+        "swipe_on_mobile": false,
+        "padding_top": 48,
+        "padding_bottom": 48
+      },
+      "blocks": {
+        "v1": {
+          "type": "column",
+          "settings": {
+            "title": "Artesanía",
+            "text": "<p>Cada mueble se construye a mano por carpinteros con décadas de oficio. Sin atajos, sin tornillos a la vista, sin compromisos en las uniones.</p>"
+          }
+        },
+        "v2": {
+          "type": "column",
+          "settings": {
+            "title": "Sostenibilidad",
+            "text": "<p>Trabajamos con maderas de bosques manejados y acabados al agua. Diseñamos para durar generaciones, no temporadas.</p>"
+          }
+        },
+        "v3": {
+          "type": "column",
+          "settings": {
+            "title": "Cercanía",
+            "text": "<p>Atendemos cada pedido de forma personal: te acompañamos en el diseño, te mostramos el proceso y te entregamos la pieza en mano.</p>"
+          }
+        }
+      },
+      "block_order": [
+        "v1",
+        "v2",
+        "v3"
+      ]
+    },
+    "process": {
+      "type": "bonhomia-process-steps",
+      "settings": {
+        "eyebrow": "Así trabajamos",
+        "heading": "Del primer boceto al living",
+        "background_color": "warm-white"
+      },
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Conversamos",
+            "text": "Escuchamos qué necesitás, vemos el espacio y proponemos opciones."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "Diseñamos",
+            "text": "Bocetos, materiales y acabados a definir juntos."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Cotizamos",
+            "text": "Precio cerrado, plazos claros, seña del 30%."
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "title": "Fabricamos",
+            "text": "Te avisamos en cada etapa: corte, ensamble, acabado."
+          }
+        },
+        "s5": {
+          "type": "step",
+          "settings": {
+            "title": "Entregamos",
+            "text": "Coordinamos entrega e instalación en tu hogar."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ]
+    }
+  },
+  "order": [
+    "brand",
+    "values",
+    "process"
+  ]
+}

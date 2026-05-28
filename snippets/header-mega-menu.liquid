@@ -5,6 +5,35 @@
   {% render 'header-mega-menu' %}
 {% endcomment %}
 
+{%- comment -%} Bonhomia re-skin: keeps Dawn header-menu / details mega-menu wiring intact {%- endcomment -%}
+<style>
+  .mega-menu__content {
+    background: var(--bh-warm-white, #FAF8F5);
+    border-top: 1px solid var(--bh-border, #E3DAD0);
+  }
+  .mega-menu__link {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bh-taupe, #8B7D6B);
+    transition: color 0.2s;
+  }
+  .mega-menu__link--level-2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0;
+    text-transform: none;
+    color: var(--bh-charcoal, #2C2C2C);
+  }
+  .mega-menu__link:hover,
+  .mega-menu__link--active {
+    color: var(--bh-accent, #C17B3A);
+  }
+</style>
+
 <nav class="header__inline-menu">
   <ul class="list-menu list-menu--inline" role="list">
     {%- for link in section.settings.menu.links -%}

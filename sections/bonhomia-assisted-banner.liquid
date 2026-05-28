@@ -1,0 +1,75 @@
+{%- liquid
+  assign bg = section.settings.background_color | default: 'warm-white'
+-%}
+
+<section class="bonhomia-assisted-banner tw-w-full tw-bg-{{ bg }} tw-border-b tw-border-border-soft">
+  <div class="tw-max-w-7xl tw-mx-auto tw-px-6 md:tw-px-12 tw-py-3 md:tw-py-4 tw-flex tw-flex-wrap tw-items-center tw-justify-center md:tw-justify-start tw-gap-3 tw-text-center md:tw-text-left">
+    {%- if section.settings.badge_label != blank -%}
+      <span class="badge-assisted tw-inline-flex tw-items-center tw-px-3 tw-py-1 tw-rounded-pill tw-bg-accent tw-text-warm-white tw-text-xs tw-font-sans tw-font-medium tw-tracking-tracked tw-uppercase">
+        {{- section.settings.badge_label | escape -}}
+      </span>
+    {%- endif -%}
+    {%- if section.settings.text != blank -%}
+      <p class="tw-font-sans tw-text-sm tw-text-charcoal tw-m-0">
+        {{- section.settings.text | escape -}}
+      </p>
+    {%- endif -%}
+    {%- if section.settings.link_label != blank and section.settings.link_url != blank -%}
+      <a
+        href="{{ section.settings.link_url }}"
+        class="tw-font-sans tw-text-sm tw-font-medium tw-text-walnut hover:tw-text-accent tw-transition-colors tw-ml-auto tw-underline-offset-4 hover:tw-underline"
+      >
+        {{- section.settings.link_label | escape -}} →
+      </a>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Banner compra asistida",
+  "tag": "section",
+  "class": "section bonhomia-assisted-banner-section",
+  "settings": [
+    {
+      "type": "text",
+      "id": "badge_label",
+      "label": "Etiqueta del badge",
+      "default": "Mueble a medida"
+    },
+    {
+      "type": "text",
+      "id": "text",
+      "label": "Texto descriptivo",
+      "default": "Este producto se fabrica específicamente para vos. Cotización gratuita en 24-48 horas."
+    },
+    {
+      "type": "text",
+      "id": "link_label",
+      "label": "Etiqueta del link",
+      "default": "Conocé el proceso"
+    },
+    {
+      "type": "url",
+      "id": "link_url",
+      "label": "URL del link"
+    },
+    {
+      "type": "select",
+      "id": "background_color",
+      "label": "Fondo",
+      "options": [
+        { "value": "warm-white", "label": "Warm white" },
+        { "value": "cream", "label": "Cream" },
+        { "value": "sand", "label": "Sand" }
+      ],
+      "default": "warm-white"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Banner compra asistida"
+    }
+  ]
+}
+{% endschema %}

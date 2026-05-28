@@ -43,6 +43,11 @@
 
     {{ content_for_header }}
 
+    <script>
+      window.__BONHOMIA_ASSISTED_API__ = {{ settings.assisted_api_url | json }};
+      window.__BONHOMIA_WHATSAPP__ = {{ settings.whatsapp_number | json }};
+    </script>
+
     {%- liquid
       assign body_font_bold = settings.type_body_font | font_modify: 'weight', 'bold'
       assign body_font_italic = settings.type_body_font | font_modify: 'style', 'italic'
@@ -373,6 +378,10 @@
 
     {%- if settings.cart_type == 'drawer' -%}
       <script src="{{ 'cart-drawer.js' | asset_url }}" defer="defer"></script>
+    {%- endif -%}
+
+    {%- if template contains 'asistido' or template contains 'a-medida' -%}
+      {% render 'bonhomia-quote-modal' %}
     {%- endif -%}
   </body>
 </html>

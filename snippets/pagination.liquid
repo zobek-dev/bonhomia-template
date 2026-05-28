@@ -8,25 +8,28 @@
 
   Accepts:
   - paginate: {Object}
-  - anchor: {String} (optional) This can be added so that on page reload it takes you to wherever you've placed your anchor tag.
+  - anchor: {String} (optional)
+
+  Dawn AJAX: facets.js relies on the `.pagination-wrapper` container being
+  swapped along with `#ProductGridContainer`. Keep the wrapper class and
+  `data-page` attribute intact.
 {% endcomment %}
 
 {{ 'component-pagination.css' | asset_url | stylesheet_tag }}
 
 {%- if paginate.parts.size > 0 -%}
-  <div class="pagination-wrapper" data-page="{{ paginate.current_page }}">
+  <div class="pagination-wrapper tw-flex tw-justify-center tw-mt-12" data-page="{{ paginate.current_page }}">
     <nav class="pagination" role="navigation" aria-label="{{ 'general.pagination.label' | t }}">
-      <ul class="pagination__list list-unstyled" role="list">
+      <ul class="pagination__list list-unstyled tw-flex tw-flex-wrap tw-items-center tw-justify-center tw-gap-2 tw-p-0 tw-m-0 tw-list-none" role="list">
         {%- if paginate.previous -%}
           <li>
             <a
               href="{{ paginate.previous.url }}{{ anchor }}"
-              class="pagination__item pagination__item--next pagination__item-arrow link motion-reduce"
+              class="btn-ghost pagination__item pagination__item--prev"
               aria-label="{{ 'general.pagination.previous' | t }}"
             >
-              <span class="svg-wrapper">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
+              <span aria-hidden="true" class="tw-mr-1">&larr;</span>
+              {{ 'general.pagination.previous' | t | default: 'Anterior' }}
             </a>
           </li>
         {%- endif -%}
@@ -36,7 +39,7 @@
             {%- if part.is_link -%}
               <a
                 href="{{ part.url }}{{ anchor }}"
-                class="pagination__item link"
+                class="filter-chip pagination__item tw-min-w-[36px] tw-justify-center"
                 aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
               >
                 {{- part.title -}}
@@ -46,14 +49,14 @@
                 <a
                   role="link"
                   aria-disabled="true"
-                  class="pagination__item pagination__item--current light"
+                  class="filter-chip pagination__item pagination__item--current tw-min-w-[36px] tw-justify-center tw-bg-charcoal tw-text-warm-white"
                   aria-current="page"
                   aria-label="{{ 'general.pagination.page' | t: number: part.title }}"
                 >
                   {{- part.title -}}
                 </a>
               {%- else -%}
-                <span class="pagination__item">{{ part.title }}</span>
+                <span class="pagination__item tw-min-w-[36px] tw-text-center tw-text-taupe">{{ part.title }}</span>
               {%- endif -%}
             {%- endif -%}
           </li>
@@ -63,12 +66,11 @@
           <li>
             <a
               href="{{ paginate.next.url }}{{ anchor }}"
-              class="pagination__item pagination__item--prev pagination__item-arrow link motion-reduce"
+              class="btn-ghost pagination__item pagination__item--next"
               aria-label="{{ 'general.pagination.next' | t }}"
             >
-              <span class="svg-wrapper">
-                {{- 'icon-caret.svg' | inline_asset_content -}}
-              </span>
+              {{ 'general.pagination.next' | t | default: 'Siguiente' }}
+              <span aria-hidden="true" class="tw-ml-1">&rarr;</span>
             </a>
           </li>
         {%- endif -%}

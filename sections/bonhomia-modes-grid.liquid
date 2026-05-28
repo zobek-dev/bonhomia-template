@@ -1,0 +1,154 @@
+<section class="tw-bg-cream">
+  <div class="page-width !tw-py-16 md:!tw-py-20">
+    <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-0.5">
+    {%- for block in section.blocks -%}
+      {%- liquid
+        assign mode_bg = '#d4c4b0'
+        if block.settings.variant == 'assisted'
+          assign mode_bg = '#8a7868'
+        endif
+      -%}
+      <a
+        href="{{ block.settings.cta_url | default: '#' }}"
+        class="bh-mode-card tw-group tw-relative tw-block tw-overflow-hidden tw-bg-charcoal max-md:tw-min-h-[360px] md:tw-min-h-[440px]"
+        style="background-color: {{ mode_bg }};"
+        {{ block.shopify_attributes }}
+      >
+        {%- if block.settings.image != blank -%}
+          <div class="tw-absolute tw-inset-0">
+            {{
+              block.settings.image
+              | image_url: width: 1400
+              | image_tag:
+                loading: 'lazy',
+                widths: '400, 600, 900, 1200, 1400',
+                sizes: '(min-width: 768px) 50vw, 100vw',
+                class: 'tw-w-full tw-h-full tw-object-cover tw-transition-transform tw-duration-500 group-hover:tw-scale-[1.02]'
+            }}
+          </div>
+        {%- endif -%}
+
+        <div class="bh-overlay bh-overlay--mode" aria-hidden="true"></div>
+
+        <div class="tw-relative tw-z-10 tw-flex tw-h-full tw-min-h-[inherit] tw-flex-col tw-justify-end tw-p-5 md:tw-p-10">
+          {%- if block.settings.tag_label != blank -%}
+            <span class="tw-inline-block tw-mb-3 tw-rounded-pill tw-border tw-border-white/50 tw-px-2.5 tw-py-0.5 tw-font-sans tw-text-[10px] tw-uppercase tw-tracking-[0.12em] tw-text-white/85">
+              {{ block.settings.tag_label | escape }}
+            </span>
+          {%- endif -%}
+
+          {%- if block.settings.heading != blank -%}
+            <h2 class="tw-mb-2 tw-font-serif tw-text-[22px] tw-font-semibold tw-leading-tight tw-text-white md:tw-text-[26px]">
+              {{ block.settings.heading | escape }}
+            </h2>
+          {%- endif -%}
+
+          {%- if block.settings.text != blank -%}
+            <p class="tw-mb-5 tw-max-w-md tw-font-sans tw-text-[13px] tw-leading-relaxed tw-text-white/75">
+              {{ block.settings.text | escape }}
+            </p>
+          {%- endif -%}
+
+          {%- if block.settings.cta_label != blank -%}
+            <span class="tw-inline-flex tw-items-center tw-gap-2 tw-font-sans tw-text-xs tw-font-semibold tw-uppercase tw-tracking-[0.1em] tw-text-white tw-transition-all group-hover:tw-gap-3">
+              {{ block.settings.cta_label | escape }} <span aria-hidden="true">→</span>
+            </span>
+          {%- endif -%}
+        </div>
+      </a>
+    {%- endfor -%}
+  </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Bonhomia Modes Grid",
+  "tag": "section",
+  "class": "section bonhomia-modes-grid",
+  "max_blocks": 2,
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [],
+  "blocks": [
+    {
+      "type": "mode",
+      "name": "Modo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Imagen de fondo"
+        },
+        {
+          "type": "select",
+          "id": "variant",
+          "label": "Variante",
+          "options": [
+            { "value": "direct", "label": "Compra directa" },
+            { "value": "assisted", "label": "A medida / asistida" }
+          ],
+          "default": "direct"
+        },
+        {
+          "type": "text",
+          "id": "tag_label",
+          "label": "Etiqueta",
+          "default": "Disponible ahora"
+        },
+        {
+          "type": "text",
+          "id": "heading",
+          "label": "Título",
+          "default": "Compra directa"
+        },
+        {
+          "type": "text",
+          "id": "text",
+          "label": "Descripción",
+          "default": "Piezas en stock listas para despachar. Elegís, pagás, recibís."
+        },
+        {
+          "type": "text",
+          "id": "cta_label",
+          "label": "Etiqueta del CTA",
+          "default": "Ver productos"
+        },
+        {
+          "type": "url",
+          "id": "cta_url",
+          "label": "Enlace del CTA"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bonhomia Modes Grid",
+      "blocks": [
+        {
+          "type": "mode",
+          "settings": {
+            "variant": "direct",
+            "tag_label": "Disponible ahora",
+            "heading": "Compra directa",
+            "text": "Piezas en stock listas para despachar. Elegís, pagás, recibís.",
+            "cta_label": "Ver productos"
+          }
+        },
+        {
+          "type": "mode",
+          "settings": {
+            "variant": "assisted",
+            "tag_label": "A medida · Cotización gratuita",
+            "heading": "Muebles a pedido",
+            "text": "Diseñamos y fabricamos según tus dimensiones, materiales y estilo exactos.",
+            "cta_label": "Solicitar cotización"
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

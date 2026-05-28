@@ -15,8 +15,43 @@ module.exports = {
     './templates/customers/*.json',
     './node_modules/flowbite/**/*.js',
   ],
+  safelist: [
+    // Dynamic grid column counts driven by section settings (PLP)
+    'lg:tw-grid-cols-1',
+    'lg:tw-grid-cols-2',
+    'lg:tw-grid-cols-3',
+    'lg:tw-grid-cols-4',
+    'lg:tw-grid-cols-5',
+    'lg:tw-grid-cols-6',
+  ],
   theme: {
     extend: {
+      colors: {
+        cream: '#F5F0E8',
+        charcoal: '#2C2C2C',
+        taupe: '#8B7D6B',
+        sage: '#7A8C6E',
+        sand: '#C9B99A',
+        'warm-white': '#FAF8F5',
+        walnut: '#4A3728',
+        accent: '#C17B3A',
+        'border-soft': '#E3DAD0',
+      },
+      fontFamily: {
+        serif: ['Playfair Display', 'serif'],
+        sans: ['Inter', 'system-ui', 'sans-serif'],
+      },
+      letterSpacing: {
+        tracked: '0.08em',
+        'tracked-lg': '0.18em',
+      },
+      borderRadius: {
+        xs: '3px',
+        sm: '4px',
+        md: '6px',
+        lg: '8px',
+        pill: '99px',
+      },
       typography: {
         DEFAULT: {
           css: {

@@ -1,0 +1,159 @@
+<div class="home-hero" id="HomeHero-{{ section.id }}">
+  <div class="home-hero__bg">
+    {%- if section.settings.image != blank -%}
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '600, 900, 1200, 1600, 2000, 2400',
+          sizes: '100vw',
+          alt: section.settings.image.alt | default: section.settings.heading_line_1 | escape
+      }}
+    {%- endif -%}
+  </div>
+
+  <div class="bh-overlay bh-overlay--hero" aria-hidden="true"></div>
+
+  <div class="home-hero__content">
+    {%- if section.settings.eyebrow_text != blank -%}
+      <p class="home-hero__eyebrow">{{ section.settings.eyebrow_text | escape }}</p>
+    {%- endif -%}
+
+    {%- if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank -%}
+      <h1 class="home-hero__title">
+        {%- if section.settings.heading_line_1 != blank -%}
+          {{ section.settings.heading_line_1 | escape }}
+        {%- endif -%}
+        {%- if section.settings.heading_line_2 != blank -%}
+          <br>
+          {{ section.settings.heading_line_2 | escape }}
+        {%- endif -%}
+      </h1>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="home-hero__sub">{{ section.settings.subheading | escape }}</p>
+    {%- endif -%}
+
+    <div class="home-hero__actions">
+      {%- if section.settings.cta1_label != blank -%}
+        <a
+          href="{{ section.settings.cta1_url | default: routes.all_products_collection_url }}"
+          class="btn-primary"
+        >
+          {{ section.settings.cta1_label | escape }}
+        </a>
+      {%- endif -%}
+      {%- if section.settings.cta2_label != blank -%}
+        <a
+          href="{{ section.settings.cta2_url | default: '#' }}"
+          class="btn-outline"
+        >
+          {{ section.settings.cta2_label | escape }}
+        </a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.show_scroll_indicator -%}
+    <div class="home-hero__scroll" aria-hidden="true">
+      <span class="home-hero__scroll-label">{{ section.settings.scroll_label | default: 'Scroll' | escape }}</span>
+      <span class="home-hero__scroll-line"></span>
+    </div>
+  {%- endif -%}
+</div>
+
+{% schema %}
+{
+  "name": "Home Hero",
+  "tag": "section",
+  "class": "section home-hero-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen de fondo"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow",
+      "default": "Colección 2026 — Madera maciza"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Título — línea 1",
+      "default": "Muebles que"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Título — línea 2",
+      "default": "cuentan tu historia"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subtítulo",
+      "default": "Piezas artesanales diseñadas para adaptarse a tu espacio. Compra en stock o encarga a medida."
+    },
+    {
+      "type": "header",
+      "content": "CTA principal"
+    },
+    {
+      "type": "text",
+      "id": "cta1_label",
+      "label": "Etiqueta",
+      "default": "Ver catálogo"
+    },
+    {
+      "type": "url",
+      "id": "cta1_url",
+      "label": "Enlace"
+    },
+    {
+      "type": "header",
+      "content": "CTA secundaria"
+    },
+    {
+      "type": "text",
+      "id": "cta2_label",
+      "label": "Etiqueta",
+      "default": "Pedir a medida"
+    },
+    {
+      "type": "url",
+      "id": "cta2_url",
+      "label": "Enlace"
+    },
+    {
+      "type": "header",
+      "content": "Indicador de scroll"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "label": "Mostrar indicador de scroll",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "scroll_label",
+      "label": "Etiqueta del scroll",
+      "default": "Scroll"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Home Hero"
+    }
+  ]
+}
+{% endschema %}

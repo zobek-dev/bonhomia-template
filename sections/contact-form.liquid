@@ -1,5 +1,3 @@
-{{ 'section-contact-form.css' | asset_url | stylesheet_tag }}
-
 {%- style -%}
   .section-{{ section.id }}-padding {
     padding-top: {{ section.settings.padding_top | times: 0.75 | round: 0 }}px;
@@ -14,126 +12,113 @@
   }
 {%- endstyle -%}
 
-<div class="color-{{ section.settings.color_scheme }} gradient">
-  <div class="contact page-width page-width--narrow section-{{ section.id }}-padding">
+<section class="bonhomia-contact-form tw-bg-cream section-{{ section.id }}-padding tw-py-16 md:tw-py-24">
+  <div class="tw-max-w-3xl tw-mx-auto tw-px-6">
+    {%- if section.settings.eyebrow != blank -%}
+      <p class="eyebrow tw-mb-4">{{ section.settings.eyebrow | escape }}</p>
+    {%- endif -%}
     {%- if section.settings.heading != blank -%}
-      <h2 class="title title-wrapper--no-top-margin inline-richtext {{ section.settings.heading_size }}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <h2 class="tw-font-serif tw-text-3xl md:tw-text-5xl tw-text-charcoal tw-leading-tight tw-m-0 tw-mb-6">
         {{ section.settings.heading }}
       </h2>
-    {%- else -%}
-      <h2 class="visually-hidden">{{ 'templates.contact.form.title' | t }}</h2>
     {%- endif -%}
-    {%- liquid
-      assign contact_form_class = 'isolate'
-      if settings.animations_reveal_on_scroll
-        assign contact_form_class = 'isolate scroll-trigger animate--slide-in'
-      endif
-    -%}
-    {%- form 'contact', id: 'ContactForm', class: contact_form_class -%}
+    {%- if section.settings.subheading != blank -%}
+      <p class="tw-font-sans tw-text-base tw-text-taupe tw-leading-relaxed tw-mb-10 tw-max-w-xl">
+        {{ section.settings.subheading | escape }}
+      </p>
+    {%- endif -%}
+
+    {%- form 'contact', id: 'ContactForm' -%}
       {%- if form.posted_successfully? -%}
-        <h2 class="form-status form-status-list form__message" tabindex="-1" autofocus>
-          {{- 'icon-success.svg' | inline_asset_content -}}
-          {{ 'templates.contact.form.post_success' | t }}
-        </h2>
-      {%- elsif form.errors -%}
-        <div class="form__message">
-          <h2 class="form-status caption-large text-body" role="alert" tabindex="-1" autofocus>
-            {{- 'icon-error.svg' | inline_asset_content -}}
-            {{ 'templates.contact.form.error_heading' | t }}
-          </h2>
+        <div class="tw-mb-8 tw-p-4 tw-rounded-sm tw-bg-warm-white tw-border tw-border-border-soft tw-text-charcoal tw-font-sans tw-text-sm" tabindex="-1" autofocus>
+          Gracias por escribirnos. Te respondemos a la brevedad.
         </div>
-        <ul class="form-status-list caption-large" role="list">
-          <li>
-            <a href="#ContactForm-email" class="link">
-              {{ form.errors.translated_fields.email | capitalize }}
-              {{ form.errors.messages.email }}
-            </a>
-          </li>
-        </ul>
+      {%- elsif form.errors -%}
+        <div class="tw-mb-8 tw-p-4 tw-rounded-sm tw-bg-warm-white tw-border tw-border-accent tw-text-charcoal tw-font-sans tw-text-sm" role="alert" tabindex="-1" autofocus>
+          <p class="tw-m-0 tw-mb-2 tw-font-semibold">Hubo un problema al enviar el formulario.</p>
+          <ul class="tw-m-0 tw-pl-5 tw-list-disc">
+            {%- for field in form.errors -%}
+              <li>
+                {{ form.errors.translated_fields[field] | capitalize }}
+                {{ form.errors.messages[field] }}
+              </li>
+            {%- endfor -%}
+          </ul>
+        </div>
       {%- endif -%}
-      <div class="contact__fields">
-        <div class="field">
+
+      <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-4 tw-mb-4">
+        <div>
+          <label for="ContactForm-name" class="tw-block tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-2">
+            Nombre
+          </label>
           <input
-            class="field__input"
-            autocomplete="name"
             type="text"
             id="ContactForm-name"
-            name="contact[{{ 'templates.contact.form.name' | t }}]"
+            name="contact[name]"
+            autocomplete="name"
             value="{% if form.name %}{{ form.name }}{% elsif customer %}{{ customer.name }}{% endif %}"
-            placeholder="{{ 'templates.contact.form.name' | t }}"
+            class="tw-w-full tw-px-4 tw-py-3 tw-bg-warm-white tw-border tw-border-border-soft tw-rounded-sm tw-text-charcoal tw-font-sans tw-text-base focus:tw-outline-none focus:tw-border-walnut focus:tw-ring-1 focus:tw-ring-walnut"
+            placeholder="Tu nombre"
           >
-          <label class="field__label" for="ContactForm-name">{{ 'templates.contact.form.name' | t }}</label>
         </div>
-        <div class="field field--with-error">
+        <div>
+          <label for="ContactForm-email" class="tw-block tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-2">
+            Email <span aria-hidden="true" class="tw-text-accent">*</span>
+          </label>
           <input
-            autocomplete="email"
             type="email"
             id="ContactForm-email"
-            class="field__input"
             name="contact[email]"
+            autocomplete="email"
             spellcheck="false"
             autocapitalize="off"
             value="{% if form.email %}{{ form.email }}{% elsif customer %}{{ customer.email }}{% endif %}"
             aria-required="true"
-            {% if form.errors contains 'email' %}
-              aria-invalid="true"
-              aria-describedby="ContactForm-email-error"
-            {% endif %}
-            placeholder="{{ 'templates.contact.form.email' | t }}"
+            {% if form.errors contains 'email' %}aria-invalid="true"{% endif %}
+            class="tw-w-full tw-px-4 tw-py-3 tw-bg-warm-white tw-border tw-border-border-soft tw-rounded-sm tw-text-charcoal tw-font-sans tw-text-base focus:tw-outline-none focus:tw-border-walnut focus:tw-ring-1 focus:tw-ring-walnut"
+            placeholder="tu@email.com"
           >
-          <label class="field__label" for="ContactForm-email">
-            {{- 'templates.contact.form.email' | t }}
-            <span aria-hidden="true">*</span></label
-          >
-          {%- if form.errors contains 'email' -%}
-            <small class="contact__field-error" id="ContactForm-email-error">
-              <span class="visually-hidden">{{ 'accessibility.error' | t }}</span>
-              <span class="form__message">
-                <span class="svg-wrapper">
-                  {{- 'icon-error.svg' | inline_asset_content -}}
-                </span>
-                {{- form.errors.translated_fields.email | capitalize }}
-                {{ form.errors.messages.email -}}
-              </span>
-            </small>
-          {%- endif -%}
         </div>
       </div>
-      <div class="field">
+
+      <div class="tw-mb-4">
+        <label for="ContactForm-phone" class="tw-block tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-2">
+          Teléfono
+        </label>
         <input
           type="tel"
           id="ContactForm-phone"
-          class="field__input"
+          name="contact[phone]"
           autocomplete="tel"
-          name="contact[{{ 'templates.contact.form.phone' | t }}]"
-          pattern="[0-9\-]*"
+          pattern="[0-9\-\+\s\(\)]*"
           value="{% if form.phone %}{{ form.phone }}{% elsif customer %}{{ customer.phone }}{% endif %}"
-          placeholder="{{ 'templates.contact.form.phone' | t }}"
+          class="tw-w-full tw-px-4 tw-py-3 tw-bg-warm-white tw-border tw-border-border-soft tw-rounded-sm tw-text-charcoal tw-font-sans tw-text-base focus:tw-outline-none focus:tw-border-walnut focus:tw-ring-1 focus:tw-ring-walnut"
+          placeholder="+54 9 ..."
         >
-        <label class="field__label" for="ContactForm-phone">{{ 'templates.contact.form.phone' | t }}</label>
       </div>
-      <div class="field">
-        <textarea
-          rows="10"
-          id="ContactForm-body"
-          class="text-area field__input"
-          name="contact[{{ 'templates.contact.form.comment' | t }}]"
-          placeholder="{{ 'templates.contact.form.comment' | t }}"
-        >
-          {{- form.body -}}
-        </textarea>
-        <label class="form__label field__label" for="ContactForm-body">
-          {{- 'templates.contact.form.comment' | t -}}
+
+      <div class="tw-mb-8">
+        <label for="ContactForm-body" class="tw-block tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-2">
+          Mensaje
         </label>
+        <textarea
+          rows="6"
+          id="ContactForm-body"
+          name="contact[body]"
+          class="tw-w-full tw-px-4 tw-py-3 tw-bg-warm-white tw-border tw-border-border-soft tw-rounded-sm tw-text-charcoal tw-font-sans tw-text-base tw-leading-relaxed focus:tw-outline-none focus:tw-border-walnut focus:tw-ring-1 focus:tw-ring-walnut tw-resize-y"
+          placeholder="Contanos en qué podemos ayudarte"
+        >{{ form.body }}</textarea>
       </div>
-      <div class="contact__button">
-        <button type="submit" class="button">
-          {{ 'templates.contact.form.send' | t }}
+
+      <div>
+        <button type="submit" class="btn-primary tw-w-full md:tw-w-auto">
+          {{ section.settings.button_label | default: 'Enviar mensaje' | escape }}
         </button>
       </div>
     {%- endform -%}
   </div>
-</div>
+</section>
 
 {% schema %}
 {
@@ -145,44 +130,28 @@
   },
   "settings": [
     {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Contacto"
+    },
+    {
       "type": "inline_richtext",
       "id": "heading",
-      "default": "t:sections.contact-form.settings.title.default",
-      "label": "t:sections.contact-form.settings.title.label"
+      "label": "Título",
+      "default": "Hablemos"
     },
     {
-      "type": "select",
-      "id": "heading_size",
-      "options": [
-        {
-          "value": "h2",
-          "label": "t:sections.all.heading_size.options__1.label"
-        },
-        {
-          "value": "h1",
-          "label": "t:sections.all.heading_size.options__2.label"
-        },
-        {
-          "value": "h0",
-          "label": "t:sections.all.heading_size.options__3.label"
-        },
-        {
-          "value": "hxl",
-          "label": "t:sections.all.heading_size.options__4.label"
-        },
-        {
-          "value": "hxxl",
-          "label": "t:sections.all.heading_size.options__5.label"
-        }
-      ],
-      "default": "h1",
-      "label": "t:sections.all.heading_size.label"
+      "type": "text",
+      "id": "subheading",
+      "label": "Subtítulo",
+      "default": "Contanos sobre tu proyecto, tu espacio o consultanos por una pieza. Te respondemos en 24-48 horas."
     },
     {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "t:sections.all.colors.label",
-      "default": "scheme-1"
+      "type": "text",
+      "id": "button_label",
+      "label": "Texto del botón",
+      "default": "Enviar mensaje"
     },
     {
       "type": "header",

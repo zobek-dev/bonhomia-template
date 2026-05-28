@@ -1,3 +1,314 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    --bh-cream: #F5F0E8;
+    --bh-charcoal: #2C2C2C;
+    --bh-taupe: #8B7D6B;
+    --bh-sage: #7A8C6E;
+    --bh-sand: #C9B99A;
+    --bh-warm-white: #FAF8F5;
+    --bh-walnut: #4A3728;
+    --bh-accent: #C17B3A;
+    --bh-border: #E3DAD0;
+  }
+
+  body {
+    @apply tw-bg-cream tw-text-charcoal tw-font-sans;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply tw-font-serif;
+  }
+}
+
+@layer components {
+  /* Buttons */
+  .btn-primary {
+    @apply tw-inline-flex tw-items-center tw-justify-center tw-bg-charcoal tw-text-warm-white tw-font-sans tw-font-medium tw-text-sm tw-tracking-tracked tw-uppercase tw-px-6 tw-py-3 tw-rounded-xs tw-transition-colors hover:tw-bg-walnut focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-charcoal focus:tw-ring-offset-2;
+  }
+
+  .btn-accent {
+    @apply tw-inline-flex tw-items-center tw-justify-center tw-bg-accent tw-text-warm-white tw-font-sans tw-font-medium tw-text-sm tw-tracking-tracked tw-uppercase tw-px-6 tw-py-3 tw-rounded-xs tw-transition-colors hover:tw-bg-walnut focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-accent focus:tw-ring-offset-2;
+  }
+
+  .btn-outline {
+    @apply tw-inline-flex tw-items-center tw-justify-center tw-bg-transparent tw-text-charcoal tw-font-sans tw-font-medium tw-text-sm tw-tracking-tracked tw-uppercase tw-px-6 tw-py-3 tw-rounded-xs tw-border tw-border-charcoal tw-transition-colors hover:tw-bg-charcoal hover:tw-text-warm-white focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-charcoal focus:tw-ring-offset-2;
+  }
+
+  .btn-ghost {
+    @apply tw-inline-flex tw-items-center tw-justify-center tw-bg-transparent tw-text-charcoal tw-font-sans tw-font-medium tw-text-sm tw-tracking-tracked tw-uppercase tw-px-4 tw-py-2 tw-rounded-xs tw-transition-colors hover:tw-bg-border-soft focus:tw-outline-none;
+  }
+
+  /* Badges */
+  .badge-direct {
+    @apply tw-inline-flex tw-items-center tw-bg-sage tw-text-warm-white tw-text-xs tw-font-medium tw-tracking-tracked tw-uppercase tw-px-3 tw-py-1 tw-rounded-pill;
+  }
+
+  .badge-assisted {
+    @apply tw-inline-flex tw-items-center tw-bg-accent tw-text-warm-white tw-text-xs tw-font-medium tw-tracking-tracked tw-uppercase tw-px-3 tw-py-1 tw-rounded-pill;
+  }
+
+  .badge-new {
+    @apply tw-inline-flex tw-items-center tw-bg-charcoal tw-text-warm-white tw-text-xs tw-font-medium tw-tracking-tracked tw-uppercase tw-px-3 tw-py-1 tw-rounded-pill;
+  }
+
+  /* Chips */
+  .option-chip {
+    @apply tw-inline-flex tw-items-center tw-justify-center tw-bg-warm-white tw-text-charcoal tw-text-sm tw-font-sans tw-px-4 tw-py-2 tw-rounded-sm tw-border tw-border-border-soft tw-cursor-pointer tw-transition-colors hover:tw-border-charcoal aria-selected:tw-bg-charcoal aria-selected:tw-text-warm-white;
+  }
+
+  .color-chip {
+    @apply tw-inline-block tw-w-8 tw-h-8 tw-rounded-pill tw-border tw-border-border-soft tw-cursor-pointer tw-transition-all hover:tw-scale-110 aria-selected:tw-ring-2 aria-selected:tw-ring-charcoal aria-selected:tw-ring-offset-2;
+  }
+
+  .filter-chip {
+    @apply tw-inline-flex tw-items-center tw-bg-warm-white tw-text-charcoal tw-text-xs tw-font-sans tw-tracking-tracked tw-uppercase tw-px-3 tw-py-1.5 tw-rounded-pill tw-border tw-border-border-soft tw-cursor-pointer tw-transition-colors hover:tw-border-charcoal aria-pressed:tw-bg-charcoal aria-pressed:tw-text-warm-white;
+  }
+
+  /* Eyebrow label */
+  .eyebrow {
+    @apply tw-inline-block tw-font-sans tw-text-xs tw-font-medium tw-tracking-tracked-lg tw-uppercase tw-text-taupe;
+  }
+}
+
+/* Phase 4: PDP chip selected / disabled states.
+   Radios are visually hidden but remain the source of truth for product-form.js. */
+.bh-option-input:checked + .option-chip {
+  @apply tw-bg-charcoal tw-text-warm-white tw-border-charcoal;
+}
+.bh-option-input:focus-visible + .option-chip {
+  @apply tw-ring-2 tw-ring-charcoal tw-ring-offset-2;
+}
+.bh-color-input:checked + .color-chip {
+  @apply tw-ring-2 tw-ring-charcoal tw-ring-offset-2;
+}
+.bh-color-input:focus-visible + .color-chip {
+  @apply tw-ring-2 tw-ring-charcoal tw-ring-offset-2;
+}
+.option-chip.bh-chip-disabled,
+.color-chip.bh-chip-disabled {
+  @apply tw-opacity-50 tw-cursor-not-allowed;
+  position: relative;
+}
+.option-chip.bh-chip-disabled::after,
+.color-chip.bh-chip-disabled::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top left,
+    transparent calc(50% - 1px),
+    currentColor calc(50% - 1px),
+    currentColor calc(50% + 1px),
+    transparent calc(50% + 1px)
+  );
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+/* Home hero — outside @layer so styles win over Dawn base.css */
+.home-hero {
+  position: relative;
+  display: flex;
+  align-items: flex-end;
+  width: 100%;
+  height: 86vh;
+  min-height: 600px;
+  max-height: 840px;
+  overflow: hidden;
+}
+
+.home-hero__bg {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(160deg, #c8b8a0 0%, #8a7060 100%);
+}
+
+.home-hero__bg img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Shared image overlays — docs/mockup-tienda.html */
+.bh-overlay {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.bh-overlay--hero {
+  background:
+    radial-gradient(ellipse at 18% 78%, rgba(29, 22, 17, 0.76) 0%, rgba(29, 22, 17, 0.52) 26%, rgba(29, 22, 17, 0) 56%),
+    linear-gradient(to top, rgba(29, 22, 17, 0.38) 0%, rgba(29, 22, 17, 0.08) 55%, rgba(29, 22, 17, 0) 100%);
+}
+
+.bh-overlay--mode {
+  background: linear-gradient(to top, rgba(44, 32, 20, 0.75) 40%, transparent 75%);
+  transition: background 0.3s ease;
+}
+
+.group:hover .bh-overlay--mode,
+.bh-mode-card:hover .bh-overlay--mode {
+  background: linear-gradient(to top, rgba(44, 32, 20, 0.85) 50%, rgba(44, 32, 20, 0.2) 100%);
+}
+
+.bh-overlay--collection {
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.55) 30%, transparent 70%);
+}
+
+.bonhomia-hero-section.section + section.section,
+section.home-hero-section.section + section.section {
+  margin-top: 0;
+}
+
+.home-hero__content {
+  position: relative;
+  z-index: 2;
+  max-width: 680px;
+  padding: 0 64px 72px;
+  color: #fff;
+  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.26);
+}
+
+.home-hero__eyebrow {
+  margin: 0 0 16px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 400;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.75);
+}
+
+.home-hero .home-hero__title {
+  margin: 0 0 20px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 52px;
+  font-weight: 600;
+  line-height: 1.1;
+  letter-spacing: -0.5px;
+  color: #fff;
+  word-break: normal;
+}
+
+.home-hero__sub {
+  margin: 0 0 32px;
+  max-width: 440px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 16px;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.88);
+}
+
+.home-hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.home-hero__actions .btn-primary,
+.home-hero__actions .btn-outline {
+  min-height: 46px;
+  padding: 14px 28px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  border-radius: 3px;
+}
+
+.home-hero__actions .btn-outline {
+  padding: 13px 28px;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  border-width: 1.5px;
+  border-color: rgba(255, 255, 255, 0.6);
+  color: #fff;
+}
+
+.home-hero__actions .btn-outline:hover {
+  background: var(--bh-charcoal);
+  border-color: var(--bh-charcoal);
+  color: #fff;
+}
+
+.home-hero__scroll {
+  position: absolute;
+  right: 64px;
+  bottom: 32px;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.home-hero__scroll-label {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.home-hero__scroll-line {
+  width: 1px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.3);
+}
+
+section.home-hero-section.section + section.section {
+  margin-top: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .home-hero {
+    height: auto;
+    min-height: 520px;
+  }
+
+  .bh-overlay--hero {
+    background:
+      linear-gradient(to top, rgba(29, 22, 17, 0.76) 0%, rgba(29, 22, 17, 0.46) 42%, rgba(29, 22, 17, 0.06) 78%),
+      radial-gradient(ellipse at 28% 78%, rgba(29, 22, 17, 0.6) 0%, rgba(29, 22, 17, 0) 62%);
+  }
+
+  .home-hero__content {
+    max-width: 100%;
+    padding: 0 20px 36px;
+  }
+
+  .home-hero__eyebrow {
+    margin-bottom: 10px;
+    font-size: 10px;
+  }
+
+  .home-hero .home-hero__title {
+    font-size: 30px;
+  }
+
+  .home-hero__sub {
+    max-width: 100%;
+    font-size: 14px;
+  }
+
+  .home-hero__actions {
+    flex-direction: column;
+  }
+
+  .home-hero__actions .btn-primary,
+  .home-hero__actions .btn-outline {
+    width: 100%;
+  }
+
+  .home-hero__scroll {
+    display: none;
+  }
+}

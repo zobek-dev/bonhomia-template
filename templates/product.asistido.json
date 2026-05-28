@@ -1,0 +1,46 @@
+{
+  "sections": {
+    "assisted-banner": {
+      "type": "bonhomia-assisted-banner",
+      "settings": {
+        "badge_label": "Mueble a medida",
+        "text": "Producto a medida — Solicitá tu cotización personalizada. Respuesta en 24-48 horas.",
+        "link_label": "Conocé el proceso",
+        "link_url": "",
+        "background_color": "warm-white"
+      }
+    },
+    "main": {
+      "type": "main-product-asistido",
+      "settings": {
+        "media_size": "large",
+        "gallery_layout": "thumbnail",
+        "mobile_thumbnails": "hide",
+        "hide_variants": true,
+        "enable_sticky_info": true,
+        "enable_video_looping": false,
+        "constrain_to_viewport": true,
+        "color_scheme": "scheme-1",
+        "padding_top": 36,
+        "padding_bottom": 12
+      }
+    },
+    "related-products": {
+      "type": "related-products",
+      "settings": {
+        "heading": "También a medida",
+        "heading_size": "h2",
+        "columns_desktop": 4,
+        "columns_mobile": "2",
+        "color_scheme": "scheme-1",
+        "image_ratio": "square",
+        "show_secondary_image": true,
+        "show_vendor": false,
+        "show_rating": false,
+        "padding_top": 36,
+        "padding_bottom": 28
+      }
+    }
+  },
+  "order": ["assisted-banner", "main", "related-products"]
+}

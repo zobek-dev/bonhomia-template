@@ -1,0 +1,39 @@
+{%- liquid
+  assign target_product = all_products[section.settings.product]
+  if target_product == blank or target_product == empty
+    assign target_product = product
+  endif
+-%}
+
+<section class="bonhomia-quote-cta tw-bg-warm-white">
+  <div class="tw-max-w-3xl tw-mx-auto tw-px-6 md:tw-px-12 tw-py-12 md:tw-py-16">
+    {%- if target_product != blank and target_product != empty -%}
+      {% render 'bonhomia-quote-panel', product: target_product, show_breadcrumb: false, heading_tag: 'h2' %}
+    {%- else -%}
+      <p class="tw-text-center tw-text-taupe tw-font-sans">
+        Seleccioná un producto en la configuración de la sección.
+      </p>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "CTA cotización",
+  "tag": "section",
+  "class": "section bonhomia-quote-cta-section",
+  "settings": [
+    {
+      "type": "product",
+      "id": "product",
+      "label": "Producto destacado",
+      "info": "Si la sección está en una página de producto se usa ese producto por defecto."
+    }
+  ],
+  "presets": [
+    {
+      "name": "CTA cotización"
+    }
+  ]
+}
+{% endschema %}

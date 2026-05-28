@@ -1,17 +1,27 @@
 {% comment %}
-  Renders product variant-picker
+  Bonhomia product-variant-picker (Phase 4).
+
+  Re-skins the variant fieldset wrappers and legends. Keeps <variant-selects>
+  custom element, fieldset structure, and the json-blob data-selected-variant
+  payload that product-info.js / variant-selects.js consume.
 
   Accepts:
   - product: {Object} product object.
-  - block: {Object} passing the block information.
-  - product_form_id: {String} Id of the product form to which the variant picker is associated.
+  - block: {Object} block context (for swatch_shape / picker_type settings).
+  - product_form_id: {String} Id of the product form bound to the inputs.
+
   Usage:
-  {% render 'product-variant-picker', product: product, block: block, product_form_id: product_form_id %}
+  {% render 'product-variant-picker',
+    product: product,
+    block: block,
+    product_form_id: product_form_id
+  %}
 {% endcomment %}
 {%- unless product.has_only_default_variant -%}
   <variant-selects
     id="variant-selects-{{ section.id }}"
     data-section="{{ section.id }}"
+    class="tw-block tw-mt-6 tw-space-y-6"
     {{ block.shopify_attributes }}
   >
     {%- for option in product.options_with_values -%}
@@ -28,36 +38,43 @@
         endif
       -%}
       {%- if picker_type == 'swatch' -%}
-        <fieldset class="js product-form__input product-form__input--swatch">
-          <legend class="form__label">
+        <fieldset class="js product-form__input product-form__input--swatch tw-border-0 tw-p-0 tw-m-0">
+          <legend class="form__label eyebrow tw-mb-3 tw-block">
             {{ option.name }}:
-            <span data-selected-value>
+            <span data-selected-value class="tw-text-charcoal tw-normal-case tw-tracking-normal">
               {{- option.selected_value -}}
             </span>
           </legend>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
+          <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-3">
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+          </div>
         </fieldset>
       {%- elsif picker_type == 'button' -%}
-        <fieldset class="js product-form__input product-form__input--pill">
-          <legend class="form__label">{{ option.name }}</legend>
-          {% render 'product-variant-options',
-            product: product,
-            option: option,
-            block: block,
-            picker_type: picker_type
-          %}
+        <fieldset class="js product-form__input product-form__input--pill tw-border-0 tw-p-0 tw-m-0">
+          <legend class="form__label eyebrow tw-mb-3 tw-block">{{ option.name }}</legend>
+          <div class="tw-flex tw-flex-wrap tw-items-center tw-gap-2">
+            {% render 'product-variant-options',
+              product: product,
+              option: option,
+              block: block,
+              picker_type: picker_type
+            %}
+          </div>
         </fieldset>
       {%- else -%}
         <div class="product-form__input product-form__input--dropdown">
-          <label class="form__label" for="Option-{{ section.id }}-{{ forloop.index0 }}">
+          <label
+            class="form__label eyebrow tw-mb-2 tw-block"
+            for="Option-{{ section.id }}-{{ forloop.index0 }}"
+          >
             {{ option.name }}
           </label>
-          <div class="select">
+          <div class="select tw-relative">
             {%- if picker_type == 'swatch_dropdown' -%}
               <span
                 data-selected-value
@@ -68,7 +85,7 @@
             {%- endif -%}
             <select
               id="Option-{{ section.id }}-{{ forloop.index0 }}"
-              class="select__select"
+              class="select__select tw-w-full tw-bg-warm-white tw-border tw-border-border-soft tw-rounded-sm tw-px-4 tw-py-2 tw-text-sm tw-font-sans tw-text-charcoal"
               name="options[{{ option.name | escape }}]"
               form="{{ product_form_id }}"
             >

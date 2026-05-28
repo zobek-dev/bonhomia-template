@@ -25,16 +25,16 @@
   }
 
   .template-search__search .search {
-    margin-top: 3rem;
+    margin-top: 2rem;
   }
 
   .template-search--empty {
-    padding-bottom: 18rem;
+    padding-bottom: 12rem;
   }
 
   @media screen and (min-width: 750px) {
     .template-search__header {
-      margin-bottom: 5rem;
+      margin-bottom: 4rem;
     }
   }
 
@@ -64,13 +64,14 @@
 {%- endstyle -%}
 
 {% paginate search.results by 24 %}
-  <div class="template-search{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
-    <div class="template-search__header page-width{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
-      <h1 class="h2 center">
+  <div class="template-search tw-bg-cream tw-py-16 md:tw-py-24{% unless search.performed and search.results_count > 0 %} template-search--empty{% endunless %} section-{{ section.id }}-padding">
+    <div class="template-search__header page-width tw-text-center{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--fade-in{% endif %}">
+      <span class="eyebrow tw-mb-3">Búsqueda</span>
+      <h1 class="tw-font-serif tw-text-3xl md:tw-text-4xl tw-text-charcoal tw-mt-2">
         {%- if search.performed -%}
-          {{- 'templates.search.title' | t -}}
+          Resultados
         {%- else -%}
-          {{- 'general.search.search' | t -}}
+          Buscar
         {%- endif -%}
       </h1>
       <div class="template-search__search">
@@ -78,15 +79,15 @@
           <predictive-search data-loading-text="{{ 'accessibility.loading' | t }}">
         {%- endif -%}
         <main-search>
-          <form action="{{ routes.search_url }}" method="get" role="search" class="search">
-            <div class="field">
+          <form action="{{ routes.search_url }}" method="get" role="search" class="search tw-relative tw-flex tw-items-center">
+            <div class="field tw-w-full tw-relative">
               <input
-                class="search__input field__input"
+                class="search__input field__input tw-w-full tw-border tw-border-border-soft tw-rounded-sm tw-px-4 tw-py-3 tw-pr-20 tw-bg-warm-white tw-font-sans tw-text-charcoal focus:tw-border-charcoal focus:tw-outline-none"
                 id="Search-In-Template"
                 type="search"
                 name="q"
                 value="{{ search.terms | escape }}"
-                placeholder="{{ 'general.search.search' | t }}"
+                placeholder="¿Qué estás buscando?"
                 {%- if settings.predictive_search_enabled -%}
                   role="combobox"
                   aria-expanded="false"
@@ -100,7 +101,7 @@
                   spellcheck="false"
                 {%- endif -%}
               >
-              <label class="field__label" for="Search-In-Template">{{ 'general.search.search' | t }}</label>
+              <label class="field__label tw-sr-only" for="Search-In-Template">Buscar</label>
               <input name="options[prefix]" type="hidden" value="last">
 
               {%- if settings.predictive_search_enabled -%}
@@ -113,14 +114,14 @@
 
               <button
                 type="reset"
-                class="reset__button field__button{% if search.terms == blank %} hidden{% endif %}"
-                aria-label="{{ 'general.search.reset' | t }}"
+                class="reset__button field__button tw-absolute tw-right-12 tw-top-1/2 tw--translate-y-1/2 tw-text-taupe hover:tw-text-charcoal{% if search.terms == blank %} hidden{% endif %}"
+                aria-label="Limpiar"
               >
                 <span class="svg-wrapper">
                   {{- 'icon-reset.svg' | inline_asset_content -}}
                 </span>
               </button>
-              <button type="submit" class="search__button field__button" aria-label="{{ 'general.search.search' | t }}">
+              <button type="submit" class="search__button field__button tw-absolute tw-right-3 tw-top-1/2 tw--translate-y-1/2 tw-text-charcoal hover:tw-text-accent" aria-label="Buscar">
                 <span class="svg-wrapper">
                   {{- 'icon-search.svg' | inline_asset_content -}}
                 </span>
@@ -135,13 +136,13 @@
       {%- if search.performed -%}
         {%- unless section.settings.enable_filtering or section.settings.enable_sorting -%}
           {%- if search.results_count > 0 -%}
-            <p role="status">
+            <p role="status" class="tw-font-sans tw-text-sm tw-text-taupe">
               {{ 'templates.search.results_with_count_and_term' | t: terms: search.terms, count: search.results_count }}
             </p>
           {%- endif -%}
         {%- endunless -%}
         {%- if search.results_count == 0 and search.filters == empty -%}
-          <p role="status">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
+          <p role="status" class="tw-font-sans tw-text-charcoal tw-mt-4">{{ 'templates.search.no_results' | t: terms: search.terms }}</p>
         {%- endif -%}
       {%- endif -%}
     </div>

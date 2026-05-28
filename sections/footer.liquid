@@ -25,6 +25,60 @@
       padding-bottom: {{ section.settings.padding_bottom }}px;
     }
   }
+
+  /* ─── Bonhomia footer re-skin ─────────────────────── */
+  /* Overrides color-scheme tokens but keeps Dawn structural classes intact. */
+  .footer {
+    background: var(--bh-charcoal, #2C2C2C) !important;
+    color: rgba(255, 255, 255, 0.7);
+    border-top: none;
+  }
+  .footer * {
+    --color-foreground: 255, 255, 255;
+  }
+  .footer .footer-block__heading {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.5);
+    margin-bottom: 16px;
+  }
+  .footer .footer-block--menu .list-menu__item--link,
+  .footer .footer-block__details-content a,
+  .footer .footer-block__details-content {
+    color: rgba(255, 255, 255, 0.65);
+    font-size: 13px;
+    line-height: 1.8;
+    text-decoration: none;
+    transition: color 0.2s;
+  }
+  .footer .footer-block--menu .list-menu__item--link:hover,
+  .footer .footer-block__details-content a:hover {
+    color: #fff;
+  }
+  .footer .footer-block__brand-info .rte,
+  .footer .footer-block__details-content {
+    max-width: 280px;
+  }
+  .footer__copyright,
+  .footer__copyright a,
+  .footer__copyright small {
+    color: rgba(255, 255, 255, 0.55) !important;
+    font-size: 12px;
+  }
+  .footer__content-bottom {
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    padding-top: 24px;
+    margin-top: 16px;
+  }
+  /* Hide newsletter block — Bonhomia spec: no newsletter in footer */
+  .footer .footer-block--newsletter,
+  .footer .footer__newsletter,
+  .footer .footer-block__newsletter {
+    display: none !important;
+  }
 {%- endstyle -%}
 
 <footer class="footer color-{{ section.settings.color_scheme }} gradient section-{{ section.id }}-padding">
@@ -165,7 +219,8 @@
             data-cascade
           {% endif %}
         >
-          {%- if section.settings.newsletter_enable -%}
+          {%- comment -%} Bonhomia: newsletter explicitly disabled per product spec {%- endcomment -%}
+          {%- if false and section.settings.newsletter_enable -%}
             <div class="footer-block__newsletter">
               {%- if section.settings.newsletter_heading != blank -%}
                 <h2 class="footer-block__heading inline-richtext">{{ section.settings.newsletter_heading }}</h2>
@@ -438,7 +493,7 @@
     {
       "type": "checkbox",
       "id": "newsletter_enable",
-      "default": true,
+      "default": false,
       "label": "t:sections.footer.settings.newsletter_enable.label"
     },
     {

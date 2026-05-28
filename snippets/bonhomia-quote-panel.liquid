@@ -1,0 +1,152 @@
+{% comment %}
+  Renders the assisted-purchase quote panel for a given product.
+
+  Accepts:
+  - product: {Object} Product liquid object (required)
+  - show_breadcrumb: {Boolean} (optional) — render breadcrumb above title (default false)
+  - heading_tag: {String} (optional) — `h1` (default) or `h2`
+
+  Usage:
+  {% render 'bonhomia-quote-panel', product: product, show_breadcrumb: true %}
+{% endcomment %}
+
+{%- liquid
+  assign panel_product = product
+  assign starting_price = panel_product.metafields.bonhomia.starting_price
+  assign materials = panel_product.metafields.bonhomia.materials_available.value
+  assign highlights = panel_product.metafields.bonhomia.highlights
+  assign lead_time = panel_product.metafields.bonhomia.lead_time_weeks
+  assign heading = heading_tag | default: 'h1'
+
+  assign whatsapp_number = shop.metafields.bonhomia.whatsapp | default: settings.whatsapp_number
+  assign whatsapp_digits = whatsapp_number | remove: '+' | remove: ' ' | remove: '-'
+  assign wa_text = 'Hola, me interesa cotizar: ' | append: panel_product.title
+  assign wa_text_encoded = wa_text | url_encode
+-%}
+
+<div class="bonhomia-quote-panel tw-flex tw-flex-col tw-gap-4 tw-font-sans">
+  {%- if show_breadcrumb -%}
+    <nav
+      class="bh-breadcrumb tw-text-xs tw-font-sans tw-tracking-tracked tw-uppercase tw-text-taupe"
+      aria-label="Breadcrumb"
+    >
+      <a href="{{ routes.root_url }}" class="hover:tw-text-charcoal tw-transition-colors">Inicio</a>
+      <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
+      {%- if collection -%}
+        <a href="{{ collection.url }}" class="hover:tw-text-charcoal tw-transition-colors">
+          {{- collection.title | escape -}}
+        </a>
+        <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
+      {%- endif -%}
+      <span class="tw-text-charcoal">{{ panel_product.title | escape }}</span>
+    </nav>
+  {%- endif -%}
+
+  <span class="badge-assisted tw-self-start tw-inline-flex tw-items-center tw-px-3 tw-py-1 tw-rounded-pill tw-bg-accent tw-text-warm-white tw-text-xs tw-font-sans tw-font-medium tw-tracking-tracked tw-uppercase">
+    {%- if lead_time != blank -%}
+      Fabricación a pedido · {{ lead_time }} semanas
+    {%- else -%}
+      Mueble a medida
+    {%- endif -%}
+  </span>
+
+  {%- if heading == 'h1' -%}
+    <h1 class="tw-font-serif tw-text-3xl md:tw-text-4xl tw-text-charcoal tw-leading-tight tw-m-0">
+      {{- panel_product.title | escape -}}
+    </h1>
+  {%- else -%}
+    <h2 class="tw-font-serif tw-text-2xl md:tw-text-3xl tw-text-charcoal tw-leading-tight tw-m-0">
+      {{- panel_product.title | escape -}}
+    </h2>
+  {%- endif -%}
+
+  {%- if starting_price != blank -%}
+    <div class="tw-flex tw-flex-col tw-gap-1">
+      <span class="tw-text-xs tw-font-sans tw-tracking-tracked tw-uppercase tw-text-taupe">
+        Precio referencial desde
+      </span>
+      <div class="tw-flex tw-items-baseline tw-gap-2 tw-flex-wrap">
+        <span class="tw-font-serif tw-text-3xl tw-font-bold tw-text-charcoal">
+          {{- starting_price | money -}}
+        </span>
+        <span class="tw-text-xs tw-text-taupe">· varía según dimensiones y materiales</span>
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if panel_product.description != blank -%}
+    <p class="tw-text-sm tw-text-taupe tw-leading-relaxed tw-m-0">
+      {{- panel_product.description | strip_html | truncatewords: 50 -}}
+    </p>
+  {%- endif -%}
+
+  <div class="tw-flex tw-flex-col tw-gap-3 tw-mt-2">
+    <button
+      type="button"
+      class="btn-accent tw-w-full tw-py-4 tw-px-6 tw-rounded-md tw-bg-accent tw-text-warm-white tw-font-sans tw-text-sm tw-font-semibold tw-tracking-tracked tw-uppercase tw-transition-colors hover:tw-bg-walnut focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-accent focus:tw-ring-offset-2"
+      data-bh-open-quote
+      data-product-title="{{ panel_product.title | escape }}"
+      data-product-id="{{ panel_product.id }}"
+      data-product-handle="{{ panel_product.handle }}"
+    >
+      Solicitar cotización gratuita
+    </button>
+    {%- if whatsapp_digits != blank -%}
+      <a
+        href="https://wa.me/{{ whatsapp_digits }}?text={{ wa_text_encoded }}"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="btn-outline tw-w-full tw-py-3 tw-px-6 tw-rounded-md tw-border tw-border-charcoal tw-text-charcoal tw-font-sans tw-text-sm tw-font-medium tw-text-center tw-transition-colors hover:tw-bg-charcoal hover:tw-text-warm-white"
+      >
+        Consultar por WhatsApp
+      </a>
+    {%- endif -%}
+  </div>
+
+  <hr class="tw-border-0 tw-border-t tw-border-border-soft tw-my-2">
+
+  {%- comment -%} Process steps {%- endcomment -%}
+  <div>
+    <p class="tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-4 tw-m-0">
+      Cómo funciona
+    </p>
+    <ol class="tw-list-none tw-p-0 tw-m-0 tw-space-y-3">
+      {%- assign steps = 'Completás el formulario|Dimensiones, material, acabado y comentarios||Recibís la cotización|En 24-48 horas por email con precio y tiempos||Aprobás y pagás la seña|30%25 para iniciar la fabricación||Seguimiento en tiempo real|Te avisamos en cada etapa de fabricación||Entrega y saldo final|Pagás el saldo al recibir el mueble' | split: '||' -%}
+      {%- for step in steps -%}
+        {%- assign parts = step | split: '|' -%}
+        <li class="tw-flex tw-items-start tw-gap-3">
+          <span class="tw-flex-shrink-0 tw-flex tw-items-center tw-justify-center tw-w-7 tw-h-7 tw-rounded-pill tw-bg-cream tw-text-walnut tw-text-xs tw-font-semibold">
+            {{ forloop.index }}
+          </span>
+          <div class="tw-flex-1">
+            <p class="tw-text-sm tw-font-semibold tw-text-charcoal tw-m-0">{{ parts[0] | replace: '%25', '%' }}</p>
+            <p class="tw-text-xs tw-text-taupe tw-m-0 tw-mt-0.5">{{ parts[1] | replace: '%25', '%' }}</p>
+          </div>
+        </li>
+      {%- endfor -%}
+    </ol>
+  </div>
+
+  {%- if materials != blank and materials.size > 0 -%}
+    <hr class="tw-border-0 tw-border-t tw-border-border-soft tw-my-2">
+    <div>
+      <p class="tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-3 tw-m-0">
+        Maderas disponibles
+      </p>
+      <div class="tw-flex tw-flex-wrap tw-gap-2">
+        {%- for material in materials -%}
+          <span class="tw-inline-flex tw-items-center tw-px-3 tw-py-1.5 tw-rounded-pill tw-border tw-border-border-soft tw-bg-warm-white tw-text-xs tw-text-charcoal tw-font-sans">
+            {{- material | escape -}}
+          </span>
+        {%- endfor -%}
+      </div>
+    </div>
+  {%- endif -%}
+
+  {%- if highlights != blank -%}
+    <hr class="tw-border-0 tw-border-t tw-border-border-soft tw-my-2">
+    <ul class="product__highlights tw-list-none tw-p-0 tw-m-0 tw-space-y-2 tw-text-sm tw-text-charcoal tw-font-sans">
+      {{ highlights }}
+    </ul>
+  {%- endif -%}
+</div>

@@ -1,0 +1,107 @@
+{
+  "sections": {
+    "banner": {
+      "type": "bonhomia-assisted-banner",
+      "settings": {
+        "badge_label": "Mueble a medida",
+        "text": "Diseñamos y fabricamos piezas únicas para tu espacio. Cotización gratuita en 24-48 horas.",
+        "link_label": "Conocé el proceso",
+        "link_url": "#proceso",
+        "background_color": "warm-white"
+      }
+    },
+    "hero": {
+      "type": "bonhomia-hero",
+      "settings": {
+        "eyebrow_text": "Compra asistida · Bonhomia",
+        "heading_line_1": "Tu mueble,",
+        "heading_line_2": "hecho a tu medida",
+        "subheading": "Contanos qué necesitás. Te respondemos con propuesta, precio y plazos. Vos decidís el siguiente paso.",
+        "cta1_label": "Solicitar cotización",
+        "cta1_url": "#quote",
+        "cta2_label": "Cómo funciona",
+        "cta2_url": "#proceso",
+        "show_scroll_indicator": false,
+        "scroll_label": "Scroll"
+      }
+    },
+    "process": {
+      "type": "bonhomia-process-steps",
+      "settings": {
+        "eyebrow": "Cómo funciona",
+        "heading": "Del pedido al living",
+        "background_color": "warm-white"
+      },
+      "blocks": {
+        "s1": {
+          "type": "step",
+          "settings": {
+            "title": "Completás el formulario",
+            "text": "Dimensiones, material, acabado y comentarios."
+          }
+        },
+        "s2": {
+          "type": "step",
+          "settings": {
+            "title": "Recibís la cotización",
+            "text": "En 24-48 horas por email con precio y tiempos."
+          }
+        },
+        "s3": {
+          "type": "step",
+          "settings": {
+            "title": "Aprobás y pagás la seña",
+            "text": "30% para iniciar la fabricación."
+          }
+        },
+        "s4": {
+          "type": "step",
+          "settings": {
+            "title": "Seguimiento en tiempo real",
+            "text": "Te avisamos en cada etapa del proceso."
+          }
+        },
+        "s5": {
+          "type": "step",
+          "settings": {
+            "title": "Entrega y saldo final",
+            "text": "Pagás el saldo al recibir el mueble."
+          }
+        }
+      },
+      "block_order": [
+        "s1",
+        "s2",
+        "s3",
+        "s4",
+        "s5"
+      ]
+    },
+    "quote": {
+      "type": "bonhomia-quote-cta",
+      "settings": {}
+    },
+    "brand": {
+      "type": "image-with-text",
+      "settings": {
+        "bonhomia_variant": "brand-section",
+        "bh_eyebrow": "Por qué a medida",
+        "bh_quote": "<p>\"Diseñamos para tu espacio, no al revés. Cada pieza nace de una conversación.\"</p>",
+        "bh_signature": "Taller Bonhomia",
+        "bh_body": "<p>Cuando un mueble se hace a medida, encaja mejor — literalmente — y se siente propio. Trabajamos con vos para definir dimensiones, material y acabado hasta que la pieza calza con tu vida.</p>",
+        "bh_cta_label": "Ver muebles a medida",
+        "bh_cta_url": "/collections/a-medida",
+        "layout": "text_first",
+        "padding_top": 64,
+        "padding_bottom": 64
+      }
+    }
+  },
+  "order": [
+    "banner",
+    "hero",
+    "process",
+    "quote",
+    "brand"
+  ]
+}

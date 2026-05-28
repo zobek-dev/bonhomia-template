@@ -55,6 +55,18 @@
           "type": "description",
           "settings": {}
         },
+        "highlights": {
+          "type": "highlights",
+          "settings": {
+            "content": "<ul><li>Roble americano macizo, no enchapado</li><li>Acabado al aceite Rubio Monocoat (no tóxico)</li><li>Ensamble tradicional encolado, sin tornillos visibles</li><li>Garantía de fabricación: 3 años</li></ul>"
+          }
+        },
+        "wishlist": {
+          "type": "wishlist",
+          "settings": {
+            "label": "Guardar en lista de deseos"
+          }
+        },
         "collapsible-row-0": {
           "type": "collapsible_tab",
           "settings": {
@@ -106,6 +118,8 @@
         "variant_picker",
         "quantity_selector",
         "buy_buttons",
+        "wishlist",
+        "highlights",
         "description",
         "collapsible-row-0",
         "collapsible-row-1",

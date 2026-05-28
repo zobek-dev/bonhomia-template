@@ -1,0 +1,165 @@
+{%- liquid
+  assign fallback_bg = '#c8b8a0'
+  if section.settings.image == blank
+    assign fallback_bg = 'linear-gradient(160deg, #c8b8a0 0%, #8a7060 100%)'
+  endif
+-%}
+<section
+  class="bonhomia-hero tw-relative tw-flex tw-w-full tw-items-end tw-overflow-hidden max-md:tw-min-h-[520px] md:tw-h-[86vh] md:tw-min-h-[600px]"
+  style="max-height: 840px; background: {{ fallback_bg }};"
+>
+  {%- if section.settings.image != blank -%}
+    <div class="tw-absolute tw-inset-0">
+      {{
+        section.settings.image
+        | image_url: width: 2400
+        | image_tag:
+          loading: 'eager',
+          fetchpriority: 'high',
+          widths: '600, 900, 1200, 1600, 2000, 2400',
+          sizes: '100vw',
+          class: 'tw-w-full tw-h-full tw-object-cover'
+      }}
+    </div>
+  {%- endif -%}
+
+  <div class="bh-overlay bh-overlay--hero" aria-hidden="true"></div>
+
+  <div class="tw-relative tw-z-10 tw-w-full tw-max-w-[680px] tw-px-5 tw-pb-9 md:tw-px-16 md:tw-pb-[72px] lg:tw-px-[64px] [text-shadow:0_1px_18px_rgba(0,0,0,0.26)]">
+    {%- if section.settings.eyebrow_text != blank -%}
+      <p class="tw-mb-4 tw-font-sans tw-text-[10px] tw-uppercase tw-tracking-[0.18em] tw-text-white/75 md:tw-text-[11px] md:tw-mb-4">
+        {{ section.settings.eyebrow_text | escape }}
+      </p>
+    {%- endif -%}
+
+    {%- if section.settings.heading_line_1 != blank or section.settings.heading_line_2 != blank -%}
+      <h1 class="tw-mb-5 tw-font-serif tw-text-[30px] tw-font-semibold tw-leading-[1.1] tw-tracking-[-0.5px] tw-text-white md:tw-text-[52px]">
+        {%- if section.settings.heading_line_1 != blank -%}
+          {{ section.settings.heading_line_1 | escape }}
+        {%- endif -%}
+        {%- if section.settings.heading_line_2 != blank -%}
+          <br>
+          {{ section.settings.heading_line_2 | escape }}
+        {%- endif -%}
+      </h1>
+    {%- endif -%}
+
+    {%- if section.settings.subheading != blank -%}
+      <p class="tw-mb-8 tw-max-w-[440px] tw-font-sans tw-text-sm tw-leading-[1.7] tw-text-white/88 md:tw-text-base">
+        {{ section.settings.subheading | escape }}
+      </p>
+    {%- endif -%}
+
+    <div class="tw-flex tw-flex-wrap tw-gap-3 max-md:tw-flex-col">
+      {%- if section.settings.cta1_label != blank -%}
+        <a href="{{ section.settings.cta1_url | default: '#' }}" class="btn-primary max-md:tw-w-full">{{ section.settings.cta1_label | escape }}</a>
+      {%- endif -%}
+      {%- if section.settings.cta2_label != blank -%}
+        <a
+          href="{{ section.settings.cta2_url | default: '#' }}"
+          class="btn-outline tw-border-white/60 tw-text-white hover:tw-bg-charcoal hover:tw-border-charcoal hover:tw-text-white max-md:tw-w-full"
+        >{{ section.settings.cta2_label | escape }}</a>
+      {%- endif -%}
+    </div>
+  </div>
+
+  {%- if section.settings.show_scroll_indicator -%}
+    <div class="tw-absolute tw-bottom-8 tw-right-5 tw-z-10 tw-hidden tw-flex-col tw-items-center tw-gap-2 md:tw-right-16 md:tw-flex" aria-hidden="true">
+      <span class="tw-font-sans tw-text-[10px] tw-uppercase tw-tracking-[0.14em] tw-text-white/50">{{ section.settings.scroll_label | default: 'Scroll' }}</span>
+      <span class="tw-block tw-h-10 tw-w-px tw-bg-white/30"></span>
+    </div>
+  {%- endif -%}
+</section>
+
+{% schema %}
+{
+  "name": "Bonhomia Hero",
+  "tag": "section",
+  "class": "section bonhomia-hero-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "image",
+      "label": "Imagen de fondo"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow_text",
+      "label": "Eyebrow",
+      "default": "Colección 2026 — Madera maciza"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_1",
+      "label": "Título — línea 1",
+      "default": "Muebles que"
+    },
+    {
+      "type": "text",
+      "id": "heading_line_2",
+      "label": "Título — línea 2",
+      "default": "cuentan tu historia"
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subtítulo",
+      "default": "Piezas artesanales diseñadas para adaptarse a tu espacio. Compra en stock o encarga a medida."
+    },
+    {
+      "type": "header",
+      "content": "CTA principal"
+    },
+    {
+      "type": "text",
+      "id": "cta1_label",
+      "label": "Etiqueta",
+      "default": "Ver catálogo"
+    },
+    {
+      "type": "url",
+      "id": "cta1_url",
+      "label": "Enlace"
+    },
+    {
+      "type": "header",
+      "content": "CTA secundaria"
+    },
+    {
+      "type": "text",
+      "id": "cta2_label",
+      "label": "Etiqueta",
+      "default": "Pedir a medida"
+    },
+    {
+      "type": "url",
+      "id": "cta2_url",
+      "label": "Enlace"
+    },
+    {
+      "type": "header",
+      "content": "Scroll"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_scroll_indicator",
+      "label": "Mostrar indicador de scroll",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "scroll_label",
+      "label": "Etiqueta del scroll",
+      "default": "Scroll"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Bonhomia Hero"
+    }
+  ]
+}
+{% endschema %}

@@ -18,155 +18,158 @@
   {%- assign hide_shop_login_button = true -%}
 {%- endif -%}
 
-<div class="customer login section-{{ section.id }}-padding">
-  <h1 id="recover" tabindex="-1">
-    {{ 'customer.recover_password.title' | t }}
-  </h1>
-  <div>
-    <p>
-      {{ 'customer.recover_password.subtext' | t }}
-    </p>
+<div class="customer login tw-bg-cream tw-py-16 md:tw-py-24 section-{{ section.id }}-padding">
+  <div class="tw-max-w-xl tw-mx-auto tw-px-6">
+    {%- comment -%} Recover password {%- endcomment -%}
+    <div class="tw-mb-16">
+      <span class="eyebrow tw-mb-3">Acceso</span>
+      <h1 id="recover" tabindex="-1" class="tw-font-serif tw-text-3xl md:tw-text-4xl tw-text-charcoal tw-mt-2 tw-mb-4">
+        Recuperar contraseña
+      </h1>
+      <p class="tw-font-sans tw-text-charcoal tw-mb-6">
+        Te enviaremos un correo para restablecer tu contraseña.
+      </p>
 
-    {%- form 'recover_customer_password' -%}
-      {% assign recover_success = form.posted_successfully? %}
-      <div class="field">
-        <input
-          type="email"
-          value=""
-          name="email"
-          id="RecoverEmail"
-          autocorrect="off"
-          autocapitalize="off"
-          autocomplete="email"
-          {% if form.errors %}
-            aria-invalid="true"
-            aria-describedby="RecoverEmail-email-error"
-            autofocus
-          {% endif %}
-          placeholder="{{ 'customer.login_page.email' | t }}"
-        >
-        <label for="RecoverEmail">
-          {{ 'customer.login_page.email' | t }}
-        </label>
-      </div>
-      {%- if form.errors -%}
-        <small id="RecoverEmail-email-error" class="form__message">
-          <span class="svg-wrapper">
-            {{- 'icon-error.svg' | inline_asset_content -}}
-          </span>
-          {{ form.errors.messages.form }}
-        </small>
-      {%- endif -%}
-
-      <button>
-        {{ 'customer.login_page.submit' | t }}
-      </button>
-
-      <a href="#login">
-        {{ 'customer.login_page.cancel' | t }}
-      </a>
-    {%- endform -%}
-  </div>
-
-  <h1 id="login" tabindex="-1">
-    {{ 'customer.login_page.title' | t }}
-  </h1>
-  <div>
-    {%- if recover_success == true -%}
-      <h3 class="form__message" tabindex="-1" autofocus>
-        <span class="svg-wrapper">
-          {{- 'icon-success.svg' | inline_asset_content -}}
-        </span>
-        {{ 'customer.recover_password.success' | t }}
-      </h3>
-    {%- endif -%}
-    {%- form 'customer_login', novalidate: 'novalidate' -%}
-      {%- if form.errors -%}
-        <h2 class="form__message" tabindex="-1" autofocus>
-          <span class="visually-hidden">{{ 'accessibility.error' | t }} </span>
-          <span class="svg-wrapper">
-            {{- 'icon-error.svg' | inline_asset_content -}}
-          </span>
-          {{ 'templates.contact.form.error_heading' | t }}
-        </h2>
-        {{ form.errors | default_errors }}
-      {%- endif -%}
-
-      {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
-        <section name="sign-in-with-shop-provider">
-          {{ shop | login_button: hide_button: hide_shop_login_button }}
-
-          {%- unless hide_shop_login_button -%}
-            <p>
-              {{ 'customer.login_page.alternate_provider_separator' | t }}
-            </p>
-          {%- endunless -%}
-        </section>
-      {%- endif -%}
-
-      <div class="field">
-        <input
-          type="email"
-          name="customer[email]"
-          id="CustomerEmail"
-          autocomplete="email"
-          autocorrect="off"
-          autocapitalize="off"
-          {% if form.errors contains 'form' %}
-            aria-invalid="true"
-          {% endif %}
-          placeholder="{{ 'customer.login_page.email' | t }}"
-        >
-        <label for="CustomerEmail">
-          {{ 'customer.login_page.email' | t }}
-        </label>
-      </div>
-
-      {%- if form.password_needed -%}
-        <div class="field">
+      {%- form 'recover_customer_password' -%}
+        {% assign recover_success = form.posted_successfully? %}
+        <div class="tw-mb-4">
+          <label for="RecoverEmail" class="tw-block tw-font-sans tw-text-xs tw-tracking-tracked-lg tw-uppercase tw-text-taupe tw-mb-2">
+            Email
+          </label>
           <input
-            type="password"
+            type="email"
             value=""
-            name="customer[password]"
-            id="CustomerPassword"
-            autocomplete="current-password"
+            name="email"
+            id="RecoverEmail"
+            autocorrect="off"
+            autocapitalize="off"
+            autocomplete="email"
+            {% if form.errors %}
+              aria-invalid="true"
+              aria-describedby="RecoverEmail-email-error"
+              autofocus
+            {% endif %}
+            placeholder="tu@email.com"
+            class="tw-w-full tw-border tw-border-border-soft tw-rounded-sm tw-px-3 tw-py-2 tw-bg-warm-white tw-font-sans tw-text-charcoal focus:tw-border-charcoal focus:tw-outline-none"
+          >
+        </div>
+        {%- if form.errors -%}
+          <small id="RecoverEmail-email-error" class="tw-block tw-font-sans tw-text-sm tw-text-accent tw-mb-4">
+            {{ form.errors.messages.form }}
+          </small>
+        {%- endif -%}
+
+        <div class="tw-flex tw-items-center tw-gap-4 tw-mt-6">
+          <button type="submit" class="btn-primary">
+            Enviar
+          </button>
+          <a href="#login" class="btn-ghost">
+            Cancelar
+          </a>
+        </div>
+      {%- endform -%}
+    </div>
+
+    {%- comment -%} Login {%- endcomment -%}
+    <div class="tw-mb-12">
+      <span class="eyebrow tw-mb-3">Mi cuenta</span>
+      <h1 id="login" tabindex="-1" class="tw-font-serif tw-text-3xl md:tw-text-4xl tw-text-charcoal tw-mt-2 tw-mb-6">
+        Iniciar sesión
+      </h1>
+
+      {%- if recover_success == true -%}
+        <p class="tw-font-sans tw-text-sm tw-text-sage tw-mb-6" tabindex="-1" autofocus>
+          Te enviamos un correo para restablecer tu contraseña.
+        </p>
+      {%- endif -%}
+
+      {%- form 'customer_login', novalidate: 'novalidate' -%}
+        {%- if form.errors -%}
+          <div class="tw-font-sans tw-text-sm tw-text-accent tw-mb-4" tabindex="-1" autofocus>
+            <span class="tw-sr-only">{{ 'accessibility.error' | t }} </span>
+            {{ 'templates.contact.form.error_heading' | t }}
+            {{ form.errors | default_errors }}
+          </div>
+        {%- endif -%}
+
+        {%- if shop.features.login_with_shop_classic_customer_accounts? -%}
+          <section name="sign-in-with-shop-provider" class="tw-mb-6">
+            {{ shop | login_button: hide_button: hide_shop_login_button }}
+
+            {%- unless hide_shop_login_button -%}
+              <p class="tw-font-sans tw-text-xs tw-tracking-tracked tw-uppercase tw-text-taupe tw-text-center tw-my-4">
+                {{ 'customer.login_page.alternate_provider_separator' | t }}
+              </p>
+            {%- endunless -%}
+          </section>
+        {%- endif -%}
+
+        <div class="tw-mb-4">
+          <label for="CustomerEmail" class="tw-block tw-font-sans tw-text-xs tw-tracking-tracked-lg tw-uppercase tw-text-taupe tw-mb-2">
+            Email
+          </label>
+          <input
+            type="email"
+            name="customer[email]"
+            id="CustomerEmail"
+            autocomplete="email"
+            autocorrect="off"
+            autocapitalize="off"
             {% if form.errors contains 'form' %}
               aria-invalid="true"
             {% endif %}
-            placeholder="{{ 'customer.login_page.password' | t }}"
+            placeholder="tu@email.com"
+            class="tw-w-full tw-border tw-border-border-soft tw-rounded-sm tw-px-3 tw-py-2 tw-bg-warm-white tw-font-sans tw-text-charcoal focus:tw-border-charcoal focus:tw-outline-none"
           >
-          <label for="CustomerPassword">
-            {{ 'customer.login_page.password' | t }}
-          </label>
         </div>
 
-        <a href="#recover">
-          {{ 'customer.login_page.forgot_password' | t }}
-        </a>
-      {%- endif -%}
+        {%- if form.password_needed -%}
+          <div class="tw-mb-2">
+            <label for="CustomerPassword" class="tw-block tw-font-sans tw-text-xs tw-tracking-tracked-lg tw-uppercase tw-text-taupe tw-mb-2">
+              Contraseña
+            </label>
+            <input
+              type="password"
+              value=""
+              name="customer[password]"
+              id="CustomerPassword"
+              autocomplete="current-password"
+              {% if form.errors contains 'form' %}
+                aria-invalid="true"
+              {% endif %}
+              placeholder="••••••••"
+              class="tw-w-full tw-border tw-border-border-soft tw-rounded-sm tw-px-3 tw-py-2 tw-bg-warm-white tw-font-sans tw-text-charcoal focus:tw-border-charcoal focus:tw-outline-none"
+            >
+          </div>
 
-      <button>
-        {{ 'customer.login_page.sign_in' | t }}
-      </button>
+          <a href="#recover" class="tw-font-sans tw-text-sm tw-text-accent hover:tw-underline tw-mb-6 tw-inline-block">
+            ¿Olvidaste tu contraseña?
+          </a>
+        {%- endif -%}
 
-      <a href="{{ routes.account_register_url }}">
-        {{ 'customer.login_page.create_account' | t }}
-      </a>
-    {%- endform -%}
-  </div>
-
-  {%- if shop.checkout.guest_login -%}
-    <div>
-      <hr>
-      <h2>{{ 'customer.login_page.guest_title' | t }}</h2>
-
-      {%- form 'guest_login' -%}
-        <button>
-          {{ 'customer.login_page.guest_continue' | t }}
-        </button>
+        <div class="tw-flex tw-items-center tw-gap-4 tw-mt-4">
+          <button type="submit" class="btn-primary">
+            Ingresar
+          </button>
+          <a href="{{ routes.account_register_url }}" class="tw-font-sans tw-text-sm tw-text-accent hover:tw-underline">
+            Crear cuenta
+          </a>
+        </div>
       {%- endform -%}
     </div>
-  {%- endif -%}
+
+    {%- if shop.checkout.guest_login -%}
+      <div class="tw-pt-8 tw-border-t tw-border-border-soft">
+        <h2 class="tw-font-serif tw-text-2xl tw-text-charcoal tw-mb-4">Continuar como invitado</h2>
+
+        {%- form 'guest_login' -%}
+          <button type="submit" class="btn-outline">
+            Continuar
+          </button>
+        {%- endform -%}
+      </div>
+    {%- endif -%}
+  </div>
 </div>
 
 {% schema %}

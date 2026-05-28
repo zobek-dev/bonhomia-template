@@ -1,39 +1,52 @@
+{%- comment -%}
+  Cart notification product (re-skin Bonhomia).
+
+  Conserva ids `cart-notification-product-{{ item.key }}` y .cart-item:
+  cart-notification.js inyecta este markup en #cart-notification-product.
+{%- endcomment -%}
+
 {%- if cart != empty -%}
   {%- for item in cart.items -%}
-    <div id="cart-notification-product-{{ item.key }}" class="cart-item">
+    <div
+      id="cart-notification-product-{{ item.key }}"
+      class="cart-item tw-flex tw-gap-3 tw-items-start tw-w-full"
+    >
       {%- if item.image -%}
-        <div class="cart-notification-product__image global-media-settings">
+        <div class="cart-notification-product__image global-media-settings tw-w-16 tw-h-16 tw-shrink-0 tw-bg-cream tw-overflow-hidden">
           <img
             src="{{ item.image | image_url: width: 140 }}"
             alt="{{ item.image.alt | escape }}"
             width="70"
             height="{{ 70 | divided_by: item.image.aspect_ratio | ceil }}"
             loading="lazy"
+            class="tw-w-full tw-h-full tw-object-cover"
           >
         </div>
       {%- endif -%}
-      <div>
+      <div class="tw-flex-1 tw-min-w-0">
         {%- if settings.show_vendor -%}
-          <p class="caption-with-letter-spacing light">{{ item.product.vendor }}</p>
+          <p class="eyebrow tw-m-0 tw-mb-1">{{ item.product.vendor }}</p>
         {%- endif -%}
-        <h3 class="cart-notification-product__name h4">{{ item.product.title | escape }}</h3>
-        <dl>
+        <h3 class="cart-notification-product__name tw-font-serif tw-text-base tw-text-charcoal tw-leading-snug tw-m-0">
+          {{ item.product.title | escape }}
+        </h3>
+        <dl class="tw-m-0 tw-mt-1 tw-text-xs tw-text-taupe">
           {%- unless item.product.has_only_default_variant -%}
             {%- for option in item.options_with_values -%}
-              <div class="product-option">
-                <dt>{{ option.name }}:</dt>
-                <dd>{{ option.value }}</dd>
+              <div class="product-option tw-inline tw-mr-2">
+                <dt class="tw-inline">{{ option.name }}:</dt>
+                <dd class="tw-inline tw-ml-1">{{ option.value }}</dd>
               </div>
             {%- endfor -%}
           {%- endunless -%}
           {%- for property in item.properties -%}
             {%- assign property_first_char = property.first | slice: 0 -%}
             {%- if property.last != blank and property_first_char != '_' -%}
-              <div class="product-option">
-                <dt>{{ property.first }}:</dt>
-                <dd>
+              <div class="product-option tw-inline tw-mr-2">
+                <dt class="tw-inline">{{ property.first }}:</dt>
+                <dd class="tw-inline tw-ml-1">
                   {%- if property.last contains '/uploads/' -%}
-                    <a href="{{ property.last }}" class="link" target="_blank">
+                    <a href="{{ property.last }}" class="link tw-underline" target="_blank">
                       {{ property.last | split: '/' | last }}
                     </a>
                   {%- else -%}
@@ -45,7 +58,7 @@
           {%- endfor -%}
         </dl>
         {%- if item.selling_plan_allocation != null -%}
-          <p class="product-option">{{ item.selling_plan_allocation.selling_plan.name }}</p>
+          <p class="product-option tw-text-xs tw-text-taupe tw-mt-1 tw-mb-0">{{ item.selling_plan_allocation.selling_plan.name }}</p>
         {%- endif -%}
       </div>
     </div>

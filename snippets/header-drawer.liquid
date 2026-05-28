@@ -5,6 +5,35 @@
   {% render 'header-drawer' %}
 {% endcomment %}
 
+{%- comment -%} Bonhomia re-skin: visual only; keeps Dawn IDs/data-attrs for details-disclosure JS {%- endcomment -%}
+<style>
+  .menu-drawer {
+    background: var(--bh-warm-white, #FAF8F5);
+  }
+  .menu-drawer .menu-drawer__menu-item {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--bh-charcoal, #2C2C2C);
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--bh-border, #E3DAD0);
+  }
+  .menu-drawer .menu-drawer__menu-item:hover,
+  .menu-drawer .menu-drawer__menu-item--active {
+    color: var(--bh-accent, #C17B3A);
+    background: transparent;
+  }
+  .menu-drawer__close-button {
+    font-family: 'Inter', system-ui, sans-serif;
+    font-size: 12px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--bh-taupe, #8B7D6B);
+  }
+</style>
+
 <header-drawer data-breakpoint="{% if section.settings.menu_type_desktop == 'drawer' %}desktop{% else %}tablet{% endif %}">
   <details id="Details-menu-drawer-container" class="menu-drawer-container">
     <summary
