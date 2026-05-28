@@ -5,11 +5,11 @@
   endif
 -%}
 <section
-  class="bonhomia-hero tw-relative tw-flex tw-w-full tw-items-end tw-overflow-hidden max-md:tw-min-h-[520px] md:tw-h-[86vh] md:tw-min-h-[600px]"
+  class="bonhomia-hero tw-relative tw-isolate tw-flex tw-w-full tw-items-end tw-overflow-hidden max-md:tw-min-h-[520px] md:tw-h-[86vh] md:tw-min-h-[600px]"
   style="max-height: 840px; background: {{ fallback_bg }};"
 >
   {%- if section.settings.image != blank -%}
-    <div class="tw-absolute tw-inset-0">
+    <div class="tw-absolute tw-inset-0 tw-z-0">
       {{
         section.settings.image
         | image_url: width: 2400
@@ -23,9 +23,9 @@
     </div>
   {%- endif -%}
 
-  <div class="bh-overlay bh-overlay--hero" aria-hidden="true"></div>
+  <div class="bh-overlay bh-overlay--hero tw-z-[1]" aria-hidden="true"></div>
 
-  <div class="tw-relative tw-z-10 tw-w-full tw-max-w-[680px] tw-px-5 tw-pb-9 md:tw-px-16 md:tw-pb-[72px] lg:tw-px-[64px] [text-shadow:0_1px_18px_rgba(0,0,0,0.26)]">
+  <div class="tw-relative tw-z-[2] tw-w-full tw-max-w-[680px] tw-px-5 tw-pb-9 md:tw-px-16 md:tw-pb-[72px] lg:tw-px-[64px] [text-shadow:0_1px_24px_rgba(0,0,0,0.42)]">
     {%- if section.settings.eyebrow_text != blank -%}
       <p class="tw-mb-4 tw-font-sans tw-text-[10px] tw-uppercase tw-tracking-[0.18em] tw-text-white/75 md:tw-text-[11px] md:tw-mb-4">
         {{ section.settings.eyebrow_text | escape }}
@@ -45,7 +45,7 @@
     {%- endif -%}
 
     {%- if section.settings.subheading != blank -%}
-      <p class="tw-mb-8 tw-max-w-[440px] tw-font-sans tw-text-sm tw-leading-[1.7] tw-text-white/88 md:tw-text-base">
+      <p class="bonhomia-hero__sub tw-mb-8 tw-max-w-[440px] tw-font-sans tw-text-sm tw-leading-[1.7] md:tw-text-base">
         {{ section.settings.subheading | escape }}
       </p>
     {%- endif -%}
@@ -64,7 +64,7 @@
   </div>
 
   {%- if section.settings.show_scroll_indicator -%}
-    <div class="tw-absolute tw-bottom-8 tw-right-5 tw-z-10 tw-hidden tw-flex-col tw-items-center tw-gap-2 md:tw-right-16 md:tw-flex" aria-hidden="true">
+    <div class="tw-absolute tw-bottom-8 tw-right-5 tw-z-[2] tw-hidden tw-flex-col tw-items-center tw-gap-2 md:tw-right-16 md:tw-flex" aria-hidden="true">
       <span class="tw-font-sans tw-text-[10px] tw-uppercase tw-tracking-[0.14em] tw-text-white/50">{{ section.settings.scroll_label | default: 'Scroll' }}</span>
       <span class="tw-block tw-h-10 tw-w-px tw-bg-white/30"></span>
     </div>

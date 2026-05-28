@@ -117,6 +117,225 @@ body.gradient {
   background-attachment: scroll;
 }
 
+/* Intro strip — docs/mockup-tienda.html */
+.shopify-section.bonhomia-intro-strip,
+.bh-intro-strip {
+  background-color: #F5F0E8;
+}
+
+.bh-intro-strip {
+  border-top: 1px solid #E3DAD0;
+  border-bottom: 1px solid #E3DAD0;
+}
+
+.bh-intro-strip__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0;
+  padding: 24px 48px;
+}
+
+.bh-intro-strip__item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  min-height: 48px;
+  padding: 0 24px;
+  border-right: 1px solid #E3DAD0;
+}
+
+.bh-intro-strip__item:last-child {
+  border-right: none;
+}
+
+.bh-intro-strip__icon {
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid rgba(193, 123, 58, 0.26);
+  border-radius: 50%;
+  background: rgba(193, 123, 58, 0.08);
+  color: #C17B3A;
+}
+
+.bh-intro-strip__icon svg {
+  width: 17px;
+  height: 17px;
+}
+
+.bh-intro-strip__text {
+  margin: 0;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.45;
+  color: #8B7D6B;
+}
+
+.bh-intro-strip__text strong {
+  color: #2C2C2C;
+  font-weight: 500;
+}
+
+.bonhomia-intro-strip.section + .section {
+  margin-top: 0;
+}
+
+@media screen and (max-width: 749px) {
+  .bh-intro-strip__grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 1px;
+    padding: 16px;
+    background: #E3DAD0;
+  }
+
+  .bh-intro-strip__item {
+    justify-content: flex-start;
+    align-items: flex-start;
+    min-height: 86px;
+    padding: 14px;
+    border-right: none;
+    background: #F5F0E8;
+  }
+}
+
+/* Footer — docs/mockup-tienda.html */
+.bh-footer {
+  background: #2C2C2C;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.bh-footer__inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding-left: 48px;
+  padding-right: 48px;
+}
+
+.bh-footer__grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 40px;
+  padding-bottom: 40px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.bh-footer__logo-link {
+  display: inline-block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.bh-footer__logo-image {
+  display: block;
+  max-width: 160px;
+  max-height: 48px;
+  width: auto;
+  height: auto;
+}
+
+.bh-footer__logo {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+  margin-bottom: 12px;
+}
+
+.bh-footer__desc {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  line-height: 1.8;
+  max-width: 240px;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+.bh-footer__desc p {
+  margin: 0;
+  color: inherit;
+}
+
+.bh-footer__col-title {
+  margin: 0 0 16px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.bh-footer__links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.bh-footer__links a {
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.65);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+
+.bh-footer__links a:hover {
+  color: #fff;
+}
+
+.bh-footer__bottom {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 16px;
+  padding-top: 24px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 12px;
+  color: rgba(255, 255, 255, 0.55);
+}
+
+@media screen and (max-width: 989px) {
+  .bh-footer__grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px 24px;
+  }
+
+  .bh-footer__brand {
+    grid-column: 1 / -1;
+  }
+}
+
+@media screen and (max-width: 749px) {
+  .bh-footer__inner {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .bh-footer__grid {
+    grid-template-columns: 1fr;
+    gap: 22px;
+    padding-bottom: 28px;
+  }
+
+  .bh-footer__bottom {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .bh-footer__links {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px 16px;
+  }
+}
+
 /* Home hero — outside @layer so styles win over Dawn base.css */
 .home-hero {
   position: relative;
@@ -144,6 +363,14 @@ body.gradient {
 }
 
 /* Shared image overlays — docs/mockup-tienda.html */
+.bonhomia-hero-section {
+  z-index: 0;
+}
+
+.bonhomia-hero .bonhomia-hero__sub {
+  color: #fff;
+}
+
 .bh-overlay {
   position: absolute;
   inset: 0;
@@ -152,18 +379,18 @@ body.gradient {
 
 .bh-overlay--hero {
   background:
-    radial-gradient(ellipse at 18% 78%, rgba(29, 22, 17, 0.76) 0%, rgba(29, 22, 17, 0.52) 26%, rgba(29, 22, 17, 0) 56%),
-    linear-gradient(to top, rgba(29, 22, 17, 0.38) 0%, rgba(29, 22, 17, 0.08) 55%, rgba(29, 22, 17, 0) 100%);
+    radial-gradient(ellipse at 18% 78%, rgba(29, 22, 17, 0.88) 0%, rgba(29, 22, 17, 0.62) 28%, rgba(29, 22, 17, 0) 58%),
+    linear-gradient(to top, rgba(29, 22, 17, 0.52) 0%, rgba(29, 22, 17, 0.16) 55%, rgba(29, 22, 17, 0.04) 100%);
 }
 
 .bh-overlay--mode {
-  background: linear-gradient(to top, rgba(44, 32, 20, 0.75) 40%, transparent 75%);
+  background: linear-gradient(to top, rgba(44, 32, 20, 0.92) 36%, rgba(44, 32, 20, 0.22) 70%, transparent 78%);
   transition: background 0.3s ease;
 }
 
 .group:hover .bh-overlay--mode,
 .bh-mode-card:hover .bh-overlay--mode {
-  background: linear-gradient(to top, rgba(44, 32, 20, 0.85) 50%, rgba(44, 32, 20, 0.2) 100%);
+  background: linear-gradient(to top, rgba(44, 32, 20, 0.96) 46%, rgba(44, 32, 20, 0.4) 100%);
 }
 
 .bh-overlay--collection {
@@ -181,7 +408,7 @@ section.home-hero-section.section + section.section {
   max-width: 680px;
   padding: 0 64px 72px;
   color: #fff;
-  text-shadow: 0 1px 18px rgba(0, 0, 0, 0.26);
+  text-shadow: 0 1px 24px rgba(0, 0, 0, 0.42);
 }
 
 .home-hero__eyebrow {
@@ -282,8 +509,8 @@ section.home-hero-section.section + section.section {
 
   .bh-overlay--hero {
     background:
-      linear-gradient(to top, rgba(29, 22, 17, 0.76) 0%, rgba(29, 22, 17, 0.46) 42%, rgba(29, 22, 17, 0.06) 78%),
-      radial-gradient(ellipse at 28% 78%, rgba(29, 22, 17, 0.6) 0%, rgba(29, 22, 17, 0) 62%);
+      linear-gradient(to top, rgba(29, 22, 17, 0.86) 0%, rgba(29, 22, 17, 0.56) 42%, rgba(29, 22, 17, 0.12) 78%),
+      radial-gradient(ellipse at 28% 78%, rgba(29, 22, 17, 0.72) 0%, rgba(29, 22, 17, 0) 62%);
   }
 
   .home-hero__content {

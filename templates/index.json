@@ -66,10 +66,7 @@
         "feat2",
         "feat3",
         "feat4"
-      ],
-      "settings": {
-        "background_color": "warm-white"
-      }
+      ]
     },
     "modes_grid": {
       "type": "bonhomia-modes-grid",

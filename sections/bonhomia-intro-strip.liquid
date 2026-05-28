@@ -1,37 +1,31 @@
-{%- liquid
-  assign bg = section.settings.background_color | default: 'cream'
--%}
-
-<section class="tw-bg-{{ bg }} tw-border-y tw-border-border-soft">
-  <div class="page-width !tw-py-10 md:!tw-py-14">
-    <div class="tw-grid tw-grid-cols-1 sm:tw-grid-cols-2 lg:tw-grid-cols-4 tw-gap-8 md:tw-gap-10">
-      {%- for block in section.blocks -%}
-        <div class="tw-flex tw-items-start tw-gap-4" {{ block.shopify_attributes }}>
-          <span class="tw-flex-shrink-0 tw-flex tw-items-center tw-justify-center tw-w-10 tw-h-10 tw-rounded-pill tw-bg-cream tw-text-walnut">
-            {%- case block.settings.icon -%}
-              {%- when 'leaf' -%}{% render 'bonhomia-icon-leaf' %}
-              {%- when 'hammer' -%}{% render 'bonhomia-icon-hammer' %}
-              {%- when 'ruler' -%}{% render 'bonhomia-icon-ruler' %}
-              {%- when 'truck' -%}{% render 'bonhomia-icon-truck' %}
-              {%- when 'tree' -%}{% render 'bonhomia-icon-tree' %}
-              {%- when 'shield' -%}{% render 'bonhomia-icon-shield' %}
-              {%- when 'chat' -%}{% render 'bonhomia-icon-chat' %}
-              {%- else -%}{% render 'bonhomia-icon-leaf' %}
-            {%- endcase -%}
-          </span>
-          <div class="tw-text-sm tw-leading-relaxed">
-            {%- if block.settings.title != blank -%}
-              <p class="tw-font-sans tw-font-semibold tw-text-charcoal tw-mb-1">{{ block.settings.title | escape }}</p>
-            {%- endif -%}
-            {%- if block.settings.text != blank -%}
-              <p class="tw-font-sans tw-text-taupe tw-text-sm">{{ block.settings.text | escape }}</p>
-            {%- endif -%}
-          </div>
-        </div>
-      {%- endfor -%}
-    </div>
+<div class="bh-intro-strip">
+  <div class="bh-intro-strip__grid">
+    {%- for block in section.blocks -%}
+      <div class="bh-intro-strip__item" {{ block.shopify_attributes }}>
+        <span class="bh-intro-strip__icon" aria-hidden="true">
+          {%- case block.settings.icon -%}
+            {%- when 'leaf' -%}{% render 'bonhomia-icon-leaf' %}
+            {%- when 'hammer' -%}{% render 'bonhomia-icon-hammer' %}
+            {%- when 'ruler' -%}{% render 'bonhomia-icon-ruler' %}
+            {%- when 'truck' -%}{% render 'bonhomia-icon-truck' %}
+            {%- when 'tree' -%}{% render 'bonhomia-icon-tree' %}
+            {%- when 'shield' -%}{% render 'bonhomia-icon-shield' %}
+            {%- when 'chat' -%}{% render 'bonhomia-icon-chat' %}
+            {%- else -%}{% render 'bonhomia-icon-leaf' %}
+          {%- endcase -%}
+        </span>
+        <p class="bh-intro-strip__text">
+          {%- if block.settings.title != blank -%}
+            <strong>{{ block.settings.title | escape }}</strong>
+          {%- endif -%}
+          {%- if block.settings.text != blank -%}
+            {{ ' ' }}{{ block.settings.text | escape }}
+          {%- endif -%}
+        </p>
+      </div>
+    {%- endfor -%}
   </div>
-</section>
+</div>
 
 {% schema %}
 {
@@ -42,19 +36,7 @@
   "disabled_on": {
     "groups": ["header", "footer"]
   },
-  "settings": [
-    {
-      "type": "select",
-      "id": "background_color",
-      "label": "Fondo",
-      "options": [
-        { "value": "warm-white", "label": "Warm white" },
-        { "value": "cream", "label": "Cream" },
-        { "value": "sand", "label": "Sand" }
-      ],
-      "default": "cream"
-    }
-  ],
+  "settings": [],
   "blocks": [
     {
       "type": "feature",

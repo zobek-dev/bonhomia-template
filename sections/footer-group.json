@@ -4,53 +4,17 @@
   "sections": {
     "footer": {
       "type": "footer",
-      "blocks": {
-        "footer-brand": {
-          "type": "text",
-          "settings": {
-            "heading": "Bonhomia",
-            "subtext": "<p>Muebles artesanales hechos a medida en Patagonia. Cada pieza, una historia.<\/p>"
-          }
-        },
-        "footer-shop": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Tienda",
-            "menu": "footer"
-          }
-        },
-        "footer-help": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Ayuda",
-            "menu": "footer"
-          }
-        },
-        "footer-company": {
-          "type": "link_list",
-          "settings": {
-            "heading": "Empresa",
-            "menu": "footer"
-          }
-        }
-      },
-      "block_order": [
-        "footer-brand",
-        "footer-shop",
-        "footer-help",
-        "footer-company"
-      ],
       "settings": {
-        "color_scheme": "scheme-1",
-        "newsletter_enable": false,
-        "newsletter_heading": "",
-        "show_social": false,
-        "enable_follow_on_shop": false,
-        "enable_country_selector": false,
-        "enable_language_selector": true,
-        "payment_enable": true,
-        "show_policy": true,
-        "margin_top": 80,
+        "logo_text": "Bonhomia.",
+        "description": "<p>Muebles artesanales de alta calidad, fabricados en Chile con maderas nobles y diseño atemporal.</p>",
+        "menu_1_heading": "Tienda",
+        "menu_1": "footer",
+        "menu_2_heading": "Ayuda",
+        "menu_2": "footer",
+        "menu_3_heading": "Empresa",
+        "menu_3": "footer",
+        "copyright_note": "Todos los derechos reservados.",
+        "bottom_tagline": "Diseño artesanal · Hecho en Chile",
         "padding_top": 56,
         "padding_bottom": 32
       }
