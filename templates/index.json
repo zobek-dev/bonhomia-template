@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "sections": {
     "hero": {
@@ -18,12 +27,45 @@
     "intro_strip": {
       "type": "bonhomia-intro-strip",
       "blocks": {
-        "feat1": { "type": "feature", "settings": { "icon": "leaf",   "title": "Madera maciza",          "text": "seleccionada a mano" } },
-        "feat2": { "type": "feature", "settings": { "icon": "hammer", "title": "Fabricación artesanal", "text": "en Chile" } },
-        "feat3": { "type": "feature", "settings": { "icon": "ruler",  "title": "Personalización",       "text": "a tu medida exacta" } },
-        "feat4": { "type": "feature", "settings": { "icon": "truck",  "title": "Despacho",              "text": "a todo Chile" } }
+        "feat1": {
+          "type": "feature",
+          "settings": {
+            "icon": "leaf",
+            "title": "Madera maciza",
+            "text": "seleccionada a mano"
+          }
+        },
+        "feat2": {
+          "type": "feature",
+          "settings": {
+            "icon": "hammer",
+            "title": "Fabricación artesanal",
+            "text": "en Chile"
+          }
+        },
+        "feat3": {
+          "type": "feature",
+          "settings": {
+            "icon": "ruler",
+            "title": "Personalización",
+            "text": "a tu medida exacta"
+          }
+        },
+        "feat4": {
+          "type": "feature",
+          "settings": {
+            "icon": "truck",
+            "title": "Despacho",
+            "text": "a todo Chile"
+          }
+        }
       },
-      "block_order": ["feat1", "feat2", "feat3", "feat4"],
+      "block_order": [
+        "feat1",
+        "feat2",
+        "feat3",
+        "feat4"
+      ],
       "settings": {
         "background_color": "warm-white"
       }
@@ -54,16 +96,33 @@
           }
         }
       },
-      "block_order": ["mode_direct", "mode_assisted"]
+      "block_order": [
+        "mode_direct",
+        "mode_assisted"
+      ],
+      "settings": {}
     },
     "collection_list": {
       "type": "collection-list",
       "blocks": {
-        "coll1": { "type": "featured_collection", "settings": {} },
-        "coll2": { "type": "featured_collection", "settings": {} },
-        "coll3": { "type": "featured_collection", "settings": {} }
+        "coll1": {
+          "type": "featured_collection",
+          "settings": {}
+        },
+        "coll2": {
+          "type": "featured_collection",
+          "settings": {}
+        },
+        "coll3": {
+          "type": "featured_collection",
+          "settings": {}
+        }
       },
-      "block_order": ["coll1", "coll2", "coll3"],
+      "block_order": [
+        "coll1",
+        "coll2",
+        "coll3"
+      ],
       "settings": {
         "title": "Explora por categoría",
         "heading_size": "h2",
@@ -80,15 +139,16 @@
     "featured_collection": {
       "type": "featured-collection",
       "settings": {
-        "title": "Los más queridos",
-        "heading_size": "h2",
         "collection": "all",
         "products_to_show": 4,
+        "title": "Los más queridos",
+        "heading_size": "h2",
         "columns_desktop": 4,
-        "color_scheme": "scheme-1",
+        "enable_desktop_slider": false,
+        "full_width": false,
         "show_view_all": true,
         "view_all_style": "outline",
-        "swipe_on_mobile": false,
+        "color_scheme": "scheme-1",
         "image_ratio": "square",
         "image_shape": "default",
         "show_secondary_image": true,
@@ -96,16 +156,13 @@
         "show_rating": false,
         "quick_add": "none",
         "columns_mobile": "2",
-        "full_width": false,
-        "enable_desktop_slider": false,
+        "swipe_on_mobile": false,
         "padding_top": 48,
         "padding_bottom": 64
       }
     },
     "brand_section": {
       "type": "image-with-text",
-      "blocks": {},
-      "block_order": [],
       "settings": {
         "bonhomia_variant": "brand-section",
         "bh_eyebrow": "Nuestra historia",
