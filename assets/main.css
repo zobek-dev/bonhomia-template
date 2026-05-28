@@ -1913,6 +1913,10 @@ h1, h2, h3, h4, h5, h6{
   padding-top: 40px !important;
   padding-bottom: 40px !important;
 }
+.\!tw-py-16{
+  padding-top: 64px !important;
+  padding-bottom: 64px !important;
+}
 .tw-px-0{
   padding-left: 0px;
   padding-right: 0px;
@@ -2000,10 +2004,6 @@ h1, h2, h3, h4, h5, h6{
 .tw-py-6{
   padding-top: 24px;
   padding-bottom: 24px;
-}
-.\!tw-py-16{
-  padding-top: 64px !important;
-  padding-bottom: 64px !important;
 }
 .tw-pb-2{
   padding-bottom: 8px;
@@ -2346,6 +2346,12 @@ h1, h2, h3, h4, h5, h6{
   );
   pointer-events: none;
   opacity: 0.6;
+}
+
+/* Bonhomia page background — overrides Dawn .gradient (scheme-1 white) */
+body.gradient {
+  background: #F5F0E8;
+  background-attachment: scroll;
 }
 
 /* Home hero — outside @layer so styles win over Dawn base.css */
@@ -2699,12 +2705,12 @@ section.home-hero-section.section + section.section {
 
 @media not all and (min-width: 768px){
 
-  .max-md\:tw-min-h-\[520px\]{
-    min-height: 520px;
-  }
-
   .max-md\:tw-min-h-\[360px\]{
     min-height: 360px;
+  }
+
+  .max-md\:tw-min-h-\[520px\]{
+    min-height: 520px;
   }
 
   .max-md\:tw-w-full{
@@ -2769,12 +2775,12 @@ section.home-hero-section.section + section.section {
     height: 86vh;
   }
 
-  .md\:tw-min-h-\[600px\]{
-    min-height: 600px;
-  }
-
   .md\:tw-min-h-\[440px\]{
     min-height: 440px;
+  }
+
+  .md\:tw-min-h-\[600px\]{
+    min-height: 600px;
   }
 
   .md\:tw-w-28{
@@ -2866,6 +2872,11 @@ section.home-hero-section.section + section.section {
     padding-bottom: 56px !important;
   }
 
+  .md\:\!tw-py-20{
+    padding-top: 80px !important;
+    padding-bottom: 80px !important;
+  }
+
   .md\:tw-px-12{
     padding-left: 48px;
     padding-right: 48px;
@@ -2914,11 +2925,6 @@ section.home-hero-section.section + section.section {
   .md\:tw-py-4{
     padding-top: 16px;
     padding-bottom: 16px;
-  }
-
-  .md\:\!tw-py-20{
-    padding-top: 80px !important;
-    padding-bottom: 80px !important;
   }
 
   .md\:tw-pb-\[72px\]{

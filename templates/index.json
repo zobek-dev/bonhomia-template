@@ -12,6 +12,7 @@
     "hero": {
       "type": "bonhomia-hero",
       "settings": {
+        "image": "shopify://shop_images/photo-1555041469-a586c61ea9bc.jpg",
         "eyebrow_text": "Colección 2026 — Madera maciza",
         "heading_line_1": "Muebles que",
         "heading_line_2": "cuentan tu historia",
@@ -76,6 +77,7 @@
         "mode_direct": {
           "type": "mode",
           "settings": {
+            "image": "shopify://shop_images/photo-1524758631624-e2822e304c36_5b3a07f5-d65e-4502-ab88-090af631ef55.jpg",
             "variant": "direct",
             "tag_label": "Disponible ahora",
             "heading": "Compra directa",
@@ -87,6 +89,7 @@
         "mode_assisted": {
           "type": "mode",
           "settings": {
+            "image": "shopify://shop_images/photo-1506439773649-6e0eb8cfb237_a6688a91-734b-4bb3-b54c-b4dee353b8f9.jpg",
             "variant": "assisted",
             "tag_label": "A medida · Cotización gratuita",
             "heading": "Muebles a pedido",
@@ -107,15 +110,21 @@
       "blocks": {
         "coll1": {
           "type": "featured_collection",
-          "settings": {}
+          "settings": {
+            "collection": ""
+          }
         },
         "coll2": {
           "type": "featured_collection",
-          "settings": {}
+          "settings": {
+            "collection": ""
+          }
         },
         "coll3": {
           "type": "featured_collection",
-          "settings": {}
+          "settings": {
+            "collection": ""
+          }
         }
       },
       "block_order": [
@@ -143,6 +152,9 @@
         "products_to_show": 4,
         "title": "Los más queridos",
         "heading_size": "h2",
+        "description": "",
+        "show_description": false,
+        "description_style": "body",
         "columns_desktop": 4,
         "enable_desktop_slider": false,
         "full_width": false,
@@ -171,7 +183,16 @@
         "bh_body": "<p>Somos un taller artesanal chileno con más de 12 años fabricando muebles que duran décadas. Cada pieza pasa por manos expertas, con maderas nobles seleccionadas y técnicas que combinan tradición y diseño contemporáneo.</p>",
         "bh_cta_label": "Conocer más",
         "bh_cta_url": "/pages/sobre-nosotros",
+        "height": "adapt",
+        "desktop_image_width": "medium",
         "layout": "image_first",
+        "image_behavior": "none",
+        "content_layout": "no-overlap",
+        "desktop_content_position": "top",
+        "desktop_content_alignment": "left",
+        "mobile_content_alignment": "left",
+        "section_color_scheme": "",
+        "color_scheme": "",
         "padding_top": 64,
         "padding_bottom": 80
       }

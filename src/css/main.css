@@ -111,6 +111,12 @@
   opacity: 0.6;
 }
 
+/* Bonhomia page background — overrides Dawn .gradient (scheme-1 white) */
+body.gradient {
+  background: #F5F0E8;
+  background-attachment: scroll;
+}
+
 /* Home hero — outside @layer so styles win over Dawn base.css */
 .home-hero {
   position: relative;
