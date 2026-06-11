@@ -1,0 +1,33 @@
+{% comment %}
+  Breadcrumb for Bonhomia PDP (direct + assisted).
+
+  Accepts:
+  - collection_fallback: {String} Text when no collection (e.g. "A medida")
+{% endcomment %}
+
+{%- liquid
+  assign fallback_label = collection_fallback | default: ''
+-%}
+
+<nav
+  class="bh-breadcrumb bh-pdp__breadcrumb tw-mb-5 tw-text-xs tw-font-sans tw-tracking-tracked tw-uppercase tw-text-taupe"
+  aria-label="Breadcrumb"
+>
+  <a href="{{ routes.root_url }}" class="hover:tw-text-charcoal tw-transition-colors">
+    Inicio
+  </a>
+  <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
+  {%- if collection -%}
+    <a href="{{ collection.url }}" class="hover:tw-text-charcoal tw-transition-colors">
+      {{- collection.title | escape -}}
+    </a>
+    <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
+  {%- elsif fallback_label != blank -%}
+    <span>{{ fallback_label | escape }}</span>
+    <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
+  {%- elsif product.type != blank -%}
+    <span>{{ product.type | escape }}</span>
+    <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
+  {%- endif -%}
+  <span class="tw-text-charcoal">{{ product.title | escape }}</span>
+</nav>

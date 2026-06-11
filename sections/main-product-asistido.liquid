@@ -40,35 +40,19 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
 
-  <div class="page-width tw-bg-cream">
-    {%- comment -%} Breadcrumb {%- endcomment -%}
-    <nav
-      class="bh-breadcrumb tw-mb-6 tw-text-xs tw-font-sans tw-tracking-tracked tw-uppercase tw-text-taupe"
-      aria-label="Breadcrumb"
+  <div class="bh-pdp tw-bg-cream">
+    <div
+      class="bh-pdp__grid product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }}{% unless product.media.size > 0 %} product--no-media{% endunless %}"
     >
-      <a href="{{ routes.root_url }}" class="hover:tw-text-charcoal tw-transition-colors">Inicio</a>
-      <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
-      {%- if collection -%}
-        <a href="{{ collection.url }}" class="hover:tw-text-charcoal tw-transition-colors">
-          {{- collection.title | escape -}}
-        </a>
-        <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
-      {%- else -%}
-        <span>A medida</span>
-        <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
-      {%- endif -%}
-      <span class="tw-text-charcoal">{{ product.title | escape }}</span>
-    </nav>
-
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }} tw-grid tw-grid-cols-1 lg:tw-grid-cols-12 tw-gap-8 lg:tw-gap-12 {% unless product.media.size > 0 %} product--no-media{% endunless %}">
-      <div class="grid__item product__media-wrapper lg:tw-col-span-7">
+      <div class="bh-pdp__gallery grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
-      <div class="product__info-wrapper grid__item lg:tw-col-span-5{% if section.settings.enable_sticky_info %} product__info-wrapper--sticky{% endif %}">
+      <div class="bh-pdp__info product__info-wrapper grid__item">
         <section
           id="ProductInfoAsistido-{{ section.id }}"
-          class="product__info-container{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
+          class="product__info-container bh-pdp__info-inner"
         >
+          {% render 'bonhomia-pdp-breadcrumb', collection_fallback: 'A medida' %}
           {% render 'bonhomia-quote-panel', product: product, show_breadcrumb: false, heading_tag: 'h1' %}
         </section>
       </div>
@@ -102,7 +86,7 @@
 {
   "name": "Producto a medida",
   "tag": "section",
-  "class": "section",
+  "class": "section bh-pdp-section bh-pdp-section--assisted",
   "settings": [
     {
       "type": "select",

@@ -73,52 +73,43 @@
   {%- endif -%}
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
-  <div class="page-width tw-bg-cream">
-    {%- comment -%} Breadcrumb {%- endcomment -%}
-    <nav
-      class="bh-breadcrumb tw-mb-6 tw-text-xs tw-font-sans tw-tracking-tracked tw-uppercase tw-text-taupe"
-      aria-label="Breadcrumb"
+  <div class="bh-pdp tw-bg-cream">
+    <div
+      class="bh-pdp__grid product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }}{% unless product.media.size > 0 %} product--no-media{% endunless %}"
     >
-      <a href="{{ routes.root_url }}" class="hover:tw-text-charcoal tw-transition-colors">
-        Inicio
-      </a>
-      <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
-      {%- if collection -%}
-        <a href="{{ collection.url }}" class="hover:tw-text-charcoal tw-transition-colors">
-          {{- collection.title | escape -}}
-        </a>
-        <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
-      {%- elsif product.type != blank -%}
-        <span>{{ product.type | escape }}</span>
-        <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
-      {%- endif -%}
-      <span class="tw-text-charcoal">{{ product.title | escape }}</span>
-    </nav>
-    <div class="product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }} tw-grid tw-grid-cols-1 lg:tw-grid-cols-12 tw-gap-8 lg:tw-gap-12 {% unless product.media.size > 0 %} product--no-media{% endunless %}">
-      <div class="grid__item product__media-wrapper lg:tw-col-span-7">
+      <div class="bh-pdp__gallery grid__item product__media-wrapper">
         {% render 'product-media-gallery', variant_images: variant_images %}
       </div>
-      <div class="product__info-wrapper grid__item lg:tw-col-span-5{% if settings.page_width > 1400 and section.settings.media_size == "small" %} product__info-wrapper--extra-padding{% endif %}{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
+      <div class="bh-pdp__info product__info-wrapper grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
           id="ProductInfo-{{ section.id }}"
-          class="product__info-container tw-flex tw-flex-col tw-gap-5{% if section.settings.enable_sticky_info %} product__column-sticky{% endif %}"
+          class="product__info-container bh-pdp__info-inner tw-flex tw-flex-col tw-gap-5"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
+
+          {% render 'bonhomia-pdp-breadcrumb' %}
 
           {%- comment -%} Stock badge — render once above the title row. {%- endcomment -%}
           {%- liquid
             assign current_variant = product.selected_or_first_available_variant
             assign inv_qty = current_variant.inventory_quantity
             assign inv_managed = current_variant.inventory_management
+            assign delivery_note = section.settings.stock_delivery_note
           -%}
           {%- if product.available -%}
             {%- if inv_managed == 'shopify' and inv_qty > 0 and inv_qty <= 5 -%}
               <span class="badge-direct tw-bg-accent tw-self-start">
                 {{- 'products.product.inventory_low_stock' | t | default: 'Pocas unidades' -}}
+                {%- if delivery_note != blank -%}
+                  <span class="tw-text-warm-white/90"> · Despacho {{ delivery_note | escape }}</span>
+                {%- endif -%}
               </span>
             {%- else -%}
               <span class="badge-direct tw-self-start">
                 {{- 'products.product.inventory_in_stock' | t | default: 'En stock' -}}
+                {%- if delivery_note != blank -%}
+                  <span> · Despacho {{ delivery_note | escape }}</span>
+                {%- endif -%}
               </span>
             {%- endif -%}
           {%- else -%}
@@ -825,7 +816,7 @@
 {
   "name": "t:sections.main-product.name",
   "tag": "section",
-  "class": "section",
+  "class": "section bh-pdp-section",
   "blocks": [
     {
       "type": "@app"
@@ -2351,6 +2342,13 @@
     {
       "type": "header",
       "content": "t:sections.all.padding.section_padding_heading"
+    },
+    {
+      "type": "text",
+      "id": "stock_delivery_note",
+      "label": "Texto de despacho en badge de stock",
+      "default": "5-7 días hábiles",
+      "info": "Se muestra junto al badge «En stock» (ej. «En stock · Despacho 5-7 días hábiles»)."
     },
     {
       "type": "range",

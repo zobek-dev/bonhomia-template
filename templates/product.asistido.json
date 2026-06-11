@@ -17,12 +17,12 @@
         "gallery_layout": "thumbnail",
         "mobile_thumbnails": "hide",
         "hide_variants": true,
-        "enable_sticky_info": true,
+        "enable_sticky_info": false,
         "enable_video_looping": false,
-        "constrain_to_viewport": true,
+        "constrain_to_viewport": false,
         "color_scheme": "scheme-1",
-        "padding_top": 36,
-        "padding_bottom": 12
+        "padding_top": 0,
+        "padding_bottom": 0
       }
     },
     "related-products": {

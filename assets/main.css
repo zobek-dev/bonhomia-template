@@ -2184,6 +2184,9 @@ h1, h2, h3, h4, h5, h6{
   --tw-text-opacity: 1;
   color: rgb(250 248 245 / var(--tw-text-opacity, 1));
 }
+.tw-text-warm-white\/90{
+  color: rgb(250 248 245 / 0.9);
+}
 .tw-text-white{
   --tw-text-opacity: 1;
   color: rgb(255 255 255 / var(--tw-text-opacity, 1));
@@ -2960,6 +2963,277 @@ section.home-hero-section.section + section.section {
   }
 }
 
+/* PDP — docs/mockup-tienda.html (.product-page) */
+.shopify-section.bh-pdp-section {
+  margin-top: 0;
+}
+
+.bh-pdp {
+  background: #F5F0E8;
+}
+
+.bh-pdp__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  min-height: calc(100vh - var(--header-height, 68px));
+}
+
+.bh-pdp__gallery {
+  position: sticky;
+  top: var(--header-height, 68px);
+  height: calc(100vh - var(--header-height, 68px));
+  overflow: hidden;
+  background: #FAF7F2;
+  min-width: 0;
+}
+
+.bh-pdp__gallery .product__media-wrapper {
+  max-width: none;
+  width: 100%;
+  height: 100%;
+}
+
+.bh-pdp__gallery media-gallery {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  min-height: 0;
+}
+
+.bh-pdp__gallery [id^='GalleryViewer-'] {
+  flex: 1 1 auto;
+  min-height: 0;
+  height: calc(100% - 80px);
+}
+
+.bh-pdp__gallery .product__media-list {
+  height: 100%;
+}
+
+.bh-pdp__gallery .product__media-item {
+  height: 100%;
+}
+
+.bh-pdp__gallery .product-media-container,
+.bh-pdp__gallery .media {
+  height: 100%;
+}
+
+.bh-pdp__gallery .product__modal-opener--image .media img,
+.bh-pdp__gallery .product__media-item img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.bh-pdp__gallery .slider-buttons.quick-add-hidden {
+  display: none;
+}
+
+.bh-pdp__gallery .thumbnail-slider {
+  flex-shrink: 0;
+  background: #FAF7F2;
+  border-top: 1px solid #E8E0D4;
+  padding: 12px 24px;
+  margin: 0;
+}
+
+.bh-pdp__gallery .thumbnail-list {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bh-pdp__gallery .thumbnail-list__item {
+  flex: 0 0 auto;
+  width: 56px;
+  height: 56px;
+}
+
+.bh-pdp__gallery .thumbnail {
+  width: 56px;
+  height: 56px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 0;
+  overflow: hidden;
+  cursor: pointer;
+  transition: border-color 0.2s;
+}
+
+.bh-pdp__gallery .thumbnail[aria-current='true'],
+.bh-pdp__gallery .thumbnail.global-media-settings--no-shadow[aria-current='true'] {
+  border-color: #2C2C2C;
+}
+
+.bh-pdp__gallery .thumbnail img {
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+     object-fit: cover;
+}
+
+.bh-pdp__gallery .thumbnail-slider .slider-button {
+  display: none;
+}
+
+.bh-pdp__info {
+  min-width: 0;
+  max-height: calc(100vh - var(--header-height, 68px));
+  overflow-y: auto;
+  background: #F5F0E8;
+}
+
+.bh-pdp__info-inner {
+  padding: 56px 52px;
+}
+
+.bh-pdp .product__view-details {
+  display: none;
+}
+
+.bh-pdp .product__title h1 {
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 32px;
+  font-weight: 600;
+  line-height: 1.2;
+}
+
+.bh-pdp .product__text.subtitle {
+  font-size: 13px;
+  color: #8A7B6E;
+  line-height: 1.7;
+  margin: 0 0 20px;
+}
+
+.bh-pdp .product__info-container > .product-divider,
+.bh-pdp .bh-pdp__divider {
+  border: none;
+  border-top: 1px solid #E8E0D4;
+  margin: 24px 0;
+}
+
+.bh-pdp .product-form__input--pill {
+  margin-bottom: 20px;
+}
+
+.bh-pdp .quantity {
+  display: flex;
+  align-items: center;
+  gap: 0;
+}
+
+.bh-pdp .quantity__button {
+  width: 40px;
+  height: 44px;
+  border: 1px solid #E8E0D4;
+  background: transparent;
+  color: #2C2C2C;
+}
+
+.bh-pdp .quantity__input {
+  width: 56px;
+  height: 44px;
+  border: 1px solid #E8E0D4;
+  border-left: none;
+  border-right: none;
+  text-align: center;
+  font-size: 15px;
+  background: transparent;
+  color: #2C2C2C;
+}
+
+.bh-pdp .product-form__submit.btn-primary {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 10px;
+  border-radius: 3px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.bh-pdp .product__highlights li::before {
+  content: '—';
+  color: #C17B3A;
+  margin-right: 10px;
+  flex-shrink: 0;
+}
+
+.bh-pdp .product__highlights li {
+  display: flex;
+  align-items: flex-start;
+  color: #8A7B6E;
+  font-size: 13px;
+}
+
+.bh-pdp .product__accordion.accordion,
+.bh-pdp .product__accordion {
+  border-top: 1px solid #E8E0D4;
+}
+
+.bh-pdp .accordion details {
+  border-bottom: 1px solid #E8E0D4;
+}
+
+.bh-pdp .accordion summary {
+  padding: 16px 0;
+  font-size: 13px;
+  font-weight: 500;
+}
+
+.bh-pdp .accordion .accordion__content {
+  padding: 0 0 16px;
+  font-size: 13px;
+  color: #8A7B6E;
+  line-height: 1.8;
+}
+
+.bh-pdp-section--assisted .bonhomia-quote-panel {
+  gap: 16px;
+}
+
+.bh-pdp-section--assisted .bh-pdp__info-inner {
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
+
+@media screen and (max-width: 989px) {
+  .bh-pdp__grid {
+    grid-template-columns: minmax(0, 1fr);
+    min-height: 0;
+  }
+
+  .bh-pdp__gallery {
+    position: relative;
+    top: auto;
+    height: auto;
+    min-height: 280px;
+  }
+
+  .bh-pdp__gallery [id^='GalleryViewer-'] {
+    height: auto;
+    min-height: 240px;
+  }
+
+  .bh-pdp__info {
+    max-height: none;
+    overflow-y: visible;
+  }
+
+  .bh-pdp__info-inner {
+    padding: 32px 20px 40px;
+  }
+
+  .bh-pdp .product__title h1 {
+    font-size: 28px;
+  }
+}
+
 .hover\:tw-border-charcoal:hover{
   --tw-border-opacity: 1;
   border-color: rgb(44 44 44 / var(--tw-border-opacity, 1));
@@ -3363,14 +3637,6 @@ section.home-hero-section.section + section.section {
 
 @media (min-width: 1024px){
 
-  .lg\:tw-col-span-5{
-    grid-column: span 5 / span 5;
-  }
-
-  .lg\:tw-col-span-7{
-    grid-column: span 7 / span 7;
-  }
-
   .lg\:tw-ml-auto{
     margin-left: auto;
   }
@@ -3381,10 +3647,6 @@ section.home-hero-section.section + section.section {
 
   .lg\:tw-grid-cols-1{
     grid-template-columns: repeat(1, minmax(0, 1fr));
-  }
-
-  .lg\:tw-grid-cols-12{
-    grid-template-columns: repeat(12, minmax(0, 1fr));
   }
 
   .lg\:tw-grid-cols-2{
@@ -3409,10 +3671,6 @@ section.home-hero-section.section + section.section {
 
   .lg\:tw-flex-row{
     flex-direction: row;
-  }
-
-  .lg\:tw-gap-12{
-    gap: 48px;
   }
 
   .lg\:tw-gap-16{
