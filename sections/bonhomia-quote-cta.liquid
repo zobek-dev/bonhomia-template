@@ -6,7 +6,8 @@
 -%}
 
 <section class="bonhomia-quote-cta tw-bg-warm-white">
-  <div class="tw-max-w-3xl tw-mx-auto tw-px-6 md:tw-px-12 tw-py-12 md:tw-py-16">
+  <div class="page-width tw-py-12 md:tw-py-16">
+    <div class="tw-max-w-3xl tw-mx-auto">
     {%- if target_product != blank and target_product != empty -%}
       {% render 'bonhomia-quote-panel', product: target_product, show_breadcrumb: false, heading_tag: 'h2' %}
     {%- else -%}
@@ -14,6 +15,7 @@
         Seleccioná un producto en la configuración de la sección.
       </p>
     {%- endif -%}
+    </div>
   </div>
 </section>
 

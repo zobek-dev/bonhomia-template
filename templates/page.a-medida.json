@@ -82,16 +82,15 @@
       "settings": {}
     },
     "brand": {
-      "type": "image-with-text",
+      "type": "bonhomia-brand-section",
       "settings": {
-        "bonhomia_variant": "brand-section",
-        "bh_eyebrow": "Por qué a medida",
-        "bh_quote": "<p>\"Diseñamos para tu espacio, no al revés. Cada pieza nace de una conversación.\"</p>",
-        "bh_signature": "Taller Bonhomia",
-        "bh_body": "<p>Cuando un mueble se hace a medida, encaja mejor — literalmente — y se siente propio. Trabajamos con vos para definir dimensiones, material y acabado hasta que la pieza calza con tu vida.</p>",
-        "bh_cta_label": "Ver muebles a medida",
-        "bh_cta_url": "/collections/a-medida",
-        "layout": "text_first",
+        "image_position": "right",
+        "eyebrow": "Por qué a medida",
+        "quote": "<p>\"Diseñamos para tu espacio, no al revés. Cada pieza nace de una conversación.\"</p>",
+        "signature": "Taller Bonhomia",
+        "body": "<p>Cuando un mueble se hace a medida, encaja mejor — literalmente — y se siente propio. Trabajamos con vos para definir dimensiones, material y acabado hasta que la pieza calza con tu vida.</p>",
+        "cta_label": "Ver muebles a medida",
+        "cta_url": "/collections/a-medida",
         "padding_top": 64,
         "padding_bottom": 64
       }

@@ -1,0 +1,203 @@
+{%- liquid
+  assign products_to_display = section.settings.collection.all_products_count
+  if section.settings.collection.all_products_count > section.settings.products_to_show
+    assign products_to_display = section.settings.products_to_show
+    assign more_in_collection = true
+  endif
+
+  assign cols = section.settings.columns_desktop | default: 4
+  assign grid_cols_desktop = 'lg:tw-grid-cols-4'
+  case cols
+    when 2
+      assign grid_cols_desktop = 'lg:tw-grid-cols-2'
+    when 3
+      assign grid_cols_desktop = 'lg:tw-grid-cols-3'
+    when 4
+      assign grid_cols_desktop = 'lg:tw-grid-cols-4'
+  endcase
+  assign grid_cols_mobile = 'tw-grid-cols-2'
+  if section.settings.columns_mobile == '1'
+    assign grid_cols_mobile = 'tw-grid-cols-1'
+  endif
+-%}
+
+<section
+  class="bonhomia-featured-collection tw-bg-cream"
+  style="padding-top: {{ section.settings.padding_top }}px; padding-bottom: {{ section.settings.padding_bottom }}px;"
+  id="BonhomiaFeatured-{{ section.id }}"
+>
+  <div class="page-width">
+    <div class="tw-flex tw-items-end tw-justify-between tw-flex-wrap tw-gap-4 tw-mb-8">
+      <div>
+        {%- if section.settings.eyebrow != blank -%}
+          <p class="eyebrow tw-mb-2">{{ section.settings.eyebrow | escape }}</p>
+        {%- endif -%}
+        {%- if section.settings.title != blank -%}
+          <h2 class="tw-font-serif tw-text-3xl md:tw-text-4xl tw-font-medium tw-text-charcoal tw-m-0">
+            {{ section.settings.title | escape }}
+          </h2>
+        {%- endif -%}
+      </div>
+      {%- if section.settings.show_view_all and section.settings.collection != blank -%}
+        <a href="{{ section.settings.collection.url }}" class="btn-ghost">
+          {{- section.settings.view_all_label | default: 'Ver todo →' | escape -}}
+        </a>
+      {%- endif -%}
+    </div>
+
+    <ul class="bh-products-grid tw-grid {{ grid_cols_mobile }} md:tw-grid-cols-3 {{ grid_cols_desktop }} tw-list-none tw-p-0 tw-m-0" role="list">
+      {%- if section.settings.collection.products.size > 0 -%}
+        {%- for product in section.settings.collection.products limit: section.settings.products_to_show -%}
+          <li class="tw-m-0">
+            {% render 'card-product',
+              card_product: product,
+              media_aspect_ratio: section.settings.image_ratio,
+              lazy_load: forloop.index > cols,
+              show_secondary_image: section.settings.show_secondary_image,
+              show_vendor: section.settings.show_vendor,
+              section_id: section.id
+            %}
+          </li>
+        {%- endfor -%}
+      {%- else -%}
+        {%- for i in (1..section.settings.products_to_show) -%}
+          {%- assign ridx = forloop.index -%}
+          {%- if ridx > 4 -%}{%- assign ridx = ridx | modulo: 4 | plus: 1 -%}{%- endif -%}
+          {%- assign placeholder_image = 'product-apparel-' | append: ridx -%}
+          <li class="tw-m-0">
+            {% render 'card-product',
+              show_vendor: section.settings.show_vendor,
+              media_aspect_ratio: section.settings.image_ratio,
+              placeholder_image: placeholder_image
+            %}
+          </li>
+        {%- endfor -%}
+      {%- endif -%}
+    </ul>
+
+    {%- if section.settings.show_view_all and more_in_collection -%}
+      <div class="tw-mt-12 tw-flex tw-justify-center md:tw-hidden">
+        <a href="{{ section.settings.collection.url }}" class="btn-outline">
+          {{- section.settings.view_all_label | default: 'Ver todo →' | escape -}}
+        </a>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Productos Bonhomia",
+  "tag": "section",
+  "class": "section bonhomia-featured-collection-section",
+  "disabled_on": {
+    "groups": ["header", "footer"]
+  },
+  "settings": [
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow",
+      "default": "Destacados"
+    },
+    {
+      "type": "text",
+      "id": "title",
+      "label": "Título",
+      "default": "Los más queridos"
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Colección"
+    },
+    {
+      "type": "range",
+      "id": "products_to_show",
+      "min": 2,
+      "max": 12,
+      "step": 1,
+      "default": 4,
+      "label": "Productos a mostrar"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_view_all",
+      "label": "Mostrar enlace «Ver todo»",
+      "default": true
+    },
+    {
+      "type": "text",
+      "id": "view_all_label",
+      "label": "Texto del enlace",
+      "default": "Ver todo →"
+    },
+    {
+      "type": "range",
+      "id": "columns_desktop",
+      "min": 2,
+      "max": 4,
+      "step": 1,
+      "default": 4,
+      "label": "Columnas en desktop"
+    },
+    {
+      "type": "select",
+      "id": "columns_mobile",
+      "label": "Columnas en mobile",
+      "options": [
+        { "value": "1", "label": "1" },
+        { "value": "2", "label": "2" }
+      ],
+      "default": "2"
+    },
+    {
+      "type": "select",
+      "id": "image_ratio",
+      "label": "Proporción de imagen",
+      "options": [
+        { "value": "square", "label": "Cuadrado" },
+        { "value": "portrait", "label": "Vertical" }
+      ],
+      "default": "square"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_secondary_image",
+      "label": "Segunda imagen al hover",
+      "default": true
+    },
+    {
+      "type": "checkbox",
+      "id": "show_vendor",
+      "label": "Mostrar categoría (vendor o tipo)",
+      "default": false
+    },
+    {
+      "type": "range",
+      "id": "padding_top",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding superior",
+      "default": 48
+    },
+    {
+      "type": "range",
+      "id": "padding_bottom",
+      "min": 0,
+      "max": 100,
+      "step": 4,
+      "unit": "px",
+      "label": "Padding inferior",
+      "default": 64
+    }
+  ],
+  "presets": [
+    {
+      "name": "Productos Bonhomia"
+    }
+  ]
+}
+{% endschema %}

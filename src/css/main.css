@@ -132,7 +132,7 @@ body.gradient {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0;
-  padding: 24px 48px;
+  padding: 24px 0;
 }
 
 .bh-intro-strip__item {
@@ -188,7 +188,7 @@ body.gradient {
   .bh-intro-strip__grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 1px;
-    padding: 16px;
+    padding: 16px 0;
     background: #E3DAD0;
   }
 
@@ -203,16 +203,21 @@ body.gradient {
 }
 
 /* Footer — docs/mockup-tienda.html */
-.bh-footer {
+.shopify-section-group-footer-group {
+  margin: 0;
+}
+
+.shopify-section.bh-footer-section,
+footer.bh-footer {
+  display: block;
+  width: 100%;
+  margin: 0;
   background: #2C2C2C;
   color: rgba(255, 255, 255, 0.7);
 }
 
 .bh-footer__inner {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding-left: 48px;
-  padding-right: 48px;
+  width: 100%;
 }
 
 .bh-footer__grid {
@@ -223,8 +228,13 @@ body.gradient {
   border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
+.bh-footer__brand {
+  min-width: 0;
+}
+
 .bh-footer__logo-link {
-  display: inline-block;
+  display: block;
+  margin-bottom: 12px;
   text-decoration: none;
   color: inherit;
 }
@@ -238,11 +248,12 @@ body.gradient {
 }
 
 .bh-footer__logo {
+  display: block;
   font-family: 'Playfair Display', Georgia, serif;
   font-size: 20px;
   font-weight: 700;
   color: #fff;
-  margin-bottom: 12px;
+  margin: 0;
 }
 
 .bh-footer__desc {
@@ -256,6 +267,10 @@ body.gradient {
 .bh-footer__desc p {
   margin: 0;
   color: inherit;
+}
+
+.bh-footer__col {
+  min-width: 0;
 }
 
 .bh-footer__col-title {
@@ -275,6 +290,11 @@ body.gradient {
   display: flex;
   flex-direction: column;
   gap: 10px;
+}
+
+.bh-footer__links li {
+  margin: 0;
+  padding: 0;
 }
 
 .bh-footer__links a {
@@ -300,6 +320,11 @@ body.gradient {
   color: rgba(255, 255, 255, 0.55);
 }
 
+.bh-footer__copyright,
+.bh-footer__tagline {
+  margin: 0;
+}
+
 @media screen and (max-width: 989px) {
   .bh-footer__grid {
     grid-template-columns: 1fr 1fr;
@@ -312,11 +337,6 @@ body.gradient {
 }
 
 @media screen and (max-width: 749px) {
-  .bh-footer__inner {
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-
   .bh-footer__grid {
     grid-template-columns: 1fr;
     gap: 22px;
@@ -333,6 +353,155 @@ body.gradient {
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 8px 16px;
+  }
+}
+
+/* Collections grid — docs/mockup-tienda.html */
+.bh-collections-grid {
+  gap: 2px;
+}
+
+.bh-collection-card {
+  aspect-ratio: 4 / 3;
+}
+
+.bh-collection-card__label {
+  position: absolute;
+  bottom: 24px;
+  left: 24px;
+  z-index: 2;
+  color: #fff;
+}
+
+.bh-collection-card__count {
+  margin: 0 0 4px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.65);
+}
+
+.bh-collection-card__name {
+  margin: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #fff;
+}
+
+/* Featured products grid */
+.bh-products-grid {
+  gap: 28px;
+}
+
+@media screen and (max-width: 749px) {
+  .bh-products-grid {
+    gap: 16px;
+  }
+
+  .bh-collection-card__label {
+    bottom: 16px;
+    left: 16px;
+  }
+
+  .bh-collection-card__name {
+    font-size: 18px;
+  }
+}
+
+/* Brand story — docs/mockup-tienda.html */
+.bh-brand-section {
+  background: #F5F0E8;
+}
+
+.shopify-section.bonhomia-brand-section {
+  margin-top: 0;
+}
+
+.bh-brand-section__grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0;
+  min-height: 420px;
+}
+
+.bh-brand-section__media {
+  overflow: hidden;
+  min-height: 280px;
+  background: #8a7868;
+}
+
+.bh-brand-section__img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  min-height: inherit;
+  object-fit: cover;
+}
+
+.bh-brand-section__content {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 48px 24px;
+  background: #F5F0E8;
+}
+
+.bh-brand-section__quote {
+  margin: 0 0 24px;
+  padding: 0;
+  border: 0;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: 24px;
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.4;
+  color: #4A3728;
+}
+
+.bh-brand-section__quote p {
+  margin: 0;
+}
+
+.bh-brand-section__signature {
+  margin: 0 0 24px;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #8B7D6B;
+}
+
+.bh-brand-section__body {
+  margin-bottom: 28px;
+  max-width: 36rem;
+  font-family: Inter, system-ui, sans-serif;
+  font-size: 14px;
+  line-height: 1.8;
+  color: #8B7D6B;
+}
+
+.bh-brand-section__body p {
+  margin: 0;
+}
+
+@media screen and (min-width: 990px) {
+  .bh-brand-section__grid {
+    grid-template-columns: 1fr 1fr;
+    min-height: 500px;
+  }
+
+  .bh-brand-section__grid--reverse .bh-brand-section__media {
+    order: 2;
+  }
+
+  .bh-brand-section__content {
+    padding: 72px 64px;
+  }
+
+  .bh-brand-section__quote {
+    font-size: 28px;
   }
 }
 
@@ -364,6 +533,10 @@ body.gradient {
 
 /* Shared image overlays — docs/mockup-tienda.html */
 .bonhomia-hero-section {
+  z-index: 0;
+}
+
+.shopify-section.bonhomia-modes-grid {
   z-index: 0;
 }
 

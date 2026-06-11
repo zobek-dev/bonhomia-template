@@ -1,16 +1,15 @@
 {
   "sections": {
     "brand": {
-      "type": "image-with-text",
+      "type": "bonhomia-brand-section",
       "settings": {
-        "bonhomia_variant": "brand-section",
-        "bh_eyebrow": "Nuestra historia",
-        "bh_quote": "<p>\"Creemos que los muebles buenos no sólo decoran; transforman la forma en que vivís tu hogar.\"</p>",
-        "bh_signature": "Taller Bonhomia · Desde 2014",
-        "bh_body": "<p>Somos un taller de muebles de madera maciza. Diseñamos y fabricamos cada pieza con técnicas tradicionales de carpintería, eligiendo maderas de origen responsable y acabados naturales. Cada mueble tiene un nombre, una historia y, sobre todo, un destino: tu casa.</p>",
-        "bh_cta_label": "Ver catálogo",
-        "bh_cta_url": "/collections/all",
-        "layout": "image_first",
+        "image_position": "left",
+        "eyebrow": "Nuestra historia",
+        "quote": "<p>\"Creemos que los muebles buenos no sólo decoran; transforman la forma en que vivís tu hogar.\"</p>",
+        "signature": "Taller Bonhomia · Desde 2014",
+        "body": "<p>Somos un taller de muebles de madera maciza. Diseñamos y fabricamos cada pieza con técnicas tradicionales de carpintería, eligiendo maderas de origen responsable y acabados naturales. Cada mueble tiene un nombre, una historia y, sobre todo, un destino: tu casa.</p>",
+        "cta_label": "Ver catálogo",
+        "cta_url": "shopify://collections/all",
         "padding_top": 64,
         "padding_bottom": 48
       }

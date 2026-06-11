@@ -10,12 +10,12 @@
       -%}
       <a
         href="{{ block.settings.cta_url | default: '#' }}"
-        class="bh-mode-card tw-group tw-relative tw-block tw-overflow-hidden tw-bg-charcoal max-md:tw-min-h-[360px] md:tw-min-h-[440px]"
+        class="bh-mode-card tw-group tw-relative tw-isolate tw-block tw-overflow-hidden tw-bg-charcoal max-md:tw-min-h-[360px] md:tw-min-h-[440px]"
         style="background-color: {{ mode_bg }};"
         {{ block.shopify_attributes }}
       >
         {%- if block.settings.image != blank -%}
-          <div class="tw-absolute tw-inset-0">
+          <div class="tw-absolute tw-inset-0 tw-z-0">
             {{
               block.settings.image
               | image_url: width: 1400
@@ -28,9 +28,9 @@
           </div>
         {%- endif -%}
 
-        <div class="bh-overlay bh-overlay--mode" aria-hidden="true"></div>
+        <div class="bh-overlay bh-overlay--mode tw-z-[1]" aria-hidden="true"></div>
 
-        <div class="tw-relative tw-z-10 tw-flex tw-h-full tw-min-h-[inherit] tw-flex-col tw-justify-end tw-p-5 md:tw-p-10">
+        <div class="tw-relative tw-z-[2] tw-flex tw-h-full tw-min-h-[inherit] tw-flex-col tw-justify-end tw-p-5 md:tw-p-10">
           {%- if block.settings.tag_label != blank -%}
             <span class="tw-inline-block tw-w-fit tw-self-start tw-mb-3 tw-rounded-pill tw-border tw-border-white/50 tw-px-2.5 tw-py-0.5 tw-font-sans tw-text-[10px] tw-uppercase tw-tracking-[0.12em] tw-text-white/85">
               {{ block.settings.tag_label | escape }}
