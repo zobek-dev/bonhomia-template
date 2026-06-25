@@ -239,11 +239,19 @@ if (!customElements.get('product-info')) {
         document.querySelectorAll(selectors).forEach(({ classList }) => classList.add('hidden'));
       }
 
+      getMediaGallery() {
+        return this.querySelector('bonhomia-media-gallery') || this.querySelector('media-gallery');
+      }
+
       updateMedia(html, variantFeaturedMediaId) {
         if (!variantFeaturedMediaId) return;
 
-        const mediaGallerySource = this.querySelector('media-gallery ul');
-        const mediaGalleryDestination = html.querySelector(`media-gallery ul`);
+        const gallery = this.getMediaGallery();
+        if (!gallery) return;
+
+        const mediaGallerySource = gallery.querySelector('ul');
+        const mediaGalleryDestination =
+          html.querySelector('bonhomia-media-gallery ul') || html.querySelector('media-gallery ul');
 
         const refreshSourceData = () => {
           if (this.hasAttribute('data-zoom-on-hover')) enableZoomOnHover(2);
@@ -299,10 +307,7 @@ if (!customElements.get('product-info')) {
         }
 
         // set featured media as active in the media gallery
-        this.querySelector(`media-gallery`)?.setActiveMedia?.(
-          `${this.dataset.section}-${variantFeaturedMediaId}`,
-          true
-        );
+        gallery.setActiveMedia?.(`${this.dataset.section}-${variantFeaturedMediaId}`, true);
 
         // update media modal
         const modalContent = this.productModal?.querySelector(`.product-media-modal__content`);

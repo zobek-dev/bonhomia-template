@@ -16,6 +16,10 @@
           "type": "title",
           "settings": {}
         },
+        "price": {
+          "type": "price",
+          "settings": {}
+        },
         "caption": {
           "type": "text",
           "settings": {
@@ -23,14 +27,11 @@
             "text_style": "subtitle"
           }
         },
-        "price": {
-          "type": "price",
-          "settings": {}
-        },
         "variant_picker": {
           "type": "variant_picker",
           "settings": {
-            "picker_type": "button"
+            "picker_type": "button",
+            "swatch_shape": "circle"
           }
         },
         "quantity_selector": {
@@ -50,14 +51,20 @@
             "label": "Guardar en lista de deseos"
           }
         },
+        "description_bdkk7g": {
+          "type": "description",
+          "settings": {}
+        },
         "highlights": {
           "type": "highlights",
+          "disabled": true,
           "settings": {
             "content": "<ul><li>Roble americano macizo, no enchapado</li><li>Acabado al aceite Rubio Monocoat (no tóxico)</li><li>Ensamble tradicional encolado, sin tornillos visibles</li><li>Garantía de fabricación: 3 años</li></ul>"
           }
         },
         "collapsible-dimensions": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "heading": "Dimensiones y materiales",
             "icon": "ruler",
@@ -67,6 +74,7 @@
         },
         "collapsible-shipping": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "heading": "Despacho y tiempos",
             "icon": "truck",
@@ -76,6 +84,7 @@
         },
         "collapsible-care": {
           "type": "collapsible_tab",
+          "disabled": true,
           "settings": {
             "heading": "Cuidado y mantenimiento",
             "icon": "heart",
@@ -92,6 +101,7 @@
         "quantity_selector",
         "buy_buttons",
         "wishlist",
+        "description_bdkk7g",
         "highlights",
         "collapsible-dimensions",
         "collapsible-shipping",
@@ -99,11 +109,14 @@
       ],
       "settings": {
         "enable_sticky_info": false,
+        "color_scheme": "",
         "media_size": "large",
         "constrain_to_viewport": false,
-        "media_fit": "cover",
+        "media_fit": "contain",
         "gallery_layout": "thumbnail",
         "mobile_thumbnails": "show",
+        "media_position": "left",
+        "image_zoom": "lightbox",
         "hide_variants": true,
         "enable_video_looping": false,
         "stock_delivery_note": "5-7 días hábiles",
@@ -116,10 +129,12 @@
       "settings": {
         "heading": "Productos relacionados",
         "heading_size": "h2",
+        "products_to_show": 4,
         "columns_desktop": 4,
         "columns_mobile": "2",
         "color_scheme": "scheme-1",
         "image_ratio": "square",
+        "image_shape": "default",
         "show_secondary_image": true,
         "show_vendor": false,
         "show_rating": false,

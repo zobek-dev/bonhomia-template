@@ -1,4 +1,5 @@
 import Alpine from 'alpinejs'
+import './bonhomia-product-gallery.js'
 import Swiper from 'swiper'
 import {
   Navigation as SwiperNavigation,

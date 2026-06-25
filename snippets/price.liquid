@@ -50,6 +50,17 @@
     assign save_amount = compare_at_price | minus: price | times: 100.0
     assign save_percent = save_amount | divided_by: compare_at_price | round
   endif
+
+  assign bh_price_item_class = ''
+  assign bh_price_wrap_class = ''
+  assign bh_price_container_class = ''
+  assign bh_price_compare_class = ''
+  if price_class == 'price--large'
+    assign bh_price_wrap_class = ' bh-pdp-price-wrap'
+    assign bh_price_container_class = ' bh-pdp-price-container'
+    assign bh_price_item_class = ' bh-pdp-price tw-text-[36px] tw-font-semibold tw-font-sans tw-text-charcoal tw-leading-tight'
+    assign bh_price_compare_class = ' bh-pdp-price-compare tw-text-base tw-font-normal tw-text-taupe'
+  endif
 -%}
 
 {%- unless target == null and placeholder == null -%}
@@ -62,10 +73,10 @@
       {%- if compare_at_price > price and product.quantity_price_breaks_configured? %} volume-pricing--sale-badge{% endif -%}
       {%- if product.price_varies == false and product.compare_at_price_varies %} price--no-compare{% endif -%}
       {%- if show_badges %} price--show-badge{% endif -%}
-      tw-flex tw-flex-wrap tw-items-baseline tw-gap-3
+      tw-flex tw-flex-wrap tw-items-baseline tw-gap-3{{ bh_price_wrap_class }}
     "
   >
-    <div class="price__container tw-flex tw-flex-wrap tw-items-baseline tw-gap-3">
+    <div class="price__container tw-flex tw-flex-wrap tw-items-baseline tw-gap-3{{ bh_price_container_class }}">
       <div class="price__regular">
         {%- if product.quantity_price_breaks_configured? -%}
           {%- if show_compare_at_price and compare_at_price -%}
@@ -93,16 +104,20 @@
           </span>
         {%- else -%}
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
-          <span class="price-item price-item--regular tw-font-serif tw-text-charcoal">
+          <span class="price-item price-item--regular{{ bh_price_item_class }}">
             {{ money_price }}
           </span>
         {%- endif -%}
       </div>
-      <div class="price__sale tw-flex tw-flex-wrap tw-items-baseline tw-gap-3">
+      <div class="price__sale tw-flex tw-flex-wrap tw-items-center tw-gap-3">
+        <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
+        <span class="price-item price-item--sale price-item--last{{ bh_price_item_class }}">
+          {{ money_price }}
+        </span>
         {%- unless product.price_varies == false and product.compare_at_price_varies %}
           <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.regular_price' | t }}</span>
           <span>
-            <s class="price-item price-item--regular tw-text-taupe tw-font-sans">
+            <s class="price-item price-item--regular price-item--compare{{ bh_price_compare_class }}">
               {% if settings.currency_code_enabled %}
                 {{ compare_at_price | money_with_currency }}
               {% else %}
@@ -111,15 +126,8 @@
             </s>
           </span>
         {%- endunless -%}
-        <span class="visually-hidden visually-hidden--inline">{{ 'products.product.price.sale_price' | t }}</span>
-        <span class="price-item price-item--sale price-item--last tw-font-serif tw-text-charcoal">
-          {{ money_price }}
-        </span>
         {%- if save_percent > 0 -%}
-          <span
-            class="price-item price-item--save tw-inline-flex tw-items-center tw-bg-accent tw-text-warm-white tw-text-xs tw-font-medium tw-tracking-tracked tw-uppercase tw-px-2 tw-py-1 tw-rounded-pill"
-            aria-hidden="true"
-          >
+          <span class="badge-discount" aria-label="{{ 'products.product.on_sale' | t }} −{{ save_percent }}%">
             −{{ save_percent }}%
           </span>
         {%- endif -%}

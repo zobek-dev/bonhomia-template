@@ -5,9 +5,13 @@
   - product: {Object} Product liquid object (required)
   - show_breadcrumb: {Boolean} (optional) — render breadcrumb above title (default false)
   - heading_tag: {String} (optional) — `h1` (default) or `h2`
+  - use_app_cta: {Boolean} (optional) — render @app blocks from section instead of the
+    legacy quote modal button (default false). Requires `section` when true.
+  - section: {Object} (optional) — parent section; required when use_app_cta is true
 
   Usage:
   {% render 'bonhomia-quote-panel', product: product, show_breadcrumb: true %}
+  {% render 'bonhomia-quote-panel', product: product, section: section, use_app_cta: true %}
 {% endcomment %}
 
 {%- liquid
@@ -27,10 +31,10 @@
 <div class="bonhomia-quote-panel tw-flex tw-flex-col tw-gap-4 tw-font-sans">
   {%- if show_breadcrumb -%}
     <nav
-      class="bh-breadcrumb tw-text-xs tw-font-sans tw-tracking-tracked tw-uppercase tw-text-taupe"
+      class="bh-breadcrumb tw-font-sans tw-text-taupe"
       aria-label="Breadcrumb"
     >
-      <a href="{{ routes.root_url }}" class="hover:tw-text-charcoal tw-transition-colors">Inicio</a>
+      <a href="{{ routes.root_url }}" class="hover:tw-text-charcoal tw-transition-colors">inicio</a>
       <span class="tw-mx-2 tw-text-border-soft" aria-hidden="true">/</span>
       {%- if collection -%}
         <a href="{{ collection.url }}" class="hover:tw-text-charcoal tw-transition-colors">
@@ -81,16 +85,24 @@
   {%- endif -%}
 
   <div class="tw-flex tw-flex-col tw-gap-3 tw-mt-2">
-    <button
-      type="button"
-      class="btn-accent tw-w-full tw-py-4 tw-px-6 tw-rounded-md tw-bg-accent tw-text-warm-white tw-font-sans tw-text-sm tw-font-semibold tw-tracking-tracked tw-uppercase tw-transition-colors hover:tw-bg-walnut focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-accent focus:tw-ring-offset-2"
-      data-bh-open-quote
-      data-product-title="{{ panel_product.title | escape }}"
-      data-product-id="{{ panel_product.id }}"
-      data-product-handle="{{ panel_product.handle }}"
-    >
-      Solicitar cotización gratuita
-    </button>
+    {%- if use_app_cta and section != blank -%}
+      {%- for block in section.blocks -%}
+        {%- if block.type == '@app' -%}
+          {% render block %}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- else -%}
+      <button
+        type="button"
+        class="btn-accent tw-w-full tw-py-4 tw-px-6 tw-rounded-md tw-bg-accent tw-text-warm-white tw-font-sans tw-text-sm tw-font-semibold tw-tracking-tracked tw-uppercase tw-transition-colors hover:tw-bg-walnut focus:tw-outline-none focus:tw-ring-2 focus:tw-ring-accent focus:tw-ring-offset-2"
+        data-bh-open-quote
+        data-product-title="{{ panel_product.title | escape }}"
+        data-product-id="{{ panel_product.id }}"
+        data-product-handle="{{ panel_product.handle }}"
+      >
+        Solicitar cotización gratuita
+      </button>
+    {%- endif -%}
     {%- if whatsapp_digits != blank -%}
       <a
         href="https://wa.me/{{ whatsapp_digits }}?text={{ wa_text_encoded }}"

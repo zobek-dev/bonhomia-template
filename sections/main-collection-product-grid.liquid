@@ -1,5 +1,4 @@
 {{ 'template-collection.css' | asset_url | stylesheet_tag }}
-{{ 'component-card.css' | asset_url | stylesheet_tag }}
 {{ 'component-price.css' | asset_url | stylesheet_tag }}
 
 {% if section.settings.image_shape == 'blob' %}
@@ -21,6 +20,29 @@
   <script src="{{ 'price-per-item.js' | asset_url }}" defer="defer"></script>
   <script src="{{ 'quick-order-list.js' | asset_url }}" defer="defer"></script>
 {%- endif -%}
+
+{%- liquid
+  assign cols = section.settings.columns_desktop | default: 4
+  assign grid_cols_desktop = 'lg:tw-grid-cols-4'
+  case cols
+    when 1
+      assign grid_cols_desktop = 'lg:tw-grid-cols-1'
+    when 2
+      assign grid_cols_desktop = 'lg:tw-grid-cols-2'
+    when 3
+      assign grid_cols_desktop = 'lg:tw-grid-cols-3'
+    when 4
+      assign grid_cols_desktop = 'lg:tw-grid-cols-4'
+    when 5
+      assign grid_cols_desktop = 'lg:tw-grid-cols-5'
+    when 6
+      assign grid_cols_desktop = 'lg:tw-grid-cols-6'
+  endcase
+  assign grid_cols_mobile = 'tw-grid-cols-2'
+  if section.settings.columns_mobile == '1'
+    assign grid_cols_mobile = 'tw-grid-cols-1'
+  endif
+-%}
 
 {%- style -%}
   .section-{{ section.id }}-padding {
@@ -93,7 +115,7 @@
             <ul
               id="product-grid"
               data-id="{{ section.id }}"
-              class="bh-plp__grid tw-grid tw-grid-cols-2 md:tw-grid-cols-3 lg:tw-grid-cols-{{ section.settings.columns_desktop }} tw-gap-x-6 tw-gap-y-10 tw-list-none tw-p-0 tw-m-0{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}"
+              class="bh-plp__grid bh-products-grid tw-grid {{ grid_cols_mobile }} md:tw-grid-cols-3 {{ grid_cols_desktop }} tw-list-none tw-p-0 tw-m-0{% if section.settings.quick_add == 'bulk' %} collection-quick-add-bulk{% endif %}"
             >
               {% assign skip_card_product_styles = false %}
               {%- for product in collection.products -%}
@@ -102,7 +124,7 @@
                   {%- assign lazy_load = true -%}
                 {%- endif -%}
                 <li
-                  class="grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
+                  class="tw-m-0{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}"
                   {% if settings.animations_reveal_on_scroll %}
                     data-cascade
                     style="--animation-order: {{ forloop.index }};"

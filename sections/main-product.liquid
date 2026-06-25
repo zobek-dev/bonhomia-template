@@ -37,6 +37,29 @@
         padding-bottom: {{ section.settings.padding_bottom }}px;
       }
     }
+
+    .bh-pdp .bh-pdp-price-block .price.price--large,
+    .bh-pdp .bh-pdp-price-block .price.price--large .price__container,
+    .bh-pdp .bh-pdp-price-block .price.price--large .bh-pdp-price,
+    .bh-pdp .bh-pdp-price-block .price.price--large .price-item--sale.bh-pdp-price,
+    .bh-pdp .bh-pdp-price-block .price.price--large .price__regular .price-item--regular.bh-pdp-price {
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 36px;
+      font-weight: 600;
+      letter-spacing: 0;
+      line-height: 1.2;
+      color: #2c2c2c;
+    }
+
+    .bh-pdp .bh-pdp-price-block .price.price--large.price--on-sale .price-item--compare,
+    .bh-pdp .bh-pdp-price-block .price.price--large.price--on-sale .bh-pdp-price-compare {
+      font-family: Inter, system-ui, sans-serif;
+      font-size: 16px;
+      font-weight: 400;
+      letter-spacing: 0;
+      color: #8b7d6b;
+      text-decoration: line-through;
+    }
   {%- endstyle -%}
 
   <script src="{{ 'product-info.js' | asset_url }}" defer="defer"></script>
@@ -74,48 +97,27 @@
 
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
   <div class="bh-pdp tw-bg-cream">
-    <div
-      class="bh-pdp__grid product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }}{% unless product.media.size > 0 %} product--no-media{% endunless %}"
-    >
+    <div class="page-width bh-pdp__inner">
+      <div
+        class="bh-pdp__grid product product--{{ section.settings.media_size }} product--{{ section.settings.media_position }} product--{{ section.settings.gallery_layout }} product--mobile-{{ section.settings.mobile_thumbnails }}{% unless product.media.size > 0 %} product--no-media{% endunless %}"
+      >
       <div class="bh-pdp__gallery grid__item product__media-wrapper">
-        {% render 'product-media-gallery', variant_images: variant_images %}
+        {% render 'bonhomia-product-gallery', variant_images: variant_images %}
       </div>
       <div class="bh-pdp__info product__info-wrapper grid__item{% if settings.animations_reveal_on_scroll %} scroll-trigger animate--slide-in{% endif %}">
         <section
           id="ProductInfo-{{ section.id }}"
-          class="product__info-container bh-pdp__info-inner tw-flex tw-flex-col tw-gap-5"
+          class="product__info-container bh-pdp__info-inner tw-flex tw-flex-col tw-gap-3"
         >
           {%- assign product_form_id = 'product-form-' | append: section.id -%}
 
           {% render 'bonhomia-pdp-breadcrumb' %}
 
           {%- comment -%} Stock badge — render once above the title row. {%- endcomment -%}
-          {%- liquid
-            assign current_variant = product.selected_or_first_available_variant
-            assign inv_qty = current_variant.inventory_quantity
-            assign inv_managed = current_variant.inventory_management
-            assign delivery_note = section.settings.stock_delivery_note
-          -%}
           {%- if product.available -%}
-            {%- if inv_managed == 'shopify' and inv_qty > 0 and inv_qty <= 5 -%}
-              <span class="badge-direct tw-bg-accent tw-self-start">
-                {{- 'products.product.inventory_low_stock' | t | default: 'Pocas unidades' -}}
-                {%- if delivery_note != blank -%}
-                  <span class="tw-text-warm-white/90"> · Despacho {{ delivery_note | escape }}</span>
-                {%- endif -%}
-              </span>
-            {%- else -%}
-              <span class="badge-direct tw-self-start">
-                {{- 'products.product.inventory_in_stock' | t | default: 'En stock' -}}
-                {%- if delivery_note != blank -%}
-                  <span> · Despacho {{ delivery_note | escape }}</span>
-                {%- endif -%}
-              </span>
-            {%- endif -%}
+            <span class="badge-direct tw-self-start">En stock</span>
           {%- else -%}
-            <span class="badge-direct tw-bg-taupe tw-self-start">
-              {{- 'products.product.sold_out' | t | default: 'Agotado' -}}
-            </span>
+            <span class="badge-direct tw-bg-taupe tw-self-start">Agotado</span>
           {%- endif -%}
 
           {%- for block in section.blocks -%}
@@ -172,11 +174,11 @@
                   {{- block.settings.label | default: 'Guardar en lista de deseos' -}}
                 </button>
               {%- when 'price' -%}
-                <div id="price-{{ section.id }}" role="status" {{ block.shopify_attributes }}>
+                <div id="price-{{ section.id }}" class="bh-pdp-price-block" role="status" {{ block.shopify_attributes }}>
                   {%- render 'price',
                     product: product,
                     use_variant: true,
-                    show_badges: true,
+                    show_badges: false,
                     price_class: 'price--large'
                   -%}
                 </div>
@@ -757,6 +759,7 @@
         </section>
       </div>
     </div>
+    </div>
 
     {% render 'product-media-modal', variant_images: variant_images %}
 
@@ -788,7 +791,6 @@
 
     {%- if product.media.size > 0 -%}
       <script src="{{ 'product-modal.js' | asset_url }}" defer="defer"></script>
-      <script src="{{ 'media-gallery.js' | asset_url }}" defer="defer"></script>
     {%- endif -%}
 
     {%- if first_3d_model -%}

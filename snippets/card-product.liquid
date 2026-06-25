@@ -50,7 +50,7 @@
   -%}
 
   <article
-    class="product-card tw-group tw-flex tw-flex-col tw-bg-warm-white tw-rounded-md tw-overflow-hidden tw-border tw-border-border-soft tw-transition-shadow hover:tw-shadow-lg"
+    class="product-card tw-group tw-flex tw-flex-col tw-h-full tw-bg-warm-white tw-rounded-md tw-overflow-hidden tw-border tw-border-border-soft tw-transition-shadow hover:tw-shadow-lg"
     id="card-{{ section_id }}-{{ card_product.id }}"
   >
     <a href="{{ card_product.url }}" class="tw-relative tw-block {{ aspect_class }} tw-overflow-hidden tw-bg-cream">
@@ -134,7 +134,7 @@
     </div>
   </article>
 {%- else -%}
-  <article class="product-card tw-flex tw-flex-col tw-bg-warm-white tw-rounded-md tw-overflow-hidden tw-border tw-border-border-soft">
+  <article class="product-card tw-flex tw-flex-col tw-h-full tw-bg-warm-white tw-rounded-md tw-overflow-hidden tw-border tw-border-border-soft">
     <div class="tw-relative tw-block {{ aspect_class }} tw-bg-cream">
       {%- if placeholder_image -%}
         {{ placeholder_image | placeholder_svg_tag: 'tw-w-full tw-h-full tw-object-cover placeholder-svg' }}

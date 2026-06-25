@@ -1,8 +1,8 @@
 {% comment %}
   Main product section for the *assisted* purchase flow (a-medida).
   Does NOT render variant pickers, buy buttons, quantity, cart form, or price block.
-  Instead, renders the bonhomia-quote-panel snippet which exposes a CTA that
-  opens the quote modal (handled by snippets/bonhomia-quote-modal.liquid mounted in theme.liquid).
+  Renders the bonhomia-quote-panel snippet; the primary CTA is an @app block
+  (e.g. bhonomia-leads lead-form) configured in the theme editor.
 {% endcomment %}
 
 <product-info
@@ -41,21 +41,29 @@
   {% assign variant_images = product.images | where: 'attached_to_variant?', true | map: 'src' %}
 
   <div class="bh-pdp tw-bg-cream">
-    <div
-      class="bh-pdp__grid product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }}{% unless product.media.size > 0 %} product--no-media{% endunless %}"
-    >
+    <div class="page-width bh-pdp__inner">
+      <div
+        class="bh-pdp__grid product product--{{ section.settings.media_size }} product--{{ section.settings.gallery_layout }}{% unless product.media.size > 0 %} product--no-media{% endunless %}"
+      >
       <div class="bh-pdp__gallery grid__item product__media-wrapper">
-        {% render 'product-media-gallery', variant_images: variant_images %}
+        {% render 'bonhomia-product-gallery', variant_images: variant_images %}
       </div>
       <div class="bh-pdp__info product__info-wrapper grid__item">
         <section
           id="ProductInfoAsistido-{{ section.id }}"
-          class="product__info-container bh-pdp__info-inner"
+          class="product__info-container bh-pdp__info-inner tw-flex tw-flex-col tw-gap-3"
         >
           {% render 'bonhomia-pdp-breadcrumb', collection_fallback: 'A medida' %}
-          {% render 'bonhomia-quote-panel', product: product, show_breadcrumb: false, heading_tag: 'h1' %}
+          {% render 'bonhomia-quote-panel',
+            product: product,
+            section: section,
+            show_breadcrumb: false,
+            heading_tag: 'h1',
+            use_app_cta: true
+          %}
         </section>
       </div>
+    </div>
     </div>
   </div>
 

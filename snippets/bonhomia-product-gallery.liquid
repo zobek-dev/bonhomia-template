@@ -1,0 +1,123 @@
+{% comment %}
+  Bonhomia product gallery — Swiper main + thumbnails (all product media).
+{% endcomment %}
+
+{%- liquid
+  assign gallery_product = product
+  assign gallery_media = gallery_product.media
+  assign media_count = gallery_media.size
+
+  if section.settings.media_size == 'large'
+    assign media_width = 0.5
+  elsif section.settings.media_size == 'medium'
+    assign media_width = 0.45
+  else
+    assign media_width = 0.4
+  endif
+
+  assign media_fit = section.settings.media_fit | default: 'contain'
+-%}
+
+<bonhomia-media-gallery
+  id="MediaGallery-{{ section.id }}"
+  class="bh-product-gallery tw-block tw-w-full"
+  role="region"
+  aria-label="{{ 'products.product.media.gallery_viewer' | t }}"
+  data-section-id="{{ section.id }}"
+>
+  <div id="GalleryStatus-{{ section.id }}" class="visually-hidden" role="status"></div>
+
+  <div class="swiper bh-gallery-main" data-bh-gallery-main>
+    <ul class="swiper-wrapper tw-list-none tw-p-0 tw-m-0" role="list">
+      {%- for media in gallery_media -%}
+        <li
+          class="swiper-slide"
+          data-media-id="{{ section.id }}-{{ media.id }}"
+          data-media-position="{{ forloop.index }}"
+          role="listitem"
+        >
+          <div class="bh-gallery__slide-inner">
+            {% render 'product-thumbnail',
+              media: media,
+              media_count: media_count,
+              position: forloop.index,
+              desktop_layout: section.settings.gallery_layout,
+              mobile_layout: section.settings.mobile_thumbnails,
+              loop: section.settings.enable_video_looping,
+              modal_id: section.id,
+              xr_button: true,
+              media_width: media_width,
+              media_fit: media_fit,
+              constrain_to_viewport: false,
+              lazy_load: forloop.first == false
+            %}
+          </div>
+        </li>
+      {%- endfor -%}
+    </ul>
+  </div>
+
+  {%- if media_count > 1 -%}
+    <div class="bh-gallery-thumbs-wrap">
+      <button
+        type="button"
+        class="bh-gallery-thumbs__nav bh-gallery-thumbs__nav--prev"
+        data-bh-thumbs-prev
+        aria-label="{{ 'general.slider.previous_slide' | t }}"
+      >
+        <span class="svg-wrapper" aria-hidden="true">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+      </button>
+
+      <div class="swiper bh-gallery-thumbs" data-bh-gallery-thumbs>
+        <ul class="swiper-wrapper tw-list-none tw-p-0 tw-m-0" role="list">
+          {%- for media in gallery_media -%}
+            {%- liquid
+              capture media_index
+                if media.media_type == 'model'
+                  increment model_index
+                elsif media.media_type == 'video' or media.media_type == 'external_video'
+                  increment video_index
+                elsif media.media_type == 'image'
+                  increment image_index
+                endif
+              endcapture
+              assign thumb_index = media_index | plus: 1
+            -%}
+            <li
+              class="swiper-slide bh-gallery-thumbs__slide"
+              data-target="{{ section.id }}-{{ media.id }}"
+              data-media-position="{{ thumb_index }}"
+              role="listitem"
+            >
+              <button
+                type="button"
+                class="bh-gallery-thumbs__btn"
+                aria-label="{%- if media.media_type == 'image' -%}{{ 'products.product.media.load_image' | t: index: thumb_index }}{%- elsif media.media_type == 'model' -%}{{ 'products.product.media.load_model' | t: index: thumb_index }}{%- else -%}{{ 'products.product.media.load_video' | t: index: thumb_index }}{%- endif -%}"
+              >
+                {{
+                  media.preview_image
+                  | image_url: width: 160
+                  | image_tag: loading: 'lazy', widths: '56, 80, 112, 160', alt: media.alt
+                  | escape
+                }}
+              </button>
+            </li>
+          {%- endfor -%}
+        </ul>
+      </div>
+
+      <button
+        type="button"
+        class="bh-gallery-thumbs__nav bh-gallery-thumbs__nav--next"
+        data-bh-thumbs-next
+        aria-label="{{ 'general.slider.next_slide' | t }}"
+      >
+        <span class="svg-wrapper" aria-hidden="true">
+          {{- 'icon-caret.svg' | inline_asset_content -}}
+        </span>
+      </button>
+    </div>
+  {%- endif -%}
+</bonhomia-media-gallery>

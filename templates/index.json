@@ -169,6 +169,7 @@
     },
     "brand_section": {
       "type": "bonhomia-brand-section",
+      "disabled": true,
       "settings": {
         "image_position": "left",
         "eyebrow": "Nuestra historia",
