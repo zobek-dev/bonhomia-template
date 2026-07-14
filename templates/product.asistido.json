@@ -21,19 +21,6 @@
     },
     "main": {
       "type": "main-product-asistido",
-      "blocks": {
-        "bhonomia_leads_lead_form_7rMFJG": {
-          "type": "shopify://apps/bhonomia-leads/blocks/lead-form/019edc70-4e34-76d9-9ed4-289d2cdf0263",
-          "settings": {
-            "button_label": "Consultar por compra asistida",
-            "modal_title": "Consultar por compra asistida",
-            "success_message": "¡Gracias! Te contactaremos pronto."
-          }
-        }
-      },
-      "block_order": [
-        "bhonomia_leads_lead_form_7rMFJG"
-      ],
       "settings": {
         "media_size": "large",
         "gallery_layout": "thumbnail",

@@ -12,7 +12,7 @@
     "hero": {
       "type": "bonhomia-hero",
       "settings": {
-        "image": "shopify://shop_images/photo-1555041469-a586c61ea9bc.jpg",
+        "image": "shopify://shop_images/IMG_0160-2.jpg",
         "eyebrow_text": "Colección 2026 — Madera maciza",
         "heading_line_1": "Muebles que",
         "heading_line_2": "cuentan tu historia",
@@ -75,7 +75,7 @@
         "mode_direct": {
           "type": "mode",
           "settings": {
-            "image": "shopify://shop_images/photo-1524758631624-e2822e304c36_5b3a07f5-d65e-4502-ab88-090af631ef55.jpg",
+            "image": "shopify://shop_images/MAITEN_PW.jpg",
             "variant": "direct",
             "tag_label": "Disponible ahora",
             "heading": "Compra directa",
@@ -87,7 +87,7 @@
         "mode_assisted": {
           "type": "mode",
           "settings": {
-            "image": "shopify://shop_images/photo-1506439773649-6e0eb8cfb237_a6688a91-734b-4bb3-b54c-b4dee353b8f9.jpg",
+            "image": "shopify://shop_images/caliza-pw.jpg",
             "variant": "assisted",
             "tag_label": "A medida · Cotización gratuita",
             "heading": "Muebles a pedido",
@@ -110,7 +110,6 @@
           "type": "collection_card",
           "settings": {
             "collection": "automated-collection",
-            "image": "shopify://shop_images/photo-1505691723518-36a5ac3be353.jpg",
             "title": ""
           }
         },
@@ -118,7 +117,6 @@
           "type": "collection_card",
           "settings": {
             "collection": "automated-collection",
-            "image": "shopify://shop_images/photo-1555041469-a586c61ea9bc_878481e7-9094-4c3b-8533-8b5c43ced416.jpg",
             "title": ""
           }
         },
@@ -126,7 +124,6 @@
           "type": "collection_card",
           "settings": {
             "collection": "automated-collection",
-            "image": "shopify://shop_images/photo-1549497538-303791108f95.jpg",
             "title": ""
           }
         }
