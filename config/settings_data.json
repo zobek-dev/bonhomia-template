@@ -9,9 +9,9 @@
  */
 {
   "current": {
-    "logo": "shopify://shop_images/logo-removebg-preview.png",
-    "logo_width": 100,
-    "favicon": "shopify://shop_images/LOGO_NEGRO-10.png",
+    "logo": "shopify://shop_images/a.png",
+    "logo_width": 130,
+    "favicon": "shopify://shop_images/log.jpg",
     "type_header_font": "assistant_n4",
     "heading_scale": 100,
     "type_body_font": "assistant_n4",
@@ -140,7 +140,7 @@
     "color_schemes": {
       "scheme-1": {
         "settings": {
-          "background": "#f5f0e8",
+          "background": "#FFFFFF",
           "background_gradient": "",
           "text": "#121212",
           "button": "#121212",
