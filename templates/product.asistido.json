@@ -13,8 +13,8 @@
       "type": "bonhomia-assisted-banner",
       "settings": {
         "badge_label": "Mueble a medida",
-        "text": "Producto a medida — Solicitá tu cotización personalizada. Respuesta en 24-48 horas.",
-        "link_label": "Conocé el proceso",
+        "text": "Producto a medida — Solicita tu cotización personalizada. Respuesta en 24-48 horas.",
+        "link_label": "Conoce el proceso",
         "link_url": "",
         "background_color": "warm-white"
       }

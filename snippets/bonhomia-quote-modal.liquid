@@ -60,7 +60,7 @@
     <div class="tw-flex-1 tw-overflow-y-auto tw-px-6 md:tw-px-8 tw-py-6">
       {%- comment -%} Step 1: Personal info {%- endcomment -%}
       <div x-show="!success && step === 1" x-cloak>
-        <p class="tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-4 tw-m-0">¿Quién sos?</p>
+        <p class="tw-text-xs tw-font-sans tw-font-semibold tw-tracking-tracked tw-uppercase tw-text-taupe tw-mb-4 tw-m-0">Tus datos</p>
         <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-4">
           <label class="tw-flex tw-flex-col tw-gap-1.5">
             <span class="tw-text-sm tw-font-sans tw-text-charcoal">Nombre completo *</span>
@@ -109,7 +109,7 @@
               <span class="tw-text-xs tw-text-taupe">Unidad</span>
             </label>
           </div>
-          <p class="tw-text-xs tw-text-taupe tw-mt-2 tw-m-0">Si no estás seguro/a, dejá las medidas aproximadas. Lo ajustamos en la cotización.</p>
+          <p class="tw-text-xs tw-text-taupe tw-mt-2 tw-m-0">Si no estás seguro/a, deja las medidas aproximadas. Las ajustamos en la cotización.</p>
         </div>
 
         <div class="tw-grid tw-grid-cols-1 md:tw-grid-cols-2 tw-gap-4">
@@ -136,7 +136,7 @@
           <label class="tw-flex tw-flex-col tw-gap-1.5">
             <span class="tw-text-sm tw-font-sans tw-text-charcoal">Plazo deseado</span>
             <select x-model="formData.deadline" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent">
-              <option value="">Sin apuro (+ 8 semanas)</option>
+              <option value="">Sin prisa (+ 8 semanas)</option>
               <option>4-6 semanas</option>
               <option>Lo antes posible</option>
             </select>
@@ -156,7 +156,7 @@
           <textarea x-model="formData.message" rows="4" class="tw-w-full tw-px-4 tw-py-2.5 tw-rounded-sm tw-border tw-border-border-soft tw-bg-warm-white tw-text-sm focus:tw-outline-none focus:tw-border-accent focus:tw-ring-1 focus:tw-ring-accent" placeholder="Ej: Necesito que combine con sillas que ya tengo..."></textarea>
         </label>
         <div class="tw-mb-4">
-          <span class="tw-block tw-text-sm tw-font-sans tw-text-charcoal tw-mb-2">¿Cómo preferís que te contactemos?</span>
+          <span class="tw-block tw-text-sm tw-font-sans tw-text-charcoal tw-mb-2">¿Cómo prefieres que te contactemos?</span>
           <div class="tw-flex tw-gap-4 tw-flex-wrap">
             <label class="tw-inline-flex tw-items-center tw-gap-2 tw-text-sm tw-cursor-pointer">
               <input type="radio" value="email" x-model="formData.contactPreference"> Email
@@ -181,7 +181,7 @@
           <p class="tw-m-0" x-show="formData.deadline" x-cloak><strong>Plazo:</strong> <span x-text="formData.deadline"></span></p>
         </div>
         <p class="tw-text-xs tw-text-taupe tw-mt-3 tw-m-0">
-          Al enviar esta solicitud no estás comprometiendo ningún pago. Recibirás la cotización por email y decidís si la aceptás.
+          Al enviar esta solicitud no estás comprometiendo ningún pago. Recibirás la cotización por email y decides si la aceptas.
         </p>
         <div x-show="error" x-cloak class="tw-mt-3 tw-p-3 tw-rounded-sm tw-bg-accent/10 tw-border tw-border-accent tw-text-sm tw-text-walnut" x-text="error"></div>
       </div>

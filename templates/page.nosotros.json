@@ -5,7 +5,7 @@
       "settings": {
         "image_position": "left",
         "eyebrow": "Nuestra historia",
-        "quote": "<p>\"Creemos que los muebles buenos no sólo decoran; transforman la forma en que vivís tu hogar.\"</p>",
+        "quote": "<p>\"Creemos que los muebles buenos no sólo decoran; transforman la forma en que vives tu hogar.\"</p>",
         "signature": "Taller Bonhomia · Desde 2014",
         "body": "<p>Somos un taller de muebles de madera maciza. Diseñamos y fabricamos cada pieza con técnicas tradicionales de carpintería, eligiendo maderas de origen responsable y acabados naturales. Cada mueble tiene un nombre, una historia y, sobre todo, un destino: tu casa.</p>",
         "cta_label": "Ver catálogo",
@@ -71,7 +71,7 @@
           "type": "step",
           "settings": {
             "title": "Conversamos",
-            "text": "Escuchamos qué necesitás, vemos el espacio y proponemos opciones."
+            "text": "Escuchamos qué necesitas, vemos el espacio y proponemos opciones."
           }
         },
         "s2": {
@@ -85,7 +85,7 @@
           "type": "step",
           "settings": {
             "title": "Cotizamos",
-            "text": "Precio cerrado, plazos claros, seña del 30%."
+            "text": "Precio cerrado, plazos claros, anticipo del 30%."
           }
         },
         "s4": {

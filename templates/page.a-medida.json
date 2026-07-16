@@ -5,7 +5,7 @@
       "settings": {
         "badge_label": "Mueble a medida",
         "text": "Diseñamos y fabricamos piezas únicas para tu espacio. Cotización gratuita en 24-48 horas.",
-        "link_label": "Conocé el proceso",
+        "link_label": "Conoce el proceso",
         "link_url": "#proceso",
         "background_color": "warm-white"
       }
@@ -16,7 +16,7 @@
         "eyebrow_text": "Compra asistida · Bonhomia",
         "heading_line_1": "Tu mueble,",
         "heading_line_2": "hecho a tu medida",
-        "subheading": "Contanos qué necesitás. Te respondemos con propuesta, precio y plazos. Vos decidís el siguiente paso.",
+        "subheading": "Cuéntanos qué necesitas. Te respondemos con propuesta, precio y plazos. Tú decides el siguiente paso.",
         "cta1_label": "Solicitar cotización",
         "cta1_url": "#quote",
         "cta2_label": "Cómo funciona",
@@ -36,21 +36,21 @@
         "s1": {
           "type": "step",
           "settings": {
-            "title": "Completás el formulario",
+            "title": "Completas el formulario",
             "text": "Dimensiones, material, acabado y comentarios."
           }
         },
         "s2": {
           "type": "step",
           "settings": {
-            "title": "Recibís la cotización",
+            "title": "Recibes la cotización",
             "text": "En 24-48 horas por email con precio y tiempos."
           }
         },
         "s3": {
           "type": "step",
           "settings": {
-            "title": "Aprobás y pagás la seña",
+            "title": "Apruebas y pagas el anticipo",
             "text": "30% para iniciar la fabricación."
           }
         },
@@ -65,7 +65,7 @@
           "type": "step",
           "settings": {
             "title": "Entrega y saldo final",
-            "text": "Pagás el saldo al recibir el mueble."
+            "text": "Pagas el saldo al recibir el mueble."
           }
         }
       },
@@ -88,7 +88,7 @@
         "eyebrow": "Por qué a medida",
         "quote": "<p>\"Diseñamos para tu espacio, no al revés. Cada pieza nace de una conversación.\"</p>",
         "signature": "Taller Bonhomia",
-        "body": "<p>Cuando un mueble se hace a medida, encaja mejor — literalmente — y se siente propio. Trabajamos con vos para definir dimensiones, material y acabado hasta que la pieza calza con tu vida.</p>",
+        "body": "<p>Cuando un mueble se hace a medida, encaja mejor — literalmente — y se siente propio. Trabajamos contigo para definir dimensiones, material y acabado hasta que la pieza encaje con tu vida.</p>",
         "cta_label": "Ver muebles a medida",
         "cta_url": "/collections/a-medida",
         "padding_top": 64,

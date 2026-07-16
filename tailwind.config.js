@@ -23,6 +23,7 @@ module.exports = {
     'lg:tw-grid-cols-4',
     'lg:tw-grid-cols-5',
     'lg:tw-grid-cols-6',
+    '!tw-block',
   ],
   theme: {
     extend: {
